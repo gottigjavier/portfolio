@@ -1,0 +1,17 @@
+.full-width {
+  width: 100%;
+}
+
+.myform {
+  margin: 5% auto;
+  padding: 0 25%;
+}
+
+.shipping-card {
+  text-align: center !important;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}

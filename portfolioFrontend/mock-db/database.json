@@ -1,0 +1,191 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "username": "gottigjavier",
+            "mail": "gottigjavier@gmail.com",
+            "password": "freepass"
+        }
+    ],
+    "about": [
+        {
+            "id": 1,
+            "name": "Javier Gottig",
+            "photo": "uri/photo",
+            "degree": "Full Stack Developer Jr."
+        }
+    ],
+    "experience": [
+        {
+            "id": 1,
+            "company": "LT 14 Gral. Urquiza, FM Ciudad, FM Río, FM Litoral",
+            "location": "Paraná, Entre Ríos, Argentina",
+            "logo": "imagen.jpg",
+            "inicio": "octubre 01, 1989",
+            "final": "junio 30, 2005",
+            "cargo": "Operador de Estudios Centrales",
+            "actividad": "mezcla y control de sonido emitido al aire",
+            "logros": "atención constante, toma de decisiones bajo presión"
+        },
+        {
+            "id": 2,
+            "company": "LOAS Agencia Oficial 113",
+            "location": "Caleta Olivia, Santa Cruz, Argentina",
+            "logo": "imagen.jpg",
+            "inicio": "agosto 26, 2005",
+            "final": "junio 30, 2017",
+            "cargo": "Gerente. Apoderado",
+            "actividad": "reclutamiento y manejo de personal, administración gral.",
+            "logros": "Creé una aplicación para el manejo de caja, lo que facilitó el trabajo del personal permitiendo conocer el flujo de caja en forma instantánea.Digitalizé la cartelería, ahorrando más de seis horas/hombre a la semana. Basado en este hecho innovador, LOAS decidió comenzar a implementarla dos años más tarde en el resto de las agencias."
+        },
+        {
+            "id": 3,
+            "company": "PSA Purificadores de Agua",
+            "location": "Paraná, Entre Ríos, Argentina",
+            "logo": "imagen.jpg",
+            "inicio": "febrero 01, 2018",
+            "final": "mayo 30, 2021",
+            "cargo": "Distribuidor independiente",
+            "actividad": "Asesoramiento sobre calidad de agua, ventas e instalación a través de sistema de comercialización en red",
+            "logros": "Capacitación permanente, sobre todo en habilidades blandas."
+        }
+    ],
+    "education": [
+        {
+            "id": 1,
+            "institution": "Universidad Tecnológica Nacional",
+            "logo": "imagen.jpg",
+            "carrera": "Ingeniería en Electrónica",
+            "tipo": "de grado",
+            "inicio": "marzo 01, 1988",
+            "final": "diciembre 20, 1991",
+            "certificado": "https://certificates",
+            "finalizado": false
+        },
+        {
+            "id": 2,
+            "institution": "Universidad de la Patagonia Austral",
+            "logo": "imagen.jpg",
+            "carrera": "Ingeniería en Sistemas",
+            "tipo": "de grado",
+            "inicio": "marzo 01, 2012",
+            "final": "diciembre 20, 2012",
+            "certificado": "https://certificates",
+            "finalizado": false
+        },
+        {
+            "id": 3,
+            "institution": "Universidad de Harvard",
+            "logo": "imagen.jpg",
+            "carrera": "Programación en Python y Javascript",
+            "tipo": "curso",
+            "inicio": "septiembre 01, 2020",
+            "final": "julio 30, 2021",
+            "certificado": "https://certificates.cs50.io/2804c001-70dc-4d0d-a5a5-b27f9a7d0d41.pdf?size=letter",
+            "finalizado": true
+        }
+    ],
+    "skills": [
+        {
+            "id": 1,
+            "tipo": "blanda",
+            "nivel": 100,
+            "descripcion": "Perfeccionista: siempre en busca de errores"
+        },
+        {
+            "id": 2,
+            "tipo": "blanda",
+            "nivel": 100,
+            "descripcion": "Creatividad: pensamiento lateral"
+        }
+    ],
+    "tecnologies": [
+        {
+            "id": 1,
+            "nombre": "Javascript",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 2,
+            "nombre": "Typescript",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 3,
+            "nombre": "NodeJs",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 4,
+            "nombre": "Websocket",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 5,
+            "nombre": "MQTT",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 6,
+            "nombre": "Git, GitHub, GitLab",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        },
+        {
+            "id": 7,
+            "nombre": "Docker, Docker Hub",
+            "logo": "imagen.jpg",
+            "nivel": 100
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "nombre": "Health",
+            "actualizado": "octubre 20, 2021",
+            "description": "Control de pacientes en sector de internación",
+            "linkgit": "https://github.com/gottigjavier/health-automated",
+            "linkvideo": "https://github.com/gottigjavier/health-automated",
+            "tecnologies": "forward muchos a muchos a tecnologias",
+            "imagen": "image.png"
+        },
+        {
+            "id": 2,
+            "nombre": "Network",
+            "actualizado": "junio 10, 2021",
+            "description": "Network site",
+            "linkgit": "https://github.com/gottigjavier/harvard-project-network",
+            "linkvideo": "https://github.com/gottigjavier/harvard-project-network",
+            "tecnologies": "forward muchos a muchos a tecnologias",
+            "imagen": "image.png"
+        }
+    ],
+    "languages": [
+        {
+            "id": 1,
+            "language": "Español",
+            "tipo": "Nativo",
+            "nivel": 100,
+            "link":  "link"
+        },
+        {
+            "id": 2,
+            "language": "Inglés",
+            "tipo": "Avanzado. 62/100 EF SET C1",
+            "nivel": 62,
+            "link":  "https://www.efset.org/cert/uzqNVE"
+        },
+        {
+            "id": 3,
+            "language": "Alemán",
+            "tipo": "Intermedio",
+            "nivel": 20,
+            "link":  "https://www.efset.org"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+.example-card {
+    max-width: auto;
+  }
+  
+  .example-header-image {
+    background-image: url('../../../../assets/fotocurric1.jpg');
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+  }
