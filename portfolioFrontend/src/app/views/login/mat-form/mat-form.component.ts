@@ -36,20 +36,27 @@ export class MatFormComponent {
     private service: LoginService) {
       this.user = {
         username : "",
-        mail : "",
-        password : ""
+        usermail : "",
+        userpassword : ""
       }
     }
 
+    // ver el tema observer async porque la primera vez la validacion da false
   onSubmit(): void {
-    this.service.getUser().subscribe(user =>{
-      this.user = user[0];
+    this.service.getUser().subscribe(async user =>{
+      this.user = await user[0];
+      //this.user.mail = user[0].usermail;
+      //this.user.password = user[0].userpassword;
+      console.log(this.user);
     });
-    if (this.loginForm.value.email === this.user.mail && this.loginForm.value.password === this.user.password){
-      this.loginForm.reset();
+    // ojo estoy usando == en vez de ===
+    if (this.loginForm.value.email == this.user.usermail && this.loginForm.value.password == this.user.userpassword){
       this.routes.navigate(['/']);
+      this.loginForm.reset();
     }else {
       alert('Email or Password don\'t match those of a user registered');
+      console.log(this.loginForm.value.email);
+      console.log(this.user);
       //this.routes.navigate(['/login']); // para qué navegar hacia donde ya estoy
     }; 
   }

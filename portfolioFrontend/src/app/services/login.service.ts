@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  private urlUsers: string = "http://localhost:3003/user";
+  private urlUsers: string = "http://localhost:8080/user/list";
 
   constructor(private http: HttpClient) { }
 

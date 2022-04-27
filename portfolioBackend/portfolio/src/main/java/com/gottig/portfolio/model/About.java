@@ -11,6 +11,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+
+/**
+ *
+ * @author gottig
+ */
 @Getter @Setter
 @Entity(name= "About")
 @Table(name="about")
@@ -26,35 +31,21 @@ public class About implements Serializable {
     @Column(name="short_explanation")
     private String shortExplanation;
     
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private MyUser user;
-//    
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof About )) return false;
-//        return aboutId != null && aboutId.equals(((About) o).getAboutId());
-//    }
-// 
-//    @Override
-//    public int hashCode() {
-//        return getClass().hashCode();
-//    }
-
     public About() {
     }
 
-    public About(Long aboutId, String name, String surname, String shortExplanation, MyUser user) {
+    /**
+     *
+     * @param aboutId
+     * @param name
+     * @param surname
+     * @param shortExplanation
+     */
+    public About(Long aboutId, String name, String surname, String shortExplanation) {
         this.aboutId = aboutId;
         this.name = name;
         this.surname = surname;
         this.shortExplanation = shortExplanation;
-    //    this.user = user;
     }
 
-    
-    
-    
-    
 }
