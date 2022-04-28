@@ -28,5 +28,19 @@ y agregarle parseBodyMethods="POST,PUT,DELETE" para que quede:
     port="8080" 
     protocol="HTTP/1.1" 
     redirectPort="8443" 
-    parseBodyMethods="POST,PUT,DELETE"
+    parseBodyMethods="POST,PUT,PATCH,DELETE"
 />
+
+
+### Mysql Uso de XAMPP, o no
+
+En el caso de levantar el servidor mysql desde el terminal a través de
+
+$ systemctl start mysql.service
+
+por alguna razón que aún no decifro, al querer conectarse jpa, no logra hacerlo sino hasta
+que abrir Workbrench y activar la conexión.
+
+La otra solución es manejar la base de datos a tarvés de Xampp (se levanta el servidor apache completo). 
+En este caso hay que crear el usuario y contraseña que se usa en la configuración de jpa y además 
+hay que otorgarle los privilegios para esa tabla específica.
