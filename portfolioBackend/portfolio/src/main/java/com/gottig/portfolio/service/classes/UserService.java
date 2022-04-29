@@ -2,62 +2,43 @@ package com.gottig.portfolio.service.classes;
 
 import com.gottig.portfolio.dao.UserDAO;
 import com.gottig.portfolio.model.MyUser;
-import com.gottig.portfolio.service.interfaces.IUserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 
 
 
 
-/**
- *
- * @author gottig
- */
 @Service
-public class UserService implements IUserService{
+public class UserService implements CRUDServiceInterface<MyUser>{
     
-    /**
-     *
-     */
     @Autowired
     public UserDAO userDao;
 
-    /**
-     *
-     * @return
-     */
     @Override
-    public List<MyUser> getAllUsers() {
+    public List<MyUser> getAll() {
         return userDao.findAll();
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     @Override
-    public MyUser getOneUser(Long id) {
+    public MyUser getOne(Long id) {
         return userDao.getById(id);
     }
 
-    /**
-     *
-     * @param user
-     */
     @Override
-    public void createUser(MyUser user) {
+    public void create(MyUser user) {
         userDao.save(user);
     }
 
-    /**
-     *
-     * @param id
-     */
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         userDao.deleteById(id);
+    }
+
+    @Override
+    public void change(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -13,15 +13,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+
 @Getter @Setter
-@Entity(name= "WorkExperience")
-@Table(name= "work_experience")
-public class WorkExperience implements Serializable {
+@Entity(name= "JobExperience")
+@Table(name= "job_experience")
+public class JobExperience implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="work_id")
-    private Long workId;
+    @Column(name="job_id")
+    private Long jobId;
     
     @Column(name="company_name")
     private String company;
@@ -35,17 +36,17 @@ public class WorkExperience implements Serializable {
     @Column(name="position")
     private String position;
     
-    @Column(name="work_duties") // Deberes laborales
-    private String workDuties;
+    @Column(name="job_duties") // Deberes laborales
+    private String jobDuties;
     
     @Column(name="lessons_learned")
     private String lessonsLearned;
         
     @Temporal(TemporalType.DATE)
-    private java.util.Date startWork;
+    private java.util.Date jobStart;
     
     @Temporal(TemporalType.DATE)
-    private java.util.Date endWork;
+    private java.util.Date workEnd;
 
 
 }

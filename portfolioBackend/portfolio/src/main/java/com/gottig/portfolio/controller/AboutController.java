@@ -1,9 +1,7 @@
 package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.model.About;
-import com.gottig.portfolio.model.MyUser;
-import com.gottig.portfolio.service.interfaces.IAboutService;
-import com.gottig.portfolio.service.interfaces.IUserService;
+import com.gottig.portfolio.service.classes.AboutService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,49 +12,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
-/**
- *
- * @author gottig
- */
 @RestController
 public class AboutController {
     
     @Autowired
-    private IAboutService aboutService;
+    private AboutService aboutService;
         
-    /**
-     *
-     * @return
-     */
     @GetMapping("/about/list")
     @ResponseBody
-    public List<About> getAllAbout(){
-        return aboutService.getAllAbout();
+    public List<About> getAll(){
+        return aboutService.getAll();
     }
     
-    /**
-     *
-     * @param about
-     * @return 
-     */
     @PostMapping("/about/create")
     @ResponseBody
-    public String createAbout(@RequestBody About about){
-        aboutService.createAbout(about);
+    public String create(@RequestBody About about){
+        aboutService.create(about);
         return "About created";
     }
     
-    /**
-     *
-     * @param aboutId
-     * @return
-     */
     @DeleteMapping("/about/delete")
     @ResponseBody
-    public About deleteAbout(@RequestBody About aboutId){  
+    public About delete(@RequestBody About aboutId){  
         Long id = aboutId.getAboutId();
         System.out.println(id);
-        aboutService.deleteAbout(id);
+        aboutService.delete(id);
         return aboutId;
     }
 }
