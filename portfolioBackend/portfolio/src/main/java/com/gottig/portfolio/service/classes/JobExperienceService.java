@@ -34,7 +34,7 @@ public class JobExperienceService implements CRUDServiceInterface<JobExperience>
     }
 
     @Override
-    public void change(Long id) {
+    public void update(JobExperience obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

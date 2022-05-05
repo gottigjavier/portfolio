@@ -23,7 +23,7 @@ public class UserService implements CRUDServiceInterface<MyUser>{
 
     @Override
     public MyUser getOne(Long id) {
-        return userDao.getById(id);
+        return userDao.findById(id).orElse(null);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserService implements CRUDServiceInterface<MyUser>{
     }
 
     @Override
-    public void change(Long id) {
+    public void update(MyUser obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

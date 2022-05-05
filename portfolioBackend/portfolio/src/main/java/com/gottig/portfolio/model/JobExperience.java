@@ -1,6 +1,7 @@
 package com.gottig.portfolio.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,9 @@ public class JobExperience implements Serializable {
     @Column(name="company_activity")
     private String compActivity;
     
+    @Column(name="company_link")
+    private String compLink;
+    
     @Column(name="position")
     private String position;
     
@@ -47,6 +51,24 @@ public class JobExperience implements Serializable {
     
     @Temporal(TemporalType.DATE)
     private java.util.Date workEnd;
+    
+    @Column(name="job_index")// En caso de necesitar que persista el orden dado en el front
+    private int jobIndex;
 
+    public JobExperience() {
+    }
 
+    public JobExperience(Long jobId, String company, String companyLogo, String compActivity, String compLink, String position, String jobDuties, String lessonsLearned, Date jobStart, Date workEnd, int jobIndex) {
+        this.jobId = jobId;
+        this.company = company;
+        this.companyLogo = companyLogo;
+        this.compActivity = compActivity;
+        this.compLink = compLink;
+        this.position = position;
+        this.jobDuties = jobDuties;
+        this.lessonsLearned = lessonsLearned;
+        this.jobStart = jobStart;
+        this.workEnd = workEnd;
+        this.jobIndex = jobIndex;
+    }
 }

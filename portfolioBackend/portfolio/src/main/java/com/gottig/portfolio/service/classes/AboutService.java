@@ -21,7 +21,7 @@ public class AboutService implements CRUDServiceInterface<About>{
 
     @Override
     public About getOne(Long id) {
-        return aboutDao.getById(id);
+        return aboutDao.findById(id).orElse(null);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AboutService implements CRUDServiceInterface<About>{
     }
 
     @Override
-    public void change(Long id) {
+    public void update(About obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
