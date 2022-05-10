@@ -11,7 +11,7 @@
         {
             "id": 1,
             "name": "Javier Gottig",
-            "photo": "uri/photo",
+            "photo": "/home/gottig/programacion/ArgentinaPrograma/ProyectoIntegrador/portfolio/portfolioFrontend/src/assets/fotocurric1.jpg",
             "degree": "Full Stack Developer Jr."
         }
     ],

@@ -10,18 +10,18 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./mat-form.component.css']
 })
 
-export class MatFormComponent {
+export class MatFormComponent <T>{
 
   private user: User;
 
   loginForm = this.fb.group({
-    email: [null,
+    userMail: [null,
       [
         Validators.required,
         Validators.email
       ]
     ],
-    password: [null,
+    userPassword: [null,
       [
         Validators.required,
         Validators.minLength(6)
@@ -33,32 +33,39 @@ export class MatFormComponent {
   constructor(
     private fb: FormBuilder,
     private routes:Router,
-    private service: LoginService) {
+    private service: LoginService<T>) {
       this.user = {
-        username : "",
-        usermail : "",
-        userpassword : ""
+        userId: 0,
+        userName : '',
+        userMail : '',
+        userPassword : ''
       }
     }
-
-    // ver el tema observer async porque la primera vez la validacion da false
+    // levantar servidor backend o mock-db
+    // notar que pasa el parámetro User porque LoginService<T> es genérico
+    // al igual que DataService
+    // Por ahora para pruebas se usa el metodo getUser igual a getAll de DataService 
+    // pero para LoginService habrá que construir métodos exclusivos de login
   onSubmit(): void {
-    this.service.getUser().subscribe(async user =>{
-      this.user = await user[0];
-      //this.user.mail = user[0].usermail;
-      //this.user.password = user[0].userpassword;
-      console.log(this.user);
+    this.service.getUser<User>().subscribe(usr =>{
+      //this.user = usr[0];
+      //this.user.userMail = await user[0].userMail;
+      //this.user.useruserPassword = await user[0].useruserPassword;
+      console.log("Usr  -> ", usr);
+      //console.log("this.user  ->> ", this.user);
     });
     // ojo estoy usando == en vez de ===
-    if (this.loginForm.value.email == this.user.usermail && this.loginForm.value.password == this.user.userpassword){
+/*     if (this.loginForm.value.email == this.user.userMail && this.loginForm.value.userPassword == this.user.userPassword){
       this.routes.navigate(['/']);
       this.loginForm.reset();
     }else {
       alert('Email or Password don\'t match those of a user registered');
-      console.log(this.loginForm.value.email);
-      console.log(this.user);
+      console.log("Form mail", this.loginForm.value.email);
+      console.log("Db mail", this.user.userMail);
+      console.log("Form Pass", this.loginForm.value.userPassword);
+      console.log("Db pass", this.user.userPassword);
       //this.routes.navigate(['/login']); // para qué navegar hacia donde ya estoy
-    }; 
+    };  */
   }
 
   onClose(): void {

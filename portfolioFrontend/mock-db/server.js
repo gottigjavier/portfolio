@@ -9,3 +9,6 @@ server.use(router)
 server.listen(PORT, () => {
   console.log('JSON Server is running on port: ', PORT)
 })
+
+// Estando en la carpeta que contiene server.js
+// $ node server.js

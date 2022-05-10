@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { About } from 'src/app/models/about.model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -6,20 +7,29 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent<T> implements OnInit {
 
-  private user: any;
+  private about: About;
+  private aboutList: Array<About> = [];
 
   constructor(
-    //private dataService: DataService
-    ) { }
+    private dataService: DataService<T>
+    ) {
+      this.aboutList =[
+        this.about={
+        aboutId: 0,
+      firstName: "",
+      lastName: "",
+      shortExplanation: "",
+      photoUrl: ""
+      }]
+  }
 
   ngOnInit(): void {
-    /* this.dataService.getAbout().subscribe(response => {
-      this.user = response.about;
-      console.log("about -> ", this.user);
-    }) */
-  };
+      this.dataService.getAll<Array<About>>().subscribe(response => {
+      console.log("about -> ", response);
+    }) 
+   };
 
 }
 
