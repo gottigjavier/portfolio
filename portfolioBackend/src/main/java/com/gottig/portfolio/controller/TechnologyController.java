@@ -10,31 +10,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequestMapping("technology")
 public class TechnologyController {
     
     @Autowired
     private TechnologyService technologyService;
     
-    @GetMapping("/technology/list")
+    @GetMapping("/list")
     @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public List<Technology> getAll(){
         return technologyService.getAll();
     }
     
-    @PostMapping("/technology/create")
+    @PostMapping("/create")
     @ResponseBody
     public String create(@RequestBody Technology technology){
         technologyService.create(technology);
         return "Technology created";
     }
     
-    @DeleteMapping("/technology/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
     public String delete(@RequestBody Technology technology){  
         Long id = technology.getTechId();
@@ -43,7 +45,7 @@ public class TechnologyController {
         return "Technology deleted";
     }
     
-    @PutMapping("/technology/update")
+    @PutMapping("/update")
     @ResponseBody
     public String update(@RequestBody Technology technology){  
         Long id = technology.getTechId();

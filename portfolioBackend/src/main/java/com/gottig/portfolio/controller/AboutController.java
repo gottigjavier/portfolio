@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("about")
 public class AboutController {
     
     private final String CROSSORIGIN = "http://localhost:4200";
@@ -21,14 +23,14 @@ public class AboutController {
     @Autowired
     private AboutService aboutService;
         
-    @GetMapping("/about/list")
+    @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<About> getAll(){
         return aboutService.getAll();
     }
     
-    @PostMapping("/about/create")
+    @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody About about){
@@ -36,7 +38,7 @@ public class AboutController {
         return "About created";
     }
     
-    @DeleteMapping("/about/delete")
+    @DeleteMapping("/delete")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public About delete(@RequestBody About aboutId){  
@@ -46,7 +48,7 @@ public class AboutController {
         return aboutId;
     }
     
-    @PutMapping("/about/update")
+    @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody About about){  

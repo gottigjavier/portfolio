@@ -9,30 +9,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequestMapping("job-experience")
 public class JobExperienceController {
     
     @Autowired
     private JobExperienceService jobService;
     
-    @GetMapping("/job-experience/list")
+    @GetMapping("/list")
     @ResponseBody
     public List<JobExperience> getAll(){
         return jobService.getAll();
     }
     
-    @PostMapping("/job-experience/create")
+    @PostMapping("/create")
     @ResponseBody
     public String create(@RequestBody JobExperience jobExp){
         jobService.create(jobExp);
         return "Job Experience created";
     }
     
-    @DeleteMapping("/job-experience/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
     public JobExperience delete(@RequestBody JobExperience jobId){  
         //Long id = jobId.getJobId();
@@ -41,7 +43,7 @@ public class JobExperienceController {
         return jobId;
     }
     
-    @PutMapping("/job-experience/update")
+    @PutMapping("/update")
     @ResponseBody
     public String update(@RequestBody JobExperience jobExp){  
         Long id = jobExp.getJobId();

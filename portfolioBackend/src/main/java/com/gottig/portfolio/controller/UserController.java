@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
+@RequestMapping("user")
 public class UserController {
     
     private final String CROSSORIGIN = "http://localhost:4200";
@@ -22,14 +24,14 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    @GetMapping("/user/list")
+    @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<MyUser> getAll(){
         return userService.getAll();
     }
     
-    @PostMapping("/user/create")
+    @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody MyUser user){
@@ -37,7 +39,7 @@ public class UserController {
         return "User created";
     }
     
-    @DeleteMapping("/user/delete")
+    @DeleteMapping("/delete")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String delete(@RequestBody MyUser user){  
@@ -47,7 +49,7 @@ public class UserController {
         return "User deleted";
     }
     
-    @PutMapping("/user/update")
+    @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody MyUser user){  
@@ -62,6 +64,7 @@ public class UserController {
                 return "User not found";
             }
         }else{
+            System.out.println("eeeeeeeeeeee");
             return "Id missing";
         }
     }

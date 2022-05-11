@@ -10,32 +10,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 @RestController
+@RequestMapping("spoken-language")
 public class SpokenLanguageController {
     
     @Autowired
     private SpokenLanguageService spokenLanguageService;
     
-    @GetMapping("/spoken-language/list")
+    @GetMapping("/list")
     @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public List<SpokenLanguage> getAll(){
         return spokenLanguageService.getAll();
     }
     
-    @PostMapping("/spoken-language/create")
+    @PostMapping("/create")
     @ResponseBody
     public String create(@RequestBody SpokenLanguage spokenLanguage){
         spokenLanguageService.create(spokenLanguage);
         return "Spoken Language created";
     }
     
-    @DeleteMapping("/spoken-language/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
     public String delete(@RequestBody SpokenLanguage spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();
@@ -44,7 +46,7 @@ public class SpokenLanguageController {
         return "Spoken Language deleted";
     }
     
-    @PutMapping("/spoken-language/update")
+    @PutMapping("/update")
     @ResponseBody
     public String update(@RequestBody SpokenLanguage spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();

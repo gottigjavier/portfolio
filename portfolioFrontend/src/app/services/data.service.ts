@@ -25,23 +25,24 @@ export class DataService<T> {
 
   // ¿se podrá encontrar la forma de infresar el endPoint (/user, /about) como parámetro
   // y así hacer el data service genérico?
-  private urlUser: string = `${this.DOMAIN}:${this.PORT}/user`;
-  private urlAbout: string = `${this.DOMAIN}:${this.PORT}/about`;
+  private url: string = `${this.DOMAIN}:${this.PORT}`;
+  
+  /* private urlUser: string = `${this.DOMAIN}:${this.PORT}/user`;
   private urlExperience: string = `${this.DOMAIN}:${this.PORT}/job-experience`;
   private urlEducation: string = `${this.DOMAIN}:${this.PORT}/education`;
   private urlSkills: string = `${this.DOMAIN}:${this.PORT}/skill`;
   private urlTecnologies: string = `${this.DOMAIN}:${this.PORT}/technology`;
   private urlProjects: string = `${this.DOMAIN}:${this.PORT}/my-project`;
   private urlLanguages: string = `${this.DOMAIN}:${this.PORT}/spoken-language`;
-
+ */
   constructor(private http: HttpClient) { }
 
-  public getAll<T>(): Observable<T>{  // En la llamada se especifica el tipo
-    return this.http.get<T>(`${this.urlAbout}/list`);
+  public getAll<T>(endPoint: string): Observable<T>{  // En la llamada se especifica el tipo
+    return this.http.get<T>(`${this.url}/${endPoint}`);
   }
 
   public getOne(): Observable<T>{
-    return this.http.get<T>(this.urlAbout);
+    return this.http.get<T>(this.url);
   }
 /*
   public getExperience(): Observable<any>{

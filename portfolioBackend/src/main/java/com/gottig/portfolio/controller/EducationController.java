@@ -11,32 +11,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 @RestController
+@RequestMapping("education")
 public class EducationController {
         
     @Autowired
     private EducationService eduService;
     
-    @GetMapping("/education/list")
+    @GetMapping("/list")
     @CrossOrigin(origins = "http://localhost:4200")
     @ResponseBody
     public List<Education> getAll(){
         return eduService.getAll();
     }
     
-    @PostMapping("/education/create")
+    @PostMapping("/create")
     @ResponseBody
     public String create(@RequestBody Education edu){
         eduService.create(edu);
         return "Education created";
     }
     
-    @DeleteMapping("/education/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
     public String delete(@RequestBody Education edu){  
         Long id = edu.getEducationId();
@@ -45,7 +47,7 @@ public class EducationController {
         return "Education deleted";
     }
     
-    @PutMapping("/education/update")
+    @PutMapping("/update")
     @ResponseBody
     public String update(@RequestBody Education edu){  
         Long id = edu.getEducationId();

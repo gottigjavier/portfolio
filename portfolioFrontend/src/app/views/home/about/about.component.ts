@@ -11,6 +11,7 @@ export class AboutComponent<T> implements OnInit {
 
   private about: About;
   private aboutList: Array<About> = [];
+  private endPoint: string= "about/list";
 
   constructor(
     private dataService: DataService<T>
@@ -26,7 +27,7 @@ export class AboutComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-      this.dataService.getAll<Array<About>>().subscribe(response => {
+      this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
       console.log("about -> ", response);
     }) 
    };
