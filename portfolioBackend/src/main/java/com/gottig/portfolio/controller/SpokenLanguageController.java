@@ -20,17 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("spoken-language")
 public class SpokenLanguageController {
     
+    private final String CROSSORIGIN = "http://localhost:4200";
+    
     @Autowired
     private SpokenLanguageService spokenLanguageService;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<SpokenLanguage> getAll(){
         return spokenLanguageService.getAll();
     }
     
     @PostMapping("/create")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody SpokenLanguage spokenLanguage){
         spokenLanguageService.create(spokenLanguage);
@@ -38,6 +41,7 @@ public class SpokenLanguageController {
     }
     
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String delete(@RequestBody SpokenLanguage spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();
@@ -47,6 +51,7 @@ public class SpokenLanguageController {
     }
     
     @PutMapping("/update")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody SpokenLanguage spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();

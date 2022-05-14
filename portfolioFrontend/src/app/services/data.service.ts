@@ -10,62 +10,18 @@ import { User } from '../models/user.model';
 // Servicio genérico usa el parámetro T
 export class DataService<T> {
 
-  /* private urlUser: string = "http://localhost:3003/user";
-  private urlAbout: string = "http://localhost:3003/about";
-  private urlExperience: string = "http://localhost:3003/experience";
-  private urlEducation: string = "http://localhost:3003/education";
-  private urlSkills: string = "http://localhost:3003/skills";
-  private urlTecnologies: string = "http://localhost:3003/tecnologies";
-  private urlProjects: string = "http://localhost:3003/projects";
-  private urlLanguages: string = "http://localhost:3003/languages";
- */
-
-  private DOMAIN: string = "http://localhost";
+  private DOMAIN: string = "http://localhost"; //Para incorporar variables de entorno
   private PORT: string = "8080";
 
-  // ¿se podrá encontrar la forma de infresar el endPoint (/user, /about) como parámetro
-  // y así hacer el data service genérico?
   private url: string = `${this.DOMAIN}:${this.PORT}`;
   
-  /* private urlUser: string = `${this.DOMAIN}:${this.PORT}/user`;
-  private urlExperience: string = `${this.DOMAIN}:${this.PORT}/job-experience`;
-  private urlEducation: string = `${this.DOMAIN}:${this.PORT}/education`;
-  private urlSkills: string = `${this.DOMAIN}:${this.PORT}/skill`;
-  private urlTecnologies: string = `${this.DOMAIN}:${this.PORT}/technology`;
-  private urlProjects: string = `${this.DOMAIN}:${this.PORT}/my-project`;
-  private urlLanguages: string = `${this.DOMAIN}:${this.PORT}/spoken-language`;
- */
   constructor(private http: HttpClient) { }
 
   public getAll<T>(endPoint: string): Observable<T>{  // En la llamada se especifica el tipo
     return this.http.get<T>(`${this.url}/${endPoint}`);
   }
 
-  public getOne(): Observable<T>{
-    return this.http.get<T>(this.url);
+  public getOne<T>(endPoint: string): Observable<T>{
+    return this.http.get<T>(`${this.url}/${endPoint}`);
   }
-/*
-  public getExperience(): Observable<any>{
-    return this.http.get<any>(this.urlExperience);
-  }
-
-  public getEducation(): Observable<any>{
-    return this.http.get<any>(this.urlEducation);
-  }
-
-  public getSkills(): Observable<any>{
-    return this.http.get<any>(this.urlSkills);
-  }
-
-  public getTecnologies(): Observable<any>{
-    return this.http.get<any>(this.urlTecnologies);
-  }
-
-  public getProjects(): Observable<any>{
-    return this.http.get<any>(this.urlProjects);
-  }
-
-  public getLanguages(): Observable<any>{
-    return this.http.get<any>(this.urlLanguages);
-  } */
 }

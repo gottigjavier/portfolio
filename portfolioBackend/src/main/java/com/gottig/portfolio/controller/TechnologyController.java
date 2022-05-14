@@ -1,5 +1,7 @@
 package com.gottig.portfolio.controller;
 
+import com.gottig.portfolio.dto.classes.TechnologyDTO;
+import com.gottig.portfolio.dto.mapperintefaces.TechnologyMapper;
 import com.gottig.portfolio.model.Technology;
 import com.gottig.portfolio.service.classes.TechnologyService;
 import java.util.List;
@@ -19,17 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("technology")
 public class TechnologyController {
     
+    private final String CROSSORIGIN = "http://localhost:4200";
+    
     @Autowired
     private TechnologyService technologyService;
     
+    @Autowired
+    private TechnologyMapper technologyMapper;
+    
     @GetMapping("/list")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<Technology> getAll(){
-        return technologyService.getAll();
+    public List<TechnologyDTO> getAll(){
+        return technologyMapper.toDtoAll(technologyService.getAll());
     }
     
     @PostMapping("/create")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody Technology technology){
         technologyService.create(technology);
@@ -37,6 +45,7 @@ public class TechnologyController {
     }
     
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String delete(@RequestBody Technology technology){  
         Long id = technology.getTechId();
@@ -46,18 +55,12 @@ public class TechnologyController {
     }
     
     @PutMapping("/update")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody Technology technology){  
+    public String update(@RequestBody TechnologyDTO technology){  
         Long id = technology.getTechId();
         if(id != null){
-            Technology currentTechnology;
-            currentTechnology = (Technology)technologyService.getOne(id);
-            if(currentTechnology != null){
-                technologyService.create(technology); // Solo existe el método save() para crear y para modificar.  
-                return "Technology updated";
-            }else{
-                return "Technology not found";
-            }
+            return technologyService.update(technologyMapper.toEntity(technology)); // Solo existe el método save() para crear y para modificar.  
         }else{
             return "Id missing";
         }

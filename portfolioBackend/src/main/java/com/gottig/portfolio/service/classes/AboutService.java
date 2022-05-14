@@ -35,8 +35,14 @@ public class AboutService implements CRUDServiceInterface<About>{
     }
 
     @Override
-    public void update(About obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String update(About obj) {
+        About aboutObj = aboutDao.findById(obj.getAboutId()).orElse(null);
+        if(aboutObj != null){
+            aboutDao.save(obj);
+            return "About Updated";
+        }else{
+          return "About Not Found";
+        }
     }
     
 }

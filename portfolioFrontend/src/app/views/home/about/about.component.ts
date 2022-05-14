@@ -9,10 +9,10 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AboutComponent<T> implements OnInit {
 
-  private about: About;
+  public about: About;
   private aboutList: Array<About> = [];
   private endPoint: string= "about/list";
-
+  
   constructor(
     private dataService: DataService<T>
     ) {
@@ -28,9 +28,11 @@ export class AboutComponent<T> implements OnInit {
 
   ngOnInit(): void {
       this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
-      console.log("about -> ", response);
-    }) 
-   };
+        console.log("about -> ", response);
+        this.aboutList = response;
+        this.about= this.aboutList[0];
+      }) 
+  };
 
 }
 

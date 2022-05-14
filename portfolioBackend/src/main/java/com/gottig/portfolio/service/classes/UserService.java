@@ -37,7 +37,7 @@ public class UserService implements CRUDServiceInterface<MyUser>{
     }
 
     @Override
-    public void update(MyUser obj) {
+    public String update(MyUser obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

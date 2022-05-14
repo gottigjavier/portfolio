@@ -1,10 +1,10 @@
 import { Technology } from "./technology.model";
 
-export interface MyProject{
-    projId: number,
-    projName: string,
-    projDescription: string,
-    projUrl: string,
-    techList: Set<Technology>,
-    projIndex: number
+export class MyProject{
+    projId: number = 0;
+    projName: string= "";
+    projDescription: string= "";
+    projUrl: string= "";
+    techList: Set<Technology>= new Set;
+    projIndex: number= 0;
 }

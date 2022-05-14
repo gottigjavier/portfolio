@@ -1,9 +1,12 @@
 package com.gottig.portfolio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name= "Technology")
 @Table(name="technologies")
+@JsonIgnoreProperties(value= "projectList")
 public class Technology implements Serializable{
     
     @Id
@@ -44,11 +48,9 @@ public class Technology implements Serializable{
     @Column(name="tech_index")// En caso de necesitar que persista el orden dado en el front
     private int techIndex;
     
-    @ManyToMany(mappedBy = "techList")
-    private Set<MyProject> myProject;
+    @ManyToMany(fetch= FetchType.LAZY, mappedBy = "techList")
+    private Set<MyProject> projectList= new HashSet<>();
     
-    public Set<MyProject> getMyProject(){
-        return myProject;
-    }
+    
     
 }

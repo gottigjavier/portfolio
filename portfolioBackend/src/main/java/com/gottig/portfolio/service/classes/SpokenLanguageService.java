@@ -36,7 +36,7 @@ public class SpokenLanguageService implements CRUDServiceInterface<SpokenLanguag
     }
 
     @Override
-    public void update(SpokenLanguage obj) {
+    public String update(SpokenLanguage obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

@@ -1,5 +1,6 @@
 package com.gottig.portfolio.controller;
 
+import com.gottig.portfolio.dto.classes.MyProjectDTO;
 import com.gottig.portfolio.model.MyProject;
 import com.gottig.portfolio.service.classes.MyProjectService;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.gottig.portfolio.dto.mapperintefaces.MyProjectMapper;
 
 
 
@@ -20,17 +22,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("my-project")
 public class MyProjectController {
     
+    private final String CROSSORIGIN = "http://localhost:4200";
+    
     @Autowired
     private MyProjectService myProjectService;
     
+    @Autowired
+    private MyProjectMapper projectAndTech;
+    
     @GetMapping("/list")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<MyProject> getAll(){
-        return myProjectService.getAll();
+    public List<MyProjectDTO> getAll(){
+        return projectAndTech.toDtoAll(myProjectService.getAll());
     }
     
     @PostMapping("/create")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody MyProject myProject){
         myProjectService.create(myProject);
@@ -38,6 +46,7 @@ public class MyProjectController {
     }
     
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String delete(@RequestBody MyProject myProject){  
         Long id = myProject.getProjId();
@@ -47,6 +56,7 @@ public class MyProjectController {
     }
     
     @PutMapping("/update")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody MyProject myProject){  
         Long id = myProject.getProjId();

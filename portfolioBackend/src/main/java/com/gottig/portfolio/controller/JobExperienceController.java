@@ -4,6 +4,7 @@ import com.gottig.portfolio.model.JobExperience;
 import com.gottig.portfolio.service.classes.JobExperienceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("job-experience")
 public class JobExperienceController {
     
+    private final String CROSSORIGIN = "http://localhost:4200";
+    
     @Autowired
     private JobExperienceService jobService;
     
     @GetMapping("/list")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<JobExperience> getAll(){
         return jobService.getAll();
     }
     
     @PostMapping("/create")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody JobExperience jobExp){
         jobService.create(jobExp);
@@ -35,6 +40,7 @@ public class JobExperienceController {
     }
     
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public JobExperience delete(@RequestBody JobExperience jobId){  
         //Long id = jobId.getJobId();
@@ -44,6 +50,7 @@ public class JobExperienceController {
     }
     
     @PutMapping("/update")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody JobExperience jobExp){  
         Long id = jobExp.getJobId();

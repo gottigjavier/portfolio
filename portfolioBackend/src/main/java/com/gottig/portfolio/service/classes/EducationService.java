@@ -35,7 +35,7 @@ public class EducationService implements CRUDServiceInterface<Education>{
     }
 
     @Override
-    public void update(Education obj) {
+    public String update(Education obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

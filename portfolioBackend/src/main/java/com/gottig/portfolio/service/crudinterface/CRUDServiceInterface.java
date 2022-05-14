@@ -13,6 +13,6 @@ public interface CRUDServiceInterface<T> {
 
     public void delete(Long id);
     
-    public void update(T obj);
+    public String update(T obj);
     
 }

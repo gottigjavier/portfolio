@@ -30,7 +30,7 @@ public class SkillService implements CRUDServiceInterface<Skill>{
     }
 
     @Override
-    public void update(Skill obj) {
+    public String update(Skill obj) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

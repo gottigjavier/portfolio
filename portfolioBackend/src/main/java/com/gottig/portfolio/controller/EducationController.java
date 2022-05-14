@@ -20,18 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("education")
 public class EducationController {
+    
+    private final String CROSSORIGIN = "http://localhost:4200";
         
     @Autowired
     private EducationService eduService;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<Education> getAll(){
         return eduService.getAll();
     }
     
     @PostMapping("/create")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String create(@RequestBody Education edu){
         eduService.create(edu);
@@ -39,6 +42,7 @@ public class EducationController {
     }
     
     @DeleteMapping("/delete")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String delete(@RequestBody Education edu){  
         Long id = edu.getEducationId();
@@ -48,6 +52,7 @@ public class EducationController {
     }
     
     @PutMapping("/update")
+    @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public String update(@RequestBody Education edu){  
         Long id = edu.getEducationId();

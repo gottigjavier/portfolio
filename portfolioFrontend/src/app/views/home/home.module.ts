@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { DataService } from 'src/app/services/data.service';
 import { AboutModule } from './about/about.module';
 import { BannerModule } from './banner/banner.module';
-
+import { TechnologiesModule } from './technologies/technologies.module';
 
 
 @NgModule({
@@ -16,10 +15,12 @@ import { BannerModule } from './banner/banner.module';
     CommonModule,
     BannerModule,
     AboutModule,
+    TechnologiesModule,
     SharedModule
   ],
   exports: [
-    AboutModule
+    AboutModule,
+    TechnologiesModule
   ]
 })
 export class HomeModule { }

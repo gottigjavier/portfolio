@@ -1,10 +1,35 @@
-.example-card {
-    max-width: auto;
-  }
+.header {
+    width: 100%;
+    background-color: gray;
+    margin: 0ch;
+    padding-top: 4ch;
+}
   
-  .example-header-image {
+  .header-image {
     background-image: url('../../../../assets/fotocurric1.jpg');
     background-size: cover;
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+    margin-left: 8ch;
+    padding-left: 6ch;
+  
+  }
+  
+  .image{
+    margin-left: 8ch;
+    padding-left: 6ch;
+  }
+
+  .my-name{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 5ch;
+    margin-left: 0ch;
+  }
+
+  .explanation{
+    padding-right: 15%;
+    margin-top: 1ch;
+    font-size: 4ch;
+    text-align:right;
   }

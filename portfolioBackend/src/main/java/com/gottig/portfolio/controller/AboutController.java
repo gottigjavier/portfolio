@@ -1,5 +1,7 @@
 package com.gottig.portfolio.controller;
 
+import com.gottig.portfolio.dto.classes.AboutDTO;
+import com.gottig.portfolio.dto.mapperintefaces.AboutMapper;
 import com.gottig.portfolio.model.About;
 import com.gottig.portfolio.service.classes.AboutService;
 import java.util.List;
@@ -22,12 +24,15 @@ public class AboutController {
     
     @Autowired
     private AboutService aboutService;
+    
+    @Autowired
+    private AboutMapper aboutMapper;
         
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<About> getAll(){
-        return aboutService.getAll();
+    public List<AboutDTO> getAll(){
+        return aboutMapper.toDtoAll(aboutService.getAll());
     }
     
     @PostMapping("/create")
@@ -51,17 +56,10 @@ public class AboutController {
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody About about){  
+    public String update(@RequestBody About about){
         Long id = about.getAboutId();
         if(id != null){
-            About currentAbout;
-            currentAbout = (About)aboutService.getOne(id);
-            if(currentAbout != null){
-                aboutService.create(about); // Solo existe el método save() para crear y para modificar.  
-                return "About updated";
-            }else{
-                return "About not found";
-            }
+            return aboutService.update(about);
         }else{
             return "Id missing";
         }
