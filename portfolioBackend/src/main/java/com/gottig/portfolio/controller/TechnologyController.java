@@ -1,9 +1,9 @@
 package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.dto.classes.TechnologyDTO;
-import com.gottig.portfolio.dto.mapperintefaces.TechnologyMapper;
+import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
 import com.gottig.portfolio.model.Technology;
-import com.gottig.portfolio.service.classes.TechnologyService;
+import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,10 +24,10 @@ public class TechnologyController {
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private TechnologyService technologyService;
+    private CRUDServiceInterface<Technology> technologyService;
     
     @Autowired
-    private TechnologyMapper technologyMapper;
+    private CommonMapper<TechnologyDTO, Technology> technologyMapper;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
@@ -39,9 +39,10 @@ public class TechnologyController {
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody Technology technology){
+    public TechnologyDTO create(@RequestBody TechnologyDTO techDTO){
+        Technology technology =technologyMapper.toEntity(techDTO); 
         technologyService.create(technology);
-        return "Technology created";
+        return technologyMapper.toDto(technologyService.getOne(techDTO.getTechId()));
     }
     
     @DeleteMapping("/delete")
@@ -57,13 +58,10 @@ public class TechnologyController {
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody TechnologyDTO technology){  
-        Long id = technology.getTechId();
-        if(id != null){
-            return technologyService.update(technologyMapper.toEntity(technology)); // Solo existe el método save() para crear y para modificar.  
-        }else{
-            return "Id missing";
-        }
+    public TechnologyDTO update(@RequestBody TechnologyDTO techDTO){  
+        Long id = techDTO.getTechId();
+            technologyService.update(technologyMapper.toEntity(techDTO)); // Solo existe el método save() para crear y para modificar.  
+            return technologyMapper.toDto(technologyService.getOne(id));
     }
     
 }

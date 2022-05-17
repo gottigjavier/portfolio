@@ -1,8 +1,8 @@
 package com.gottig.portfolio.dto.mapperimplementation;
 
-import com.gottig.portfolio.dto.classes.AboutDTO;
+import com.gottig.portfolio.dto.classes.SkillDTO;
 import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
-import com.gottig.portfolio.model.About;
+import com.gottig.portfolio.model.Skill;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -11,54 +11,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-
 @Component
-public class AboutMapperImplementation<T,S> implements CommonMapper<AboutDTO,About>{
+public class SkillMapperImplementation<T,S> implements CommonMapper<SkillDTO,Skill>{
     
     @Autowired
     private ModelMapper modelMapper;
     
-    AboutDTO aboutDTO = new AboutDTO();
-    About about = new About();
+    SkillDTO skillDTO = new SkillDTO();
+    Skill skill = new Skill();
 
     @Override
-    public AboutDTO toDto(About about) {
-        if ( about == null ) {
+    public SkillDTO toDto(Skill skill) {
+        if ( skill == null ) {
             return null;
         }
         
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-
-        aboutDTO= modelMapper.map(about, AboutDTO.class);
         
-        return aboutDTO;
+        skillDTO= modelMapper.map(skill, SkillDTO.class);
+        
+        return skillDTO;
     }
 
     @Override
-    public List<AboutDTO> toDtoAll(List<About> aboutList) {
-        if ( aboutList == null ) {
+    public List<SkillDTO> toDtoAll(List<Skill> skillList) {
+        if ( skillList == null ) {
             return null;
         }
 
-        List<AboutDTO> list = new ArrayList<>( aboutList.size() );
-        for ( About aboutElement : aboutList ) {
-            list.add( toDto( aboutElement ) );
+        List<SkillDTO> list = new ArrayList<>( skillList.size() );
+        for ( Skill skillElement : skillList ) {
+            list.add( toDto( skillElement ) );
         }
 
         return list;
     }
 
     @Override
-    public About toEntity(AboutDTO aboutDTO) {
-        if ( aboutDTO == null ) {
+    public Skill toEntity(SkillDTO skillDTO) {
+        if ( skillDTO == null ) {
             return null;
         }
         
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        
+        skill= modelMapper.map(skillDTO, Skill.class);
 
-        about= modelMapper.map(aboutDTO, About.class);
-
-        return about;
+        return skill;
     }
     
 }

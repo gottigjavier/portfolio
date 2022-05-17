@@ -1,10 +1,8 @@
 package com.gottig.portfolio.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +24,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name= "MyProject")
 @Table(name="my_project")
-@JsonIgnoreProperties(value= "techList")
 public class MyProject implements Serializable {
     
     @Id
@@ -50,8 +47,6 @@ public class MyProject implements Serializable {
     @JoinTable(name = "inter_proj_tech", 
       joinColumns = @JoinColumn(name = "inter_proj_id"), 
       inverseJoinColumns = @JoinColumn(name = "inter_tech_id"))
-    private Set<Technology> techList= new HashSet<>();
-    
-    
+    private List<Technology> techList= new ArrayList<>();    
     
 }

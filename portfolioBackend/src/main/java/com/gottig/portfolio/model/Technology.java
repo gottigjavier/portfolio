@@ -1,9 +1,9 @@
 package com.gottig.portfolio.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity(name= "Technology")
 @Table(name="technologies")
-@JsonIgnoreProperties(value= "projectList")
 public class Technology implements Serializable{
     
     @Id
@@ -49,8 +48,7 @@ public class Technology implements Serializable{
     private int techIndex;
     
     @ManyToMany(fetch= FetchType.LAZY, mappedBy = "techList")
-    private Set<MyProject> projectList= new HashSet<>();
-    
-    
+    @JsonBackReference
+    private List<MyProject> projectList= new ArrayList<>();
     
 }

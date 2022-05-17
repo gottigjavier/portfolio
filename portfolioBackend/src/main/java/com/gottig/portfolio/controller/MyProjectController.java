@@ -1,8 +1,8 @@
 package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.dto.classes.MyProjectDTO;
+import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
 import com.gottig.portfolio.model.MyProject;
-import com.gottig.portfolio.service.classes.MyProjectService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.gottig.portfolio.dto.mapperintefaces.MyProjectMapper;
+import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 
 
 
@@ -25,23 +25,23 @@ public class MyProjectController {
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private MyProjectService myProjectService;
+    private CRUDServiceInterface<MyProject> myProjectService;
     
     @Autowired
-    private MyProjectMapper projectAndTech;
+    private CommonMapper<MyProjectDTO, MyProject> projectMapper;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<MyProjectDTO> getAll(){
-        return projectAndTech.toDtoAll(myProjectService.getAll());
+        return projectMapper.toDtoAll(myProjectService.getAll());
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody MyProject myProject){
-        myProjectService.create(myProject);
+    public String create(@RequestBody MyProjectDTO myProject){
+        myProjectService.create(projectMapper.toEntity(myProject));
         return "MyProject created";
     }
     

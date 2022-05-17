@@ -1,7 +1,7 @@
 package com.gottig.portfolio.controller;
 
-import com.gottig.portfolio.model.SpokenLanguage;
-import com.gottig.portfolio.service.classes.SpokenLanguageService;
+import com.gottig.portfolio.model.SpokenLang;
+import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,24 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("spoken-language")
-public class SpokenLanguageController {
+public class SpokenLangController {
     
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private SpokenLanguageService spokenLanguageService;
+    private CRUDServiceInterface<SpokenLang> spokenLanguageService;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<SpokenLanguage> getAll(){
+    public List<SpokenLang> getAll(){
         return spokenLanguageService.getAll();
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody SpokenLanguage spokenLanguage){
+    public String create(@RequestBody SpokenLang spokenLanguage){
         spokenLanguageService.create(spokenLanguage);
         return "Spoken Language created";
     }
@@ -43,7 +43,7 @@ public class SpokenLanguageController {
     @DeleteMapping("/delete")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String delete(@RequestBody SpokenLanguage spokenLanguage){  
+    public String delete(@RequestBody SpokenLang spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();
         System.out.println(id);
         spokenLanguageService.delete(id);
@@ -53,11 +53,11 @@ public class SpokenLanguageController {
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody SpokenLanguage spokenLanguage){  
+    public String update(@RequestBody SpokenLang spokenLanguage){  
         Long id = spokenLanguage.getLanguageId();
         if(id != null){
-            SpokenLanguage currentSpokenLanguage;
-            currentSpokenLanguage = (SpokenLanguage)spokenLanguageService.getOne(id);
+            SpokenLang currentSpokenLanguage;
+            currentSpokenLanguage = (SpokenLang)spokenLanguageService.getOne(id);
             if(currentSpokenLanguage != null){
                 spokenLanguageService.create(spokenLanguage); // Solo existe el método save() para crear y para modificar.  
                 return "Spoken Language updated";

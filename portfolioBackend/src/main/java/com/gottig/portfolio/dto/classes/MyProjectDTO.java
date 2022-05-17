@@ -1,10 +1,11 @@
 package com.gottig.portfolio.dto.classes;
 
+import com.gottig.portfolio.model.Technology;
+import java.util.List;
 import lombok.Data;
-import org.springframework.stereotype.Service;
+
 
 @Data
-@Service
 public class MyProjectDTO {
  
     private Long projId;
@@ -17,6 +18,6 @@ public class MyProjectDTO {
     
     private int projIndex;
     
-    //Set<TechnologyDTO> setOfProjects;
+    private List<Technology> techList;
     
 }

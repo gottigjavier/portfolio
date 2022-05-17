@@ -1,4 +1,4 @@
-package com.gottig.portfolio.service.classes;
+package com.gottig.portfolio.service.crudimplementation;
 
 import com.gottig.portfolio.dao.UserDAO;
 import com.gottig.portfolio.model.MyUser;
@@ -11,7 +11,7 @@ import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 
 
 @Service
-public class UserService implements CRUDServiceInterface<MyUser>{
+public class UserService<T> implements CRUDServiceInterface<MyUser>{
     
     @Autowired
     public UserDAO userDao;
@@ -27,18 +27,29 @@ public class UserService implements CRUDServiceInterface<MyUser>{
     }
 
     @Override
-    public void create(MyUser user) {
+    public boolean create(MyUser user) {
         userDao.save(user);
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
-        userDao.deleteById(id);
+    public boolean update(MyUser obj) {
+        if(!userDao.existsById(obj.getUserId())){
+            return false;
+        }else{
+            userDao.save(obj);
+            return true;
+        }
     }
 
     @Override
-    public String update(MyUser obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean delete(Long id) {
+        if(!userDao.existsById(id)){
+            return false;
+        }else{
+            userDao.deleteById(id);
+            return true;
+        }
     }
     
 }

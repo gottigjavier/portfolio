@@ -1,4 +1,4 @@
-package com.gottig.portfolio.service.classes;
+package com.gottig.portfolio.service.crudimplementation;
 
 import com.gottig.portfolio.dao.AboutDAO;
 import com.gottig.portfolio.model.About;
@@ -9,7 +9,7 @@ import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 
 
 @Service
-public class AboutService implements CRUDServiceInterface<About>{
+public class AboutService<T> implements CRUDServiceInterface<About>{
     
     @Autowired
     AboutDAO aboutDao;
@@ -25,24 +25,30 @@ public class AboutService implements CRUDServiceInterface<About>{
     }
 
     @Override
-    public void create(About about) {
-        aboutDao.save(about);
+    public boolean create(About obj) {
+        aboutDao.save(obj);
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
-        aboutDao.deleteById(id);
-    }
-
-    @Override
-    public String update(About obj) {
-        About aboutObj = aboutDao.findById(obj.getAboutId()).orElse(null);
-        if(aboutObj != null){
-            aboutDao.save(obj);
-            return "About Updated";
+    public boolean update(About obj) {
+        if(!aboutDao.existsById(obj.getAboutId())){
+            return false;
         }else{
-          return "About Not Found";
+            aboutDao.save(obj);
+            return true;
         }
+    }
+    
+    @Override
+    public boolean delete(Long id) {
+        if(!aboutDao.existsById(id)){
+            return false;
+        }else{
+            aboutDao.deleteById(id);
+            return true;
+        }
+        
     }
     
 }

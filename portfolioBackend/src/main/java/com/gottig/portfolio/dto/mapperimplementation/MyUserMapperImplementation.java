@@ -1,8 +1,8 @@
 package com.gottig.portfolio.dto.mapperimplementation;
 
-import com.gottig.portfolio.dto.classes.AboutDTO;
+import com.gottig.portfolio.dto.classes.MyUserDTO;
 import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
-import com.gottig.portfolio.model.About;
+import com.gottig.portfolio.model.MyUser;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -13,52 +13,54 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class AboutMapperImplementation<T,S> implements CommonMapper<AboutDTO,About>{
+public class MyUserMapperImplementation<T,S> implements CommonMapper<MyUserDTO, MyUser>{
     
     @Autowired
     private ModelMapper modelMapper;
     
-    AboutDTO aboutDTO = new AboutDTO();
-    About about = new About();
+    MyUserDTO myUserDTO = new MyUserDTO();
+    
+    MyUser myUser = new MyUser();
+        
 
     @Override
-    public AboutDTO toDto(About about) {
-        if ( about == null ) {
+    public MyUserDTO toDto(MyUser myUser) {
+        if ( myUser == null ) {
             return null;
         }
         
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 
-        aboutDTO= modelMapper.map(about, AboutDTO.class);
+        myUserDTO= modelMapper.map(myUser, MyUserDTO.class);
         
-        return aboutDTO;
+        return myUserDTO;
     }
 
     @Override
-    public List<AboutDTO> toDtoAll(List<About> aboutList) {
-        if ( aboutList == null ) {
+    public List<MyUserDTO> toDtoAll(List<MyUser> myUserList) {
+        if ( myUserList == null ) {
             return null;
         }
 
-        List<AboutDTO> list = new ArrayList<>( aboutList.size() );
-        for ( About aboutElement : aboutList ) {
-            list.add( toDto( aboutElement ) );
+        List<MyUserDTO> list = new ArrayList<>( myUserList.size() );
+        for ( MyUser user : myUserList ) {
+            list.add( toDto( user ) );
         }
 
         return list;
     }
 
     @Override
-    public About toEntity(AboutDTO aboutDTO) {
-        if ( aboutDTO == null ) {
+    public MyUser toEntity(MyUserDTO myUserDTO) {
+        if ( myUserDTO == null ) {
             return null;
         }
         
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 
-        about= modelMapper.map(aboutDTO, About.class);
+        myUser= modelMapper.map(myUserDTO, MyUser.class);
 
-        return about;
+        return myUser;
     }
     
 }

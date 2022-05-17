@@ -1,4 +1,4 @@
-package com.gottig.portfolio.service.classes;
+package com.gottig.portfolio.service.crudimplementation;
 
 import com.gottig.portfolio.dao.EducationDAO;
 import com.gottig.portfolio.model.Education;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class EducationService implements CRUDServiceInterface<Education>{
+public class EducationService<T> implements CRUDServiceInterface<Education>{
     
     @Autowired
     EducationDAO educationDao;
@@ -25,18 +25,28 @@ public class EducationService implements CRUDServiceInterface<Education>{
     }
 
     @Override
-    public void create(Education obj) {
+    public boolean create(Education obj) {
         educationDao.save(obj);
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean update(Education obj) {
+        if(!educationDao.existsById(obj.getEducationId())){
+            return false;
+        }else{
+            educationDao.save(obj);
+            return true;
+        }
+    }
+    
+    @Override
+    public boolean delete(Long id) {
+        if(!educationDao.existsById(id)){
+            return false;
+        }
         educationDao.deleteById(id);
-    }
-
-    @Override
-    public String update(Education obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return true;
     }
     
 }

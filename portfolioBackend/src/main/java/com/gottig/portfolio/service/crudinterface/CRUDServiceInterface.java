@@ -9,10 +9,10 @@ public interface CRUDServiceInterface<T> {
 
     public T getOne(Long id);
 
-    public void create(T obj);
+    public boolean create(T obj);
+    
+    public boolean update(T obj);
+    
+    public boolean delete(Long id);
 
-    public void delete(Long id);
-    
-    public String update(T obj);
-    
 }

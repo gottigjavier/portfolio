@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name= "SpokenLanguage")
-@Table(name= "spoken_language")
-public class SpokenLanguage implements Serializable{
+@Table(name= "spoken_languages")
+public class SpokenLang implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

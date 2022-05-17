@@ -1,7 +1,6 @@
 package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.model.Education;
-import com.gottig.portfolio.service.classes.EducationService;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class EducationController {
     private final String CROSSORIGIN = "http://localhost:4200";
         
     @Autowired
-    private EducationService eduService;
+    private CRUDServiceInterface<Education> eduService;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)

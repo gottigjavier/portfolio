@@ -1,7 +1,7 @@
 package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.model.JobExperience;
-import com.gottig.portfolio.service.classes.JobExperienceService;
+import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +22,7 @@ public class JobExperienceController {
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private JobExperienceService jobService;
+    private CRUDServiceInterface<JobExperience> jobService;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
