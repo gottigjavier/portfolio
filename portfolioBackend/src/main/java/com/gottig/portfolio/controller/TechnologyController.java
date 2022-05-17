@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,44 +25,44 @@ public class TechnologyController {
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private CRUDServiceInterface<Technology> technologyService;
+    private CRUDServiceInterface<Technology> techService;
     
     @Autowired
-    private CommonMapper<TechnologyDTO, Technology> technologyMapper;
+    private CommonMapper<TechnologyDTO, Technology> techMapper;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
     public List<TechnologyDTO> getAll(){
-        return technologyMapper.toDtoAll(technologyService.getAll());
+        return techMapper.toDtoAll(techService.getAll());
+    }
+    
+    @GetMapping("/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public TechnologyDTO getOne(@PathVariable Long id){
+        return techMapper.toDto(techService.getOne(id));
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public TechnologyDTO create(@RequestBody TechnologyDTO techDTO){
-        Technology technology =technologyMapper.toEntity(techDTO); 
-        technologyService.create(technology);
-        return technologyMapper.toDto(technologyService.getOne(techDTO.getTechId()));
-    }
-    
-    @DeleteMapping("/delete")
-    @CrossOrigin(origins = CROSSORIGIN)
-    @ResponseBody
-    public String delete(@RequestBody Technology technology){  
-        Long id = technology.getTechId();
-        System.out.println(id);
-        technologyService.delete(id);
-        return "Technology deleted";
+    public boolean create(@RequestBody TechnologyDTO techDTO){
+        return techService.create(techMapper.toEntity(techDTO));
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public TechnologyDTO update(@RequestBody TechnologyDTO techDTO){  
-        Long id = techDTO.getTechId();
-            technologyService.update(technologyMapper.toEntity(techDTO)); // Solo existe el método save() para crear y para modificar.  
-            return technologyMapper.toDto(technologyService.getOne(id));
+    public boolean update(@RequestBody TechnologyDTO techDTO){  
+        return techService.update(techMapper.toEntity(techDTO));
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public boolean delete(@RequestBody Long id){  
+        return techService.delete(id);
     }
     
 }

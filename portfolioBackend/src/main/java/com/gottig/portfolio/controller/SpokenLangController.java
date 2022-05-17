@@ -1,5 +1,7 @@
 package com.gottig.portfolio.controller;
 
+import com.gottig.portfolio.dto.classes.SpokenLangDTO;
+import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
 import com.gottig.portfolio.model.SpokenLang;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,50 +26,45 @@ public class SpokenLangController {
     private final String CROSSORIGIN = "http://localhost:4200";
     
     @Autowired
-    private CRUDServiceInterface<SpokenLang> spokenLanguageService;
+    private CRUDServiceInterface<SpokenLang> langService;
+    
+    @Autowired
+    private CommonMapper<SpokenLangDTO, SpokenLang> langMapper;
     
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<SpokenLang> getAll(){
-        return spokenLanguageService.getAll();
+    public List<SpokenLangDTO> getAll(){
+        return langMapper.toDtoAll(langService.getAll());
     }
+    
+    @GetMapping("/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public SpokenLangDTO getOne(@PathVariable Long id){
+        return langMapper.toDto(langService.getOne(id));
+    }
+    
     
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody SpokenLang spokenLanguage){
-        spokenLanguageService.create(spokenLanguage);
-        return "Spoken Language created";
-    }
-    
-    @DeleteMapping("/delete")
-    @CrossOrigin(origins = CROSSORIGIN)
-    @ResponseBody
-    public String delete(@RequestBody SpokenLang spokenLanguage){  
-        Long id = spokenLanguage.getLanguageId();
-        System.out.println(id);
-        spokenLanguageService.delete(id);
-        return "Spoken Language deleted";
+    public boolean create(@RequestBody SpokenLangDTO langDTO){
+        return langService.create(langMapper.toEntity(langDTO));
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody SpokenLang spokenLanguage){  
-        Long id = spokenLanguage.getLanguageId();
-        if(id != null){
-            SpokenLang currentSpokenLanguage;
-            currentSpokenLanguage = (SpokenLang)spokenLanguageService.getOne(id);
-            if(currentSpokenLanguage != null){
-                spokenLanguageService.create(spokenLanguage); // Solo existe el método save() para crear y para modificar.  
-                return "Spoken Language updated";
-            }else{
-                return "Spoken Language not found";
-            }
-        }else{
-            return "Id missing";
-        }
+    public boolean update(@RequestBody SpokenLangDTO langDTO){
+        return langService.update(langMapper.toEntity(langDTO));
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public boolean delete(@RequestBody Long id){  
+        return langService.delete(id);
     }
     
 }

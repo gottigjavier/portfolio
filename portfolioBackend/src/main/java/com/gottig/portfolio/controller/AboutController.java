@@ -46,31 +46,22 @@ public class AboutController {
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody AboutDTO aboutDTO){
-        if(!aboutService.create(aboutMapper.toEntity(aboutDTO))){
-            return "Error. Not Created";
-        }
-        return "Created";
+    public boolean create(@RequestBody AboutDTO aboutDTO){
+        return aboutService.create(aboutMapper.toEntity(aboutDTO));
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody AboutDTO aboutDTO){
-        if(!aboutService.update(aboutMapper.toEntity(aboutDTO))){
-            return "Error. Not Updated";
-        }
-        return "Updated";
+    public boolean update(@RequestBody AboutDTO aboutDTO){
+        return aboutService.update(aboutMapper.toEntity(aboutDTO));
     }
     
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String delete(@PathVariable Long id){  
-        if(!aboutService.delete(id)){
-            return "Error. Not Deleted";
-        }
-        return "Deleted";
+    public boolean delete(@PathVariable Long id){
+        return aboutService.delete(id);
     }
     
 }

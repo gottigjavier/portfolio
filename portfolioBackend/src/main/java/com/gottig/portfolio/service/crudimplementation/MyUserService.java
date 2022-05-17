@@ -1,20 +1,20 @@
 package com.gottig.portfolio.service.crudimplementation;
 
-import com.gottig.portfolio.dao.UserDAO;
 import com.gottig.portfolio.model.MyUser;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import com.gottig.portfolio.dao.MyUserDAO;
 
 
 
 
 @Service
-public class UserService<T> implements CRUDServiceInterface<MyUser>{
+public class MyUserService<T> implements CRUDServiceInterface<MyUser>{
     
     @Autowired
-    public UserDAO userDao;
+    public MyUserDAO userDao;
 
     @Override
     public List<MyUser> getAll() {

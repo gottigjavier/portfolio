@@ -1,5 +1,7 @@
 package com.gottig.portfolio.controller;
 
+import com.gottig.portfolio.dto.classes.JobExperienceDTO;
+import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
 import com.gottig.portfolio.model.JobExperience;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,48 +27,42 @@ public class JobExperienceController {
     @Autowired
     private CRUDServiceInterface<JobExperience> jobService;
     
+    @Autowired
+    private CommonMapper<JobExperienceDTO, JobExperience> jobMapper;
+    
     @GetMapping("/list")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public List<JobExperience> getAll(){
-        return jobService.getAll();
+    public List<JobExperienceDTO> getAll(){
+        return jobMapper.toDtoAll(jobService.getAll());
+    }
+    
+    @GetMapping("/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public JobExperienceDTO getOne(@PathVariable Long id){
+        return jobMapper.toDto(jobService.getOne(id));
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String create(@RequestBody JobExperience jobExp){
-        jobService.create(jobExp);
-        return "Job Experience created";
-    }
-    
-    @DeleteMapping("/delete")
-    @CrossOrigin(origins = CROSSORIGIN)
-    @ResponseBody
-    public JobExperience delete(@RequestBody JobExperience jobId){  
-        //Long id = jobId.getJobId();
-        System.out.println(jobId.getJobId());
-        jobService.delete(jobId.getJobId());
-        return jobId;
+    public boolean create(@RequestBody JobExperienceDTO jobDTO){
+        return jobService.create(jobMapper.toEntity(jobDTO));
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public String update(@RequestBody JobExperience jobExp){  
-        Long id = jobExp.getJobId();
-        if(id != null){
-            JobExperience currentJob;
-            currentJob = (JobExperience)jobService.getOne(id);
-            if(currentJob != null){
-                jobService.create(jobExp); // Solo existe el método save() para crear y para modificar.  
-                return "Job Experience updated";
-            }else{
-                return "Job Experience not found";
-            }
-        }else{
-            return "Id missing";
-        }
+    public boolean update(@RequestBody JobExperienceDTO jobDTO){
+        return jobService.update(jobMapper.toEntity(jobDTO));
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    @CrossOrigin(origins = CROSSORIGIN)
+    @ResponseBody
+    public boolean delete(@PathVariable Long id){  
+        return jobService.delete(id);
     }
     
 }
