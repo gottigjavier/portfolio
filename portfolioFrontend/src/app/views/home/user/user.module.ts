@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserComponent } from './user/user.component';
-
+import { UserComponent } from './user.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -9,7 +9,11 @@ import { UserComponent } from './user/user.component';
     UserComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule
+  ],
+  exports: [
+    UserComponent
   ]
 })
 export class UserModule { }

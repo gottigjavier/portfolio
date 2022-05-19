@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MyProject } from 'src/app/models/my-project.model';
 import { Technology } from 'src/app/models/technology.model';
 import { DataService } from 'src/app/services/data.service';
 
@@ -11,11 +10,9 @@ import { DataService } from 'src/app/services/data.service';
 export class TechnologiesComponent<T> implements OnInit {
 
 
-  private techList: Array<Technology>=[];
-  public technology= new Technology();
+  public techList: Array<Technology>=[];
   private endPoint: string= "technology/list";
-  //private myproject= new MyProject();
-
+  
   constructor(private dataService: DataService<T>) {
     
   }
@@ -24,7 +21,6 @@ export class TechnologiesComponent<T> implements OnInit {
     this.dataService.getAll<Array<Technology>>(this.endPoint).subscribe(response => {
       console.log("tech -> ", response);
       this.techList = response;
-      //this.technology= this.techList[0];
     }) 
 };
 

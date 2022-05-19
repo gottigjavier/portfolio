@@ -1,7 +1,7 @@
 package com.gottig.portfolio.dto.mapperimplementation;
 
-import com.gottig.portfolio.dto.classes.JobExperienceDTO;
-import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
+import com.gottig.portfolio.dto.dtomodel.JobExperienceDTO;
+import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.JobExperience;
 import java.util.ArrayList;
 import java.util.List;

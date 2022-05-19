@@ -8,6 +8,6 @@ export class Technology{
     techDescription: string= "";
     techLevel: number= 0;
     techIndex: number= 0;
-    projectList: Set<MyProject>= new Set;
+    projectList: Array<MyProject>= new Array;
 
     }

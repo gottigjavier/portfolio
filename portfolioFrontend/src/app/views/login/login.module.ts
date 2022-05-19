@@ -10,8 +10,6 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginService } from 'src/app/services/login.service';
-import { DataService } from 'src/app/services/data.service';
-
 
 @NgModule({
   declarations: [
@@ -31,8 +29,7 @@ import { DataService } from 'src/app/services/data.service';
     SharedModule
   ],
   providers: [
-    LoginService,
-    DataService
+    LoginService
   ]
 })
 export class LoginModule { }

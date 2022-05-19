@@ -1,9 +1,10 @@
 .full-width {
   width: 100%;
+  vertical-align: middle !important;
 }
 
 .myform {
-  margin: 5% auto;
+  margin: auto;
   padding: 0 25%;
 }
 

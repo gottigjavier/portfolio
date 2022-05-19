@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpokenLanguagesComponent } from './spoken-languages.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -9,7 +10,11 @@ import { SpokenLanguagesComponent } from './spoken-languages.component';
     SpokenLanguagesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule
+  ],
+  exports: [
+    SpokenLanguagesComponent
   ]
 })
 export class SpokenLanguagesModule { }

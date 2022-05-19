@@ -5,6 +5,6 @@ export class MyProject{
     projName: string= "";
     projDescription: string= "";
     projUrl: string= "";
-    techList: Set<Technology>= new Set;
+    techList: Array<Technology>= new Array;
     projIndex: number= 0;
 }

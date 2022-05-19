@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EducationComponent } from './education.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -9,7 +10,11 @@ import { EducationComponent } from './education.component';
     EducationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule
+  ],
+  exports: [
+    EducationComponent
   ]
 })
 export class EducationModule { }

@@ -1,7 +1,7 @@
 package com.gottig.portfolio.controller;
 
-import com.gottig.portfolio.dto.classes.MyProjectDTO;
-import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
+import com.gottig.portfolio.dto.dtomodel.MyProjectDTO;
+import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.MyProject;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

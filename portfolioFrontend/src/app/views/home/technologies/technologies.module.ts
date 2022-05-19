@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TechnologiesComponent } from './technologies.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -9,7 +10,8 @@ import { TechnologiesComponent } from './technologies.component';
     TechnologiesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule
   ],
   exports: [
     TechnologiesComponent

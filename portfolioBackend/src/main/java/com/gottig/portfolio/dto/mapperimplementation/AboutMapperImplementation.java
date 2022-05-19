@@ -1,7 +1,7 @@
 package com.gottig.portfolio.dto.mapperimplementation;
 
-import com.gottig.portfolio.dto.classes.AboutDTO;
-import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
+import com.gottig.portfolio.dto.dtomodel.AboutDTO;
+import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.About;
 import java.util.ArrayList;
 import java.util.List;

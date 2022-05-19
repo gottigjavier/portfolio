@@ -10,8 +10,7 @@ import { MatCardModule } from '@angular/material/card';
     BannerComponent
   ],
   imports: [
-    CommonModule,
-    MatCardModule
+    CommonModule
   ],
   exports: [
     BannerComponent

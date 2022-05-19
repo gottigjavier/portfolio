@@ -1,4 +1,4 @@
-package com.gottig.portfolio.dto.classes;
+package com.gottig.portfolio.dto.dtomodel;
 
 import lombok.Data;
 

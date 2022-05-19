@@ -9,28 +9,23 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AboutComponent<T> implements OnInit {
 
-  public about: About;
-  private aboutList: Array<About> = [];
+  public about: About={
+    aboutId: 0,
+  firstName: "",
+  lastName: "",
+  shortExplanation: "",
+  photoUrl: ""
+  };
   private endPoint: string= "about/list";
   
   constructor(
     private dataService: DataService<T>
-    ) {
-      this.aboutList =[
-        this.about={
-        aboutId: 0,
-      firstName: "",
-      lastName: "",
-      shortExplanation: "",
-      photoUrl: ""
-      }]
-  }
+    ) { }
 
   ngOnInit(): void {
       this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
-        console.log("about -> ", response);
-        this.aboutList = response;
-        this.about= this.aboutList[0];
+        this.about= response[0];
+        console.log("about -> ", this.about);
       }) 
   };
 

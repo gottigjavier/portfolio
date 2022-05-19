@@ -1,7 +1,7 @@
 package com.gottig.portfolio.controller;
 
-import com.gottig.portfolio.dto.classes.SkillDTO;
-import com.gottig.portfolio.dto.mapperintefaces.CommonMapper;
+import com.gottig.portfolio.dto.dtomodel.SkillDTO;
+import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.Skill;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
