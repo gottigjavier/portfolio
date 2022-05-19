@@ -102,7 +102,7 @@ hay que agregar dentro de la clase que tiene el main:
     }    
 ``` 
 
-#### End Points
+### End Points
 
 Los endpoints tienen la forma:
 
@@ -124,11 +124,11 @@ http://localhost:8080/{endpoint-recurso}/{petición}
 
 GET
 
-Listar todos: list
+Listar todos: ***list***
 ```
 Ejemplo: http://localhost:8080/user/list
 ```
-Traer uno: 1 (el id del recurso)
+Traer uno: ***1*** (el id del recurso)
 ```
 Ejemplo: http://localhost:8080/user/1
 ```
@@ -137,7 +137,7 @@ Ejemplo: http://localhost:8080/user/1
 
 POST
 
-Crear un recurso: create (el id del recurso se genera automáticamente en la tabla de la DB)
+Crear un recurso: ***create*** (el id del recurso se genera automáticamente en la tabla de la DB)
 ```
 Ejemplo: http://localhost:8080/user/create
 ```
@@ -146,7 +146,7 @@ Ejemplo: http://localhost:8080/user/create
 
 PUT
 
-Editar recurso: update (el id del recurso debe estar incluída en el body (JSON) de la petición)
+Editar recurso: ***update*** (el id del recurso debe estar incluída en el body (JSON) de la petición)
 ```
 Ejemplo: http://localhost:8080/user/update
 ```
@@ -155,7 +155,7 @@ Ejemplo: http://localhost:8080/user/update
 
 DELETE
 
-Borrar recurso: delete/1 (el id del recurso)
+Borrar recurso: ***delete/1*** (el id del recurso)
 ```
 Ejemplo: http://localhost:8080/user/delete/1
 ```
