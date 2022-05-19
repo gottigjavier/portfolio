@@ -106,19 +106,21 @@ hay que agregar dentro de la clase que tiene el main:
 
 Los endpoints tienen la forma:
 
+```
 http://localhost:8080/{endpoint-recurso}/{petición}
+```
 
-###### Recurso --> endpoint
-User --> user
-About --> about
-Education --> education
-Job Experience --> job-experience
-Project --> my-project
-Skill --> skill
-Spoken Languages --> spoken-language
-Technology --> techology
+**Recurso --> endpoint**
+- User --> user
+- About --> about
+- Education --> education
+- Job Experience --> job-experience
+- Project --> my-project
+- Skill --> skill
+- Spoken Languages --> spoken-language
+- Technology --> techology
 
-###### Peticiones:
+**Peticiones:**
 
 GET
 Listar todos: list
