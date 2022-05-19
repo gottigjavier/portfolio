@@ -1,6 +1,6 @@
 export interface JobExperience{
     jobId: number,
-    educationType: string,
+    companyType: string,
     companyName: string,
     companyLogoUrl: string,
     companyActivity: string,

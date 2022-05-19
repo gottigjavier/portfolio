@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,7 +46,8 @@ public class JobExperience implements Serializable {
     @Column(name="job_duties") // Deberes laborales
     private String jobDuties;
     
-    @Column(name="lessons_learned")
+    @Lob // tring > 255
+    @Column(name="lessons_learned", length=1024)
     private String lessonsLearned;
         
     @Temporal(TemporalType.DATE)

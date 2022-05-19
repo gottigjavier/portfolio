@@ -16,6 +16,8 @@ public class EducationDTO {
     
     private String institutionLink;
     
+    private String educationCareer;
+    
     private java.util.Date educationStart;
     
     private java.util.Date educationEnd;

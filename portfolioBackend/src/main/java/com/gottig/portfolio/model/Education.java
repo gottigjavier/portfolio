@@ -39,6 +39,9 @@ public class Education implements Serializable{
     @Column(name="institution_link")
     private String institutionLink;
     
+    @Column(name="education_career")
+    private String educationCareer;
+    
     @Temporal(TemporalType.DATE)
     @Column(name="education_start")
     private java.util.Date educationStart;
