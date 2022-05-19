@@ -94,10 +94,55 @@ a mano. La ventaja es que se tiene control de las clases para modificarlas. Por 
 de código como atributos tenga. Con "modelmapper" esto se hace en dos líneas, siempre.
 Hay que hacer la importación a través de @Autowired, y para que esté disponible
 hay que agregar dentro de la clase que tiene el main:
+
 ``` 
 @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper(); 
-    }
+    }    
 ``` 
+```
+
+#### End Points
+
+Los endpoints tienen la forma:
+
+http://localhost:8080/{endpoint-recurso}/{petición}
+
+###### Recurso --> endpoint
+User --> user
+About --> about
+Education --> education
+Job Experience --> job-experience
+Project --> my-project
+Skill --> skill
+Spoken Languages --> spoken-language
+Technology --> techology
+
+###### Peticiones:
+
+GET
+Listar todos: list
+Ejemplo: http://localhost:8080/user/list
+Traer uno: 1 (el id del recurso)
+Ejemplo: http://localhost:8080/user/1
+----------------------------------------
+
+POST
+Crear un recurso: create (el id del recurso se genera automáticamente en la tabla de la DB)
+Ejemplo: http://localhost:8080/user/create
+----------------------------------------
+ 
+PUT
+Editar recurso: update (el id del recurso debe estar incluída en el body (JSON) de la petición)
+Ejemplo: http://localhost:8080/user/update
+----------------------------------------
+
+DELETE
+Borrar recurso: delete/1 (el id del recurso)
+Ejemplo: http://localhost:8080/user/delete/1
+----------------------------------------
+
+
+
 
