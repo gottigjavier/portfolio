@@ -127,22 +127,22 @@ Listar todos: list
 Ejemplo: http://localhost:8080/user/list
 Traer uno: 1 (el id del recurso)
 Ejemplo: http://localhost:8080/user/1
-----------------------------------------
+\----------------------------------------
 
 POST
 Crear un recurso: create (el id del recurso se genera automáticamente en la tabla de la DB)
 Ejemplo: http://localhost:8080/user/create
-----------------------------------------
+\----------------------------------------
  
 PUT
 Editar recurso: update (el id del recurso debe estar incluída en el body (JSON) de la petición)
 Ejemplo: http://localhost:8080/user/update
-----------------------------------------
+\----------------------------------------
 
 DELETE
 Borrar recurso: delete/1 (el id del recurso)
 Ejemplo: http://localhost:8080/user/delete/1
-----------------------------------------
+\----------------------------------------
 
 
 
