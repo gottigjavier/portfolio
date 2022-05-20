@@ -33,17 +33,17 @@
     </button>
     </div>
   </div>
-  <div>
-    <h2>Technologyes</h2>
-  </div>
-  <div class="row">
-    <div *ngFor="let tech of techList">
-      <p>{{tech.techName}}</p>
-      <p>{{tech.techType}}</p>
-      <p>{{tech.techDescription}}</p>
-      <p>{{tech.techIconUrl}}</p>
-      <p>{{tech.techLevel}}</p>
-      <p>{{tech.techIndex}}</p>
+  <div class="tech-container">
+    <h2 class="tech-title">Technologies</h2>
+    <div class="grid-container">
+      <div *ngFor="let tech of techList">
+        <div class="">
+          <img src="{{tech.techIconUrl}}" alt="{{tech.techName}}" class="tech-logo">
+        </div>
+        <!-- <p>
+          {{tech.techLevel}}
+        </p> -->
+      </div>
     </div>
   </div>
 </div>

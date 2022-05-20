@@ -33,10 +33,11 @@
     </button>
     </div>
   </div>
-  <div class="container-fluid skill-container">
+  <div class="skill-container">
     <h2 class="skill-title">Skills</h2>
+    <hr>
     <div class="row">
-      <div *ngFor="let skill of skills">
+      <div class="col" *ngFor="let skill of skills">
         <p>
           <b class="items-title">Skill: </b>
           <span class="skill-name">{{skill.skillName}}  </span>
