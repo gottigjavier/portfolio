@@ -1,0 +1,34 @@
+.lang-container{
+    background-color: aqua;
+}
+
+.lang-title{
+    padding: 1ch 0ch;
+    font-size: 4ch;
+    text-align: center;
+}
+
+.items{
+    padding-top: 2ch;
+}
+
+.items-title{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 3ch;
+    font-weight: 800;
+}
+
+.lang-name{
+    font-size: 2.5ch;
+}
+
+.lang-logo{
+    width:"auto";
+    max-height:30px;
+    border-radius: 10%;
+    border: 2px solid blue;
+}
+
+.items-text{
+    font-size: 2ch;
+}

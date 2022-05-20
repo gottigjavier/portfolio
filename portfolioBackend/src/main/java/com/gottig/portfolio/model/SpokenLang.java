@@ -28,10 +28,16 @@ public class SpokenLang implements Serializable{
     private String languageName;
     
     @Column(name="language_level")
-    private Double languageLevel;
+    private String langLevel;
+    
+    @Column(name="percent_level")
+    private Double percentLevel;
     
     @Column(name="certification_url")
     private String certificationUrl;
+    
+    @Column(name="language_flag_url")
+    private String langFlagUrl;
     
     @Column(name="language_index")// En caso de necesitar que persista el orden dado en el front
     private int languageIndex;

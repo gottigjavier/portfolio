@@ -33,20 +33,51 @@
     </button>
     </div>
   </div>
-  <div>
-    <h2>Education</h2>
-  </div>
-  <div class="row">
-    <div *ngFor="let edu of eduList">
-      <p>{{edu.institutionName}}</p>
-      <p>{{edu.institutionLink}}</p>
-      <p>{{edu.institutionLogo}}</p>
-      <p>{{edu.educationType}}</p>
-      <p>{{edu.educationCareer}}</p>
-      <p>{{edu.educationStart}}</p>
-      <p>{{edu.educationEnd || "2000-01-01"}}</p>
-      <p>Aproved: {{edu.approvedLevel}}</p>
-      <p>{{edu.eduIndex}}</p>
+  <div class="container-fluid edu-container">
+    <h2 class="edu-title">Education</h2>
+    <div class="row">
+      <div *ngFor="let edu of eduList">
+      <p>
+        <b class="items-title">Institution: </b>
+          <span class="inst-name">{{edu.institutionName}}  </span>
+          <span>
+          <a href="{{edu.institutionLink}}" target="_blank">
+            <img src="{{edu.institutionLogo}}" alt="Institution Logo" class="inst-logo">
+            </a> .. </span>
+          <small>  (*click on the image to visit the site)</small>
+      </p>
+      <p>
+        <b class="items-title">Level: </b>
+          <span class="inst-name">
+        {{edu.educationType}}
+        </span>
+      </p>
+      <p>
+        <b class="items-title">Career: </b>
+          <span class="inst-name">
+        {{edu.educationCareer}}
+        </span>
+      </p>
+      <p>
+        
+      </p>
+      <p>
+        
+      </p>
+      <p>
+        <b class="items-title">Course Date Range: </b>
+        <span class="items-text">
+          {{edu.educationStart}} to {{edu.educationEnd || "(Not Finished)"}}
+        </span>
+      </p>
+      <p>
+        <b class="items-title">Approved Percentage: </b>
+          <span class="inst-name">
+        {{edu.approvedLevel}} %;
+        </span>
+      </p>
+        <hr>
     </div>
   </div>
+</div>
 </div>

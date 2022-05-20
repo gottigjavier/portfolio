@@ -1,6 +1,5 @@
 export interface JobExperience{
     jobId: number,
-    companyType: string,
     companyName: string,
     companyLogoUrl: string,
     companyActivity: string,

@@ -33,22 +33,48 @@
     </button>
     </div>
   </div>
+  <div class="container-fluid job-container">
   <div>
-    <h2>Job Experience</h2>
+    <h2 class="job-experience">Job Experience</h2>
   </div>
   <div class="row">
-    <div *ngFor="let job of jobList">
-      <p>{{job.companyName}}</p>
-      <p>{{job.companyActivity}}</p>
-      <p>{{job.companyType}}</p>
-      <p>{{job.companyLink}}</p>
-      <p>{{job.companyLogoUrl}}</p>
-      <p>{{job.jobPosition}}</p>
-      <p>{{job.jobDuties}}</p>
-      <p>{{job.lessonsLearned}}</p>
-      <p>{{job.jobStart}}</p>
-      <p>{{job.jobEnd}}</p>
-      <p>{{job.jobIndex}}</p>
+    <div class="items" *ngFor="let job of jobList">
+      <p>
+          <b class="items-title">Company: </b>
+          <span class="company-name">{{job.companyName}}  </span>
+          <a href="{{job.companyLink}}" target="_blank">
+            <img src="{{job.companyLogoUrl}}" alt="Company Logo" class="company-logo">
+          </a>
+      </p>
+      <p>
+        <b class="items-title">Company Activity: </b> <span class="items-text"> {{job.companyActivity}}</span>
+      </p>
+      <p>
+        <b class="items-title">Job Position: </b>
+        <span class="items-text">
+          {{job.jobPosition}}
+        </span>
+      </p>
+      <p>
+        <b class="items-title">Job Duties: </b>
+        <span class="items-text">
+        {{job.jobDuties}}
+        </span>
+      </p>
+      <p>
+        <b class="items-title">Achievements and General Skills Acquired: </b>
+        <span class="items-text">
+        {{job.lessonsLearned}}
+        </span>
+      </p>
+      <p>
+        <b class="items-title">Service Interval: </b>
+        <span class="items-text">
+        {{job.jobStart}} to {{job.jobEnd}}
+        </span>
+      </p>
+        <hr>
     </div>
+  </div>
   </div>
 </div>

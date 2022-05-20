@@ -33,17 +33,35 @@
     </button>
     </div>
   </div>
-  <div>
-    <h2>Skills</h2>
-  </div>
-  <div class="row">
-    <div *ngFor="let skill of skills">
-      <p>{{skill.skillName}}</p>
-      <p>{{skill.skillType}}</p>
-      <p>{{skill.skillDescription}}</p>
-      <p>{{skill.skillUrlIcon}}</p>
-      <p>{{skill.skillLevel}}</p>
-      <p>{{skill.skillIndex}}</p>
+  <div class="container-fluid skill-container">
+    <h2 class="skill-title">Skills</h2>
+    <div class="row">
+      <div *ngFor="let skill of skills">
+        <p>
+          <b class="items-title">Skill: </b>
+          <span class="skill-name">{{skill.skillName}}  </span>
+          <img src="{{skill.skillUrlIcon}}" alt="Skill Logo" class="skill-logo">
+        </p>
+        <p>
+          <b class="items-title">Type: </b>
+          <span class="skill-name">
+          {{skill.skillType}}
+          </span>
+        </p>
+        <p>
+          <b class="items-title">Description: </b>
+          <span class="items-text">
+          {{skill.skillDescription}}
+          </span>
+        </p>
+        <p>
+          <b class="items-title">Level: </b>
+          <span class="items-text">
+          {{skill.skillLevel}} %.
+          </span>
+        </p>
+        <hr>
+      </div>
     </div>
   </div>
 </div>

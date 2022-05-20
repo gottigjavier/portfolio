@@ -1,0 +1,34 @@
+.edu-container{
+    background-color: aqua;
+}
+
+.edu-title{
+    padding: 1ch 0ch;
+    font-size: 4ch;
+    text-align: center;
+}
+
+.items{
+    padding-top: 2ch;
+}
+
+.items-title{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 3ch;
+    font-weight: 800;
+}
+
+.inst-name{
+    font-size: 2.5ch;
+}
+
+.inst-logo{
+    width:"auto";
+    max-height:70px;
+    border-radius: 10%;
+    border: 2px solid blue;
+}
+
+.items-text{
+    font-size: 2ch;
+}

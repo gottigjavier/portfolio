@@ -10,9 +10,13 @@ public class SpokenLangDTO {
     
     private String languageName;
     
-    private Double languageLevel;
+    private String langLevel;
     
+    private Double percentLevel;
+ 
     private String certificationUrl;
+    
+    private String langFlagUrl;
     
     private int languageIndex;
     

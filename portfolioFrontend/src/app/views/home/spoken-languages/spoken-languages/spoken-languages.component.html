@@ -33,15 +33,24 @@
     </button>
     </div>
   </div>
-  <div>
-    <h2>Spoken Languages</h2>
-  </div>
-  <div class="row">
-    <div *ngFor="let lang of langList">
-      <p>{{lang.languageName}}</p>
-      <p>{{lang.languageLevel}}</p>
-      <p>{{lang.certificationUrl}}</p>
-      <p>{{lang.languageIndex}}</p>
+  <div class="container-fluid lang-container">
+    <h2 class="lang-title">Spoken Languages</h2>
+    <div class="row">
+      <div *ngFor="let lang of langList">
+        <b class="items-title">Language: </b>
+        <a href="{{lang.certificationUrl}}" target="_blank">
+          <img src="{{lang.langFlagUrl}}" alt="Language Logo" class="lang-logo">
+        </a> 
+        <span class="lang-name">   {{lang.languageName}}  </span>
+        <small>  (*click on the flag to see the certificate.)</small>
+        <p>
+          <b class="items-title">Level: </b>
+          <span class="items-text">
+          <b>{{lang.langLevel}}</b> / {{lang.percentLevel}} %.
+          </span>
+        </p>
+        <hr>
+      </div>
     </div>
   </div>
 </div>
