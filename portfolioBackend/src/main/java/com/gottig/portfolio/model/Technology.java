@@ -41,8 +41,9 @@ public class Technology implements Serializable{
     @Column(name="tech_description")
     private String techDescription;
     
-    @Column(name="tech_level")
-    private Double techLevel;
+    // El deafult 30 se guarda solo al crear la tabla. Luego ingresa 0 por defecto si no viene valor
+    @Column(name="tech_level", columnDefinition = "integer default 30")
+    private int techLevel;
     
     @Column(name="tech_index")// En caso de necesitar que persista el orden dado en el front
     private int techIndex;

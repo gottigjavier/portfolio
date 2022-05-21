@@ -33,16 +33,14 @@
     </button>
     </div>
   </div>
+  <!-- <div (window:resize)="onResize($event)"></div> -->
   <div class="tech-container">
     <h2 class="tech-title">Technologies</h2>
     <div class="grid-container">
       <div *ngFor="let tech of techList">
         <div class="">
-          <img src="{{tech.techIconUrl}}" alt="{{tech.techName}}" class="tech-logo">
+          <img src="{{tech.techIconUrl}}" title="{{tech.techDescription}}" width="{{tech.techLevel}}" alt="Technology Logo" class="tech-logo">
         </div>
-        <!-- <p>
-          {{tech.techLevel}}
-        </p> -->
       </div>
     </div>
   </div>

@@ -20,7 +20,11 @@ export class TechnologiesComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<Array<Technology>>(this.endPoint).subscribe(response => {
       console.log("tech -> ", response);
+      console.log("width  ", window.innerWidth)
       this.techList = response;
+      this.techList.map(tech =>{
+        tech.techLevel= tech.techLevel*window.innerWidth/400;
+      })
     }) 
 };
 

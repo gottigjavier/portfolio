@@ -16,7 +16,7 @@ public class TechnologyDTO {
     
     private String techDescription;
     
-    private Double techLevel;
+    private int techLevel;
     
     private int techIndex;
     

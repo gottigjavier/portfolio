@@ -61,7 +61,7 @@ public class TechnologyController {
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = CROSSORIGIN)
     @ResponseBody
-    public boolean delete(@RequestBody Long id){  
+    public boolean delete(@PathVariable Long id){  
         return techService.delete(id);
     }
     
