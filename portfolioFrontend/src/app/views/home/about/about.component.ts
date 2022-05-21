@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { About } from 'src/app/models/about.model';
 import { DataService } from 'src/app/services/data.service';
 
+declare var $ : any;
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -21,6 +22,10 @@ export class AboutComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>
     ) { }
+  openPopup(){
+    $("#myModal").modal("show");
+  }
+
 
   ngOnInit(): void {
       this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {

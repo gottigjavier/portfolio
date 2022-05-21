@@ -11,6 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 import { EducationModule } from './education/education.module';
 import { SkillsModule } from './skills/skills.module';
 import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoken-languages.module';
+import { AboutEditModule } from 'src/app/views/popups/about-edit/about-edit/about-edit.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoke
     SpokenLanguagesModule,
     ProjectsModule,
     TechnologiesModule,
-    SharedModule
+    SharedModule,
+    AboutEditModule
   ],
   exports: [
     AboutModule,
@@ -36,7 +38,8 @@ import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoke
     SkillsModule,
     SpokenLanguagesModule,
     ProjectsModule,
-    TechnologiesModule
+    TechnologiesModule,
+    AboutEditModule
   ],
   providers: [
     DataService
