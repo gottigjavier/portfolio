@@ -18,6 +18,7 @@ export class SpokenLanguagesComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<Array<SpokenLanguage>>(this.endPoint).subscribe(response => {
       console.log("Languages -> ", response);
+      response.sort((a,b) => a.languageIndex - b.languageIndex);
       this.langList = response;
       })
   }

@@ -17,6 +17,7 @@ export class ProjectsComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
       console.log("proj list -> ", response);
+      response.sort((a,b) => a.projIndex - b.projIndex);
       this.projList = response;
     }) 
 };

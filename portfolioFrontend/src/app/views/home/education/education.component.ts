@@ -17,6 +17,7 @@ export class EducationComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
     console.log("education -> ", response);
+    response.sort((a,b) => a.eduIndex - b.eduIndex);
     this.eduList = response;
     })
   }

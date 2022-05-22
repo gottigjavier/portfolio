@@ -36,9 +36,12 @@
   <div class="row">
     <h2 class="title">{{about.firstName}} {{about.lastName}}</h2>
   </div>
-        <div class="row">
+        <div class="row" *ngIf="(about.photoUrl != null) else defaultphoto">
             <img src={{about.photoUrl}} class="image" alt="About Photo" title="About Photo">
         </div>
+        <ng-template #defaultphoto>
+          <img src="https://i.imgur.com/FpQreWg.jpeg" class="image" alt="About Photo" title="About Photo">
+        </ng-template>
         <div>
           <br />
         </div>

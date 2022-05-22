@@ -15,7 +15,7 @@ export class BindingService<T> {
     this.updatesData();
   }
 
-  // Emitimos los cambio de this.persona.
+  // Emitimos los cambio de this.data
   updatesData() {
     this.dataEmitter.emit(this.data);
   }

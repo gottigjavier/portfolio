@@ -32,7 +32,7 @@ export class AboutComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
-      this.about= response[0];
+      this.about= response[response.length-1]; // Last created
       console.log("about -> ", this.about);
     }) 
   };
