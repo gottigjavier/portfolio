@@ -36,14 +36,15 @@
   <div class="row">
     <h2 class="title">{{about.firstName}} {{about.lastName}}</h2>
   </div>
-  <div class="row">
-        <div class="col-4 image">
-          <div class="header-image"></div>
+        <div class="row">
+            <img src={{about.photoUrl}} class="image" alt="About Photo" title="About Photo">
         </div>
-          <div class="col-8">
+        <div>
+          <br />
+        </div>
+          <div class="row">
             <h4 class="explanation">
               {{about.shortExplanation}}
             </h4>  
           </div>
-  </div>
 </div>

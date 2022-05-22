@@ -24,4 +24,8 @@ export class DataService<T> {
   public getOne<T>(endPoint: string): Observable<T>{
     return this.http.get<T>(`${this.url}/${endPoint}`);
   }
+
+  public update<T>(endPoint: string, data: T): Observable<any>{
+    return this.http.put(`${this.url}/${endPoint}`, data);
+  }
 }

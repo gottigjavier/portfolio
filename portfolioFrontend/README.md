@@ -1,5 +1,24 @@
 # Portfolio
 
+### Self help
+
+#### Service
+
+La capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
+Por el momento se creó otra clase genérica para manejar la autenticacón de login pero en el futuro se podrá optar por dejar solo DataService.  
+
+#### Modal Form y Bindin Service
+
+Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela al servicio (genérico) "binding" y así tanto el componente y la ventana comparten los datos.
+
+#### Iconos
+
+Por el momento los íconos para edición se cargan desde [Getbootstrap](https://icons.getbootstrap.com/)
+También se bajaron los .svg en una carpeta para ser invocados o para ser guardados en un repositorio en línea y ser cargados desde allí como se hace con los logos de tecnologías.
+
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
 ## Development server
@@ -25,15 +44,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-### Self help
-
-#### Service
-
-La capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
-Por el momento se creó otra clase genérica para manejar la autenticacón de login pero en el futuro se podrá optar por dejar solo DataService.  
-#### Iconos
-
-Por el momento los íconos para edición se cargan desde [Getbootstrap](https://icons.getbootstrap.com/)
-También se bajaron los .svg en una carpeta para ser invocados o para ser guardados en un repositorio en línea y ser cargados desde allí como se hace con los íconos de tecnologías.
 

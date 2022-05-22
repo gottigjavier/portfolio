@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-//import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { About } from 'src/app/models/about.model';
+import { BindingService } from 'src/app/services/binding.service';
+import { DataService } from 'src/app/services/data.service';
+
 
 declare var $ : any;
 
@@ -8,30 +12,55 @@ declare var $ : any;
   templateUrl: './about-edit.component.html',
   styleUrls: ['./about-edit.component.css']
 })
-export class AboutEditComponent implements OnInit {
+export class AboutEditComponent<T> implements OnInit {
 
-  constructor(
-    //public formdata: FormGroup
-  ) { }
+  public about: About;
 
+  private endPoint: string="about/update";
+
+  popupForm= this.fb.group({
+    firstName: [],
+    lastName: "",
+    shortExplanation: "",
+    photoUrl: ""
+  });
   
-  title: string = 'angularpopupform';
+  constructor(
+    private fb: FormBuilder,
+    private service: DataService<T>,
+    private binding: BindingService<About>
+    ) {
+    this.about={
+    aboutId: 0,
+      firstName: "",
+    lastName: "",
+    shortExplanation: "",
+    photoUrl: ""
+    }
+
+  }
+
   
   closePopup(){
     $("#myModal").modal("hide");
   }
-  ngOnInit()
-  {
-    /* this.formdata = new FormGroup({
-      Fname : new FormControl("", [Validators.required])
-    }); */
+  ngOnInit(): void{
+    this.binding.dataEmitter.subscribe(data =>{
+      this.about= data;
+    })
   }
-  on_submit(fordata: any){
-       // if (this.formdata.invalid) {
-          /* Object.keys(this.formdata.controls).forEach(key => {
-            this.formdata.get(key).markAsTouched();
-         // }); */
-      //}
+  
+  onSubmit(){
+    this.about.firstName= this.popupForm.value.firstName || this.about.firstName;
+    this.about.lastName= this.popupForm.value.lastName || this.about.lastName;
+    this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
+    this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
+    this.service.update(this.endPoint, this.about).subscribe(resp =>{
+      console.log("About Backend Response ", resp);
+    })
+    console.log("first name popup depues de send ",this.about.firstName);
+    this.popupForm.reset();
+    this.closePopup();
       }
 
 }

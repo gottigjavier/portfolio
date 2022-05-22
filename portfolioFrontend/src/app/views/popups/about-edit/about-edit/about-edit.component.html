@@ -3,38 +3,39 @@
     <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">About Edit</h4>
                     <button type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
-                <!-- Modal body -->
-                <!-- <div class="modal-body">
-                    <form [formGroup]="formdata" (ngSubmit)="on_submit(formdata.value)" class="form"
-                        enctype="multipart/form-data">
-                        <div class="form-group"
-                            [ngClass]="{error:formdata.controls.Fname.errors && formdata.controls.Fname.touched}">
-                            <label for="Inputuname">Photo Upload <span class="required-asteric">*</span></label>
-                            <div class="input-group controls">
-                                <input formControlName="Fname" type="text" class="form-control">
-                                <div *ngIf="formdata.controls.Fname.errors && formdata.controls.Fname.touched"
-                                    style="color:red;float: left;width: 100%;background: #ff000014;margin-top: 10px;padding: 10px 2px 0px 1px;">
-                                    <ul>
-                                        <li>Fname is required.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
- -->
-                <!-- Modal footer -->
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
- -->
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input id="fname" class="form-control" formControlName="firstName" value={{about.firstName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input id="lname" class="form-control" type="text" value={{about.lastName}} formControlName="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="about-description" class="form-label">About Description</label>
+                        <textarea class="form-control" formControlName="shortExplanation" value={{about.shortExplanation}} id="about-description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-url" class="form-label">Image URL</label>
+                        <input id="image-url" class="form-control" type="text" value={{about.photoUrl}} formControlName="photoUrl">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
             </div>
         </div>
     </div>

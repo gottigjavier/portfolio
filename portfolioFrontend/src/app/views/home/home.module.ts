@@ -11,7 +11,8 @@ import { DataService } from 'src/app/services/data.service';
 import { EducationModule } from './education/education.module';
 import { SkillsModule } from './skills/skills.module';
 import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoken-languages.module';
-import { AboutEditModule } from 'src/app/views/popups/about-edit/about-edit/about-edit.module';
+import { PopusEditModule } from '../popups/popus-edit.module';
+import { BindingService } from 'src/app/services/binding.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { AboutEditModule } from 'src/app/views/popups/about-edit/about-edit/abou
     ProjectsModule,
     TechnologiesModule,
     SharedModule,
-    AboutEditModule
+    PopusEditModule
   ],
   exports: [
     AboutModule,
@@ -39,10 +40,11 @@ import { AboutEditModule } from 'src/app/views/popups/about-edit/about-edit/abou
     SpokenLanguagesModule,
     ProjectsModule,
     TechnologiesModule,
-    AboutEditModule
+    PopusEditModule
   ],
   providers: [
-    DataService
+    DataService,
+    BindingService
   ]
 })
 export class HomeModule { }
