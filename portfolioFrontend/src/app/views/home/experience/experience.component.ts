@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JobExperience } from 'src/app/models/job-experience.model';
+import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-experience',
@@ -12,8 +15,12 @@ export class ExperienceComponent<T> implements OnInit {
   public jobList: Array<JobExperience>=[];
 
   private endPoint: string= "job-experience/list";
+  
 
-  constructor(private dataService: DataService<T>) { }
+  constructor(
+    private dataService: DataService<T>,
+    private bindingService: BindingService<JobExperience>
+    ) { }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<JobExperience>>(this.endPoint).subscribe(response => {
@@ -21,6 +28,15 @@ export class ExperienceComponent<T> implements OnInit {
       response.sort((a,b) => a.jobIndex - b.jobIndex);
       this.jobList = response;
       })
+  }
+
+  openEdit(i: number){
+    this.binding(this.jobList[i]);
+    $("#editJob").modal("show");
+  }
+  
+  binding(job: JobExperience){
+    this.bindingService.setData(job);
   }
 
 }

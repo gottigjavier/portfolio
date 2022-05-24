@@ -1,1 +1,59 @@
-<p>education-edit works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editEdu">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Education Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="iname" class="form-label">Institution Name</label>
+                        <input id="iname" class="form-control" formControlName="institutionName" value={{education.institutionName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ilink" class="form-label">Institution Link</label>
+                        <input id="ilikn" class="form-control" type="text" value={{education.institutionLink}} formControlName="institutionLink">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ilogo" class="form-label">Institution Logo</label>
+                        <input id="ilogo" class="form-control" value={{education.institutionLogo}} formControlName="institutionLogo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ecareer" class="form-label">Career Name</label>
+                        <input id="ecareer" class="form-control" type="text" value={{education.educationCareer}} formControlName="educationCareer">
+                    </div>
+                    <div class="mb-3">
+                        <label for="etype" class="form-label">Career Type</label>
+                        <input id="etype" class="form-control" type="text" value={{education.educationType}} formControlName="educationType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="estart" class="form-label">Start Date</label>
+                        <input id="estart" class="form-control" type="date" value={{education.educationStart}} formControlName="educationStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eend" class="form-label">End Date</label>
+                        <input id="eend" class="form-control" type="date" value={{education.educationEnd}} formControlName="educationEnd">
+                    </div>
+                    <div class="mb-3">
+                        <label for="elevel" class="form-label">Aproved Level</label>
+                        <input id="elevel" class="form-control" value={{education.approvedLevel}} formControlName="approvedLevel">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

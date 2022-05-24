@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsEditComponent } from './skills-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,12 @@ import { SkillsEditComponent } from './skills-edit.component';
     SkillsEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    SkillsEditComponent
   ]
 })
 export class SkillsEditModule { }

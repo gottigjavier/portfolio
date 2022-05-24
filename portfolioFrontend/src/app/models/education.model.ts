@@ -5,8 +5,8 @@ export interface Education{
     institutionLogo: string,
     institutionLink: string,
     educationCareer:string,
-    educationStart: Date,
-    educationEnd: Date,
+    educationStart: string,
+    educationEnd: string,
     approvedLevel: number,
     eduIndex: number
 }

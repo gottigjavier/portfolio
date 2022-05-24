@@ -10,11 +10,14 @@ import { TechnologiesEditModule } from './technologies-edit/technologies-edit/te
 import { UserEditModule } from './user-edit/user-edit/user-edit.module';
 import { DataService } from 'src/app/services/data.service';
 import { BindingService } from 'src/app/services/binding.service';
+import { PopusEditComponent } from './popus-edit.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PopusEditComponent
+  ],
   imports: [
     CommonModule,
     AboutEditModule,
@@ -27,14 +30,7 @@ import { BindingService } from 'src/app/services/binding.service';
     UserEditModule
   ],
   exports: [
-    AboutEditModule,
-    EducationEditModule,
-    ExperienceEditModule,
-    ProjectsEditModule,
-    SkillsEditModule,
-    SpokenLanguagesEditModule,
-    TechnologiesEditModule,
-    UserEditModule
+    PopusEditComponent
   ],
   providers: [
     DataService,

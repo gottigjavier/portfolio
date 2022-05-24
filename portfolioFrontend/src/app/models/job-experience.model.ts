@@ -7,7 +7,7 @@ export interface JobExperience{
     jobPosition: string,
     jobDuties: string,
     lessonsLearned: string,
-    jobStart: Date,
-    jobEnd: Date,
+    jobStart: string,
+    jobEnd: string,
     jobIndex: number
 }

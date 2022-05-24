@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectsEditComponent } from './projects-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,12 @@ import { ProjectsEditComponent } from './projects-edit.component';
     ProjectsEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports:[
+    ProjectsEditComponent
   ]
 })
 export class ProjectsEditModule { }

@@ -12,14 +12,14 @@ declare var $ : any;
   templateUrl: './about-edit.component.html',
   styleUrls: ['./about-edit.component.css']
 })
-export class AboutEditComponent<T> implements OnInit {
+export class AboutEditComponent<T>{
 
   public about: About;
 
   private endPoint: string="about/update";
 
   popupForm= this.fb.group({
-    firstName: [],
+    firstName: "",
     lastName: "",
     shortExplanation: "",
     photoUrl: ""
@@ -31,24 +31,18 @@ export class AboutEditComponent<T> implements OnInit {
     private binding: BindingService<About>
     ) {
     this.about={
-    aboutId: 0,
+      aboutId: 0,
       firstName: "",
-    lastName: "",
-    shortExplanation: "",
-    photoUrl: ""
+      lastName: "",
+      shortExplanation: "",
+      photoUrl: ""
     }
 
-  }
-
-  
-  closePopup(){
-    $("#myModal").modal("hide");
-  }
-  ngOnInit(): void{
-    this.binding.dataEmitter.subscribe(data =>{
+    this.binding.dataEmitter.subscribe((data: About) =>{
       this.about= data;
     })
   }
+
   
   onSubmit(){
     this.about.firstName= this.popupForm.value.firstName || this.about.firstName;
@@ -56,11 +50,16 @@ export class AboutEditComponent<T> implements OnInit {
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
     this.service.update(this.endPoint, this.about).subscribe(resp =>{
-      console.log("About Backend Response ", resp);
+      if(!resp){
+        alert("Error: Not saved")
+      };
     })
     console.log("first name popup depues de send ",this.about.firstName);
-    this.popupForm.reset();
     this.closePopup();
-      }
-
+  }
+  
+      closePopup(){
+    $("#editAbout").modal("hide");
+  }
+  
 }

@@ -22,14 +22,10 @@ export class AboutComponent<T> implements OnInit {
   
   constructor(
     private dataService: DataService<T>,
-    private binding: BindingService<About>
+    private bindingService: BindingService<About>
     ) { }
-  openPopup(){
-    this.bindingAbout();
-    $("#myModal").modal("show");
-  }
-
-
+    
+    
   ngOnInit(): void {
     this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
       this.about= response[response.length-1]; // Last created
@@ -37,8 +33,13 @@ export class AboutComponent<T> implements OnInit {
     }) 
   };
   
-  bindingAbout(){
-    this.binding.setData(this.about);
+  openEdit(){
+    this.binding();
+    $("#editAbout").modal("show");
+  }
+  
+  binding(){
+    this.bindingService.setData(this.about);
   }
 
 }

@@ -1,1 +1,63 @@
-<p>experience-edit works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editJob">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Job Experience Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="cname" class="form-label">Company Name</label>
+                        <input id="cname" class="form-control" formControlName="companyName" value={{job.companyName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clink" class="form-label">Company Link</label>
+                        <input id="clikn" class="form-control" type="text" value={{job.companyLink}} formControlName="companyLink">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clogo" class="form-label">Company Logo</label>
+                        <input id="clogo" class="form-control" value={{job.companyLogoUrl}} formControlName="companyLogoUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cactivity" class="form-label">Company Activity</label>
+                        <input id="cactivity" class="form-control" type="text" value={{job.companyActivity}} formControlName="companyActivity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jposition" class="form-label">Job Position</label>
+                        <input id="jposition" class="form-control" type="text" value={{job.jobPosition}} formControlName="jobPosition">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jduties" class="form-label">Job Duties</label>
+                        <input id="jduties" class="form-control" type="date" value={{job.jobDuties}} formControlName="jobDuties">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jlessons" class="form-label">Lessons Learned</label>
+                        <textarea id="jlessons" class="form-control" type="text" value={{job.lessonsLearned}} formControlName="lessonsLearned" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jstart" class="form-label">Start Date</label>
+                        <input id="jstart" class="form-control" type="date" value={{job.jobStart}} formControlName="jobStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jend" class="form-label">End Date</label>
+                        <input id="jend" class="form-control" type="date" value={{job.jobEnd}} formControlName="jobEnd">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

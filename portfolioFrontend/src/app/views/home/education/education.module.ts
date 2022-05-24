@@ -10,8 +10,7 @@ import { MatCardModule } from '@angular/material/card';
     EducationComponent
   ],
   imports: [
-    CommonModule,
-    MatCardModule
+    CommonModule
   ],
   exports: [
     EducationComponent

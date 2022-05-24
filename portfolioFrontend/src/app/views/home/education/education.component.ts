@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Education } from 'src/app/models/education.model';
+import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-education',
@@ -12,7 +15,10 @@ export class EducationComponent<T> implements OnInit {
   public eduList: Array<Education>=[];
   private endPoint: string= "education/list";
 
-  constructor(private dataService: DataService<T>) { }
+  constructor(
+    private dataService: DataService<T>,
+    private bindingService: BindingService<Education>
+    ) { }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
@@ -20,6 +26,15 @@ export class EducationComponent<T> implements OnInit {
     response.sort((a,b) => a.eduIndex - b.eduIndex);
     this.eduList = response;
     })
+  }
+
+  openEdit(i: number){
+    this.binding(this.eduList[i]);
+    $("#editEdu").modal("show");
+  }
+  
+  binding(edu: Education){
+    this.bindingService.setData(edu);
   }
 
 }
