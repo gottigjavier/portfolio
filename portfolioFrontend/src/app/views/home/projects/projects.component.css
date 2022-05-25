@@ -17,6 +17,7 @@
 
 .items{
     padding-top: 2ch;
+    padding-inline: 1ch;
 }
 
 .items-title{
@@ -62,4 +63,12 @@
   
   .item1 {
     grid-column: 1 / 2;
+  }
+
+  .tech-cont{
+      margin-left: 2ch;
+      padding: 2ch 0 2ch 2ch;
+      border: 1px solid cornsilk;
+      border-radius: 1%;
+      background-color: aquamarine;
   }
