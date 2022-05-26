@@ -4,6 +4,7 @@ import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
 
 declare var $ : any;
+
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -11,19 +12,21 @@ declare var $ : any;
 })
 export class AboutComponent<T> implements OnInit {
 
-  public about: About={
-  aboutId: 0,
-  firstName: "",
-  lastName: "",
-  shortExplanation: "",
-  photoUrl: ""
-  };
+  public about: About;
   private endPoint: string= "about/list";
   
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<About>
-    ) { }
+    ) {
+      this.about={
+        aboutId: 0,
+        firstName: "",
+        lastName: "",
+        shortExplanation: "",
+        photoUrl: ""
+        }
+    }
     
     
   ngOnInit(): void {

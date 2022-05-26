@@ -1,0 +1,50 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editLang">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Language Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="langname" class="form-label">Language Name</label>
+                        <input id="langname" class="form-control" formControlName="languageName" value={{lang.languageName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="langurl" class="form-label">Language Flag Url</label>
+                        <input id="langurl" class="form-control" value={{lang.langFlagUrl}} formControlName="langFlagUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langcert" class="form-label">Language Certification</label>
+                        <input id="langcert" class="form-control" type="text" value={{lang.certificationUrl}} formControlName="certificationUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langlevel" class="form-label">Language Level</label>
+                        <input id="langlevel" class="form-control" type="text" value={{lang.langLevel}} formControlName="langLevel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pclevel" class="form-label">Language Percent Level</label>
+                        <input id="pclevel" class="form-control" type="text" value={{lang.percentLevel}} formControlName="percentLevel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langindex" class="form-label">Language Index</label>
+                        <input id="langindex" class="form-control" type="text" value={{lang.languageIndex}} formControlName="languageIndex">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

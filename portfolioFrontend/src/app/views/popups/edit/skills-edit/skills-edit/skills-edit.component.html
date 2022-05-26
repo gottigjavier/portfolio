@@ -1,0 +1,51 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editSkill">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Skill Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="skname" class="form-label">Skill Name</label>
+                        <input id="skname" class="form-control" formControlName="skillName" value={{skill.skillName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sktype" class="form-label">Skill Type</label>
+                        <input id="sktype" class="form-control" type="text" value={{skill.skillType}} formControlName="skillType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="skdesc" class="form-label">Skill Descritption</label>
+                        <input id="skdesc" class="form-control" value={{skill.skillDescription}} formControlName="skillDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sklevel" class="form-label">Skill Level</label>
+                        <input id="sklevel" class="form-control" type="text" value={{skill.skillLevel}} formControlName="skillLevel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="skurl" class="form-label">Icon Url</label>
+                        <input id="skurl" class="form-control" type="text" value={{skill.skillUrlIcon}} formControlName="skillUrlIcon">
+                    </div>
+                    <div class="mb-3">
+                        <label for="skindex" class="form-label">Skill Index</label>
+                        <input id="skindex" class="form-control" type="text" value={{skill.skillIndex}} formControlName="skillIndex">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -4,7 +4,6 @@ import { About } from 'src/app/models/about.model';
 import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
 
-
 declare var $ : any;
 
 @Component({
@@ -42,7 +41,6 @@ export class AboutEditComponent<T>{
       this.about= data;
     })
   }
-
   
   onSubmit(){
     this.about.firstName= this.popupForm.value.firstName || this.about.firstName;

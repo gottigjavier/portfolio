@@ -26,10 +26,11 @@
 }
 
 .tech-logo{
-    /* width: 8vw;
-    max-height: 10vw; */
     border-radius: 10%;
+/*     width: 8vw;
+    max-height: 10vw;
     border: 1px solid rgb(255, 60, 0);
+ */
 }
 
 .items-text{
@@ -37,12 +38,26 @@
 }
 .grid-container {
     display: grid;
+    grid-template-columns: repeat(auto-fill, 15%);
+    grid-template-rows: repeat(auto-fill, 25%);
     justify-content: center;
-    grid-template-columns: auto auto auto auto auto auto auto auto; /*Make the grid smaller than the container*/
-    gap: 3ch;
-    padding: 3ch;
+    grid-gap: 8ch;
+    padding: 5ch;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
+.icons { 
+    padding: 1ch; 
+}
+/* 
+@media screen and (max-device-width: 600px) {
+    div>div>div>.icons { grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  
+  @media screen and (max-device-width: 900px) {
+    .icons { grid-template-columns: repeat(8, 1fr) !important; }
+  }
+ */
   /* 
   .grid-container > div > img {
     text-align: center;

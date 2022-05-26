@@ -1,0 +1,47 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">User Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="uname" class="form-label">Username</label>
+                        <input id="uname" class="form-control" formControlName="userName" value={{user.userName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="umail" class="form-label">Mail</label>
+                        <input id="umail" class="form-control" type="text" value={{user.userMail}} formControlName="userMail">
+                    </div>
+                    <div class="mb-3">
+                        <label for="upass" class="form-label">Actual Password</label>
+                        <input id="upass" class="form-control" type="text" value="" formControlName="userPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="unewpass" class="form-label">New Password</label>
+                        <input id="unewpass" class="form-control" type="text" value="" formControlName="userNewPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="urepeatpass" class="form-label">Repeat New Password</label>
+                        <input id="urepeatpass" class="form-control" type="text" value="" formControlName="userRepeatPassword">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

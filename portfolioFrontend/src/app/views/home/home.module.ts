@@ -11,8 +11,8 @@ import { DataService } from 'src/app/services/data.service';
 import { EducationModule } from './education/education.module';
 import { SkillsModule } from './skills/skills.module';
 import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoken-languages.module';
-import { PopusEditModule } from '../popups/popus-edit.module';
 import { BindingService } from 'src/app/services/binding.service';
+import { PopusModule } from '../popups/popus.module';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { BindingService } from 'src/app/services/binding.service';
     ProjectsModule,
     TechnologiesModule,
     SharedModule,
-    PopusEditModule
+    PopusModule
   ],
   exports: [
     AboutModule,
@@ -40,7 +40,7 @@ import { BindingService } from 'src/app/services/binding.service';
     SpokenLanguagesModule,
     ProjectsModule,
     TechnologiesModule,
-    PopusEditModule
+    PopusModule
   ],
   providers: [
     DataService,

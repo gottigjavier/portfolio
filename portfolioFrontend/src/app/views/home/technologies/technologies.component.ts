@@ -53,6 +53,7 @@ export class TechnologiesComponent<T> implements OnInit {
       console.log("width  ", window.innerWidth)
       this.techList = response;
       this.getScreenSize();
+      // to link image size with level
       this.techList.map(tech =>{
         tech.techLevel= tech.techLevel*this.scrWidth/400;
       })
@@ -80,6 +81,7 @@ deleteTech(id:number){
     })
     // Lo anterior es porque si no actualizo la lista de tech en los proyectos, la base de datos
     // no me permite borrar un tech asociado a un proyecto (ManyToMany)
+    // En realidad debería ser responsabilidad del backend. Trasladar.
     this.dataService.delete(`${this.delEndPoint}/${id}`).subscribe(resp =>{
       if(!resp){
         alert("Error. Not Deleted");
@@ -92,6 +94,11 @@ deleteTech(id:number){
     })
   }); 
 
+}
+
+  
+openNewTech(){
+  $("#newTech").modal("show");
 }
 
 openEdit(i: number){

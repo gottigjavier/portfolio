@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SpokenLanguage } from 'src/app/models/spoken-language.model';
+import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
+
+declare var $ : any;
 
 @Component({
   selector: 'app-spoken-languages',
@@ -13,7 +16,9 @@ export class SpokenLanguagesComponent<T> implements OnInit {
 
   private endPoint: string= "spoken-language/list";
 
-  constructor(private dataService: DataService<T>) { }
+  constructor(
+    private dataService: DataService<T>,
+    private bindingService: BindingService<SpokenLanguage>) { }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<SpokenLanguage>>(this.endPoint).subscribe(response => {
@@ -22,5 +27,14 @@ export class SpokenLanguagesComponent<T> implements OnInit {
       this.langList = response;
       })
   }
+
+openEdit(i: number){
+  this.binding<SpokenLanguage>(this.langList[i]);
+  $("#editLang").modal("show");
+}
+
+binding<T>(data: T){
+  this.bindingService.setData<T>(data);
+}
 
 }
