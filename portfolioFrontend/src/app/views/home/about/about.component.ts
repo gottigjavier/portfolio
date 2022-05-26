@@ -34,12 +34,12 @@ export class AboutComponent<T> implements OnInit {
   };
   
   openEdit(){
-    this.binding();
+    this.binding<About>(this.about);
     $("#editAbout").modal("show");
   }
   
-  binding(){
-    this.bindingService.setData(this.about);
+  binding<T>(data: T){
+    this.bindingService.setData<T>(data);
   }
 
 }

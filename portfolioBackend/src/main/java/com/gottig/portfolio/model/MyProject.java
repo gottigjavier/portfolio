@@ -49,4 +49,9 @@ public class MyProject implements Serializable {
       inverseJoinColumns = @JoinColumn(name = "inter_tech_id"))
     private List<Technology> techList= new ArrayList<>();    
     
+    public void removeTech(Technology tech) {
+        this.techList.remove(tech);
+        tech.getProjectList().remove(this);
+    }
+    
 }

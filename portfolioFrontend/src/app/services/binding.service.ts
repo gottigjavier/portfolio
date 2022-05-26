@@ -10,14 +10,14 @@ export class BindingService<T> {
   @Output()
   dataEmitter = new EventEmitter<T>();
 
-  setData(newData: T) {
+  setData<T>(newData: T) {
     this.data = newData;
-    this.updatesData();
+    this.updatesData(this.data);
   }
 
   // Emitimos los cambio de this.data
-  updatesData() {
-    this.dataEmitter.emit(this.data);
+  updatesData(data: T) {
+    this.dataEmitter.emit(data);
   }
 
   constructor() { }

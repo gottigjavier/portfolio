@@ -12,50 +12,38 @@ declare var $ : any;
   templateUrl: './projects-edit.component.html',
   styleUrls: ['./projects-edit.component.css']
 })
-export class ProjectsEditComponent<T> implements OnInit{
+export class ProjectsEditComponent<T>{
 
   proj: MyProject;
+  
   public techListAll: Array<Technology>=[];
   public techListTrue: Array<Technology>=[];
-  public techListTrueStr: Array<any>=[];
-  public tec: Array<any>=[];
+  public techListTrueStr: Array<string>=[];
   public techListFalse: Array<Technology>=[];
   
   private projEndPoint: string="my-project/update";
   private techEndPoint: string="technology/list";
-
+  
   insideForm: FormGroup;
   popupForm: FormGroup;
+  techList: FormArray;
 
   onCheckboxChange(e: any) {
-    var techList: FormArray = this.insideForm.get('techList') as FormArray;
-    this.techListTrueStr.forEach(elem=>{
-      techList.push(new FormControl(elem));
-    })
     if (e.target.checked) {
-      techList.push(new FormControl(e.target.value));
+      this.techList.push(new FormControl(e.target.value));
     } else {
       let i: number = 0;
-      techList.controls.forEach((item: any) => {
+      this.techList.controls.forEach((item: any) => {
         if (item.value == e.target.value) {
-          techList.removeAt(i);
+          this.techList.removeAt(i);
           return;
         }
         i++;
       });
     }
-    this.techListTrueStr.length=0;
-    this.tec.length=0;
-    this.tec.length=0;
-    console.log("TechStr checed ", this.techListTrueStr);
-    techList.controls.forEach(el=>{
-      this.tec.push(el.value);
-    })
-    techList.controls.forEach(e=>{
-      techList.removeAt(e.value)
-    })
-    console.log("tect tec ", typeof(this.tec));
   }
+
+
   constructor(
     private fb: FormBuilder,
     private service: DataService<T>,
@@ -71,6 +59,8 @@ export class ProjectsEditComponent<T> implements OnInit{
     }
 
     this.insideForm=this.fb.group({techList: this.fb.array([])});
+    this.techList= this.insideForm.get('techList') as FormArray;
+
 
     this.popupForm= this.fb.group({
       projName: "",
@@ -85,52 +75,44 @@ export class ProjectsEditComponent<T> implements OnInit{
         this.proj= data;
         this.techListAll= response;
         this.checkedList(this.proj.techList, this.techListAll);
+        this.techListTrueStr.forEach(elem=>{
+          this.techList.push(new FormControl(elem));
+        })
       })
     })
 
   } //end constructor
 
   insideSubmit(): Array<Technology>{
-    //this.proj.techList.length=0;
-    this.proj.techList.join(this.insideForm.value);
-    console.log("insideSubmit ", this.proj.techList);
+    this.proj.techList.length=0;
+    this.techList.value.forEach((element: number) => {
+      if(element!=null){
+        
+        this.proj.techList.push(this.techListAll.filter(el => el.techId==element)[0]);
+      }
+    });
     return this.proj.techList;
   }
   
   checkedList(proj: Array<Technology>, techListAll:Array<Technology>){
     this.techListFalse= techListAll;
     techListAll.forEach(elemAll =>{
-      //console.log("elementAll ", elemAll);
-      proj.forEach(elemProj =>{
-        //console.log("elemen Proj ", elemProj);
-        if(elemAll.techId==elemProj.techId){
-          this.techListTrue.push(elemAll)
-          this.techListTrueStr.push(elemAll.techId.toString())
-          this.techListFalse= this.techListFalse.filter(elem => elem.techId!==elemProj.techId)
-        }
-      })
+      try{
+        proj.forEach(elemProj =>{
+          if(elemAll.techId==elemProj.techId){
+            this.techListTrue.push(elemAll)
+            this.techListTrueStr.push(elemAll.techId.toString())
+            this.techListFalse= this.techListFalse.filter(elem => elem.techId!==elemProj.techId)
+          }
+        })
+      }catch{
+        console.log("Error in checkedList(), Array of Technologies");
+      }
     })
-    //console.log("list true ", this.techListTrue)
-    //console.log("list false ", this.techListFalse)
-    
   }
   
-  ngOnInit(): void {
-    
-    
-  }
-  
-  async onSubmit(){
-    //this.proj.techList.length=0;
-    this.proj.techList.length=0;
-    this.tec.forEach(t=>{
-      this.techListAll.forEach(e=>{
-        if(t=== e.techId.toString()){
-          this.proj.techList.push(e);
-        }
-      })
-    })
-      this.proj.techList= await this.insideSubmit();
+  onSubmit(){
+      this.proj.techList= this.insideSubmit();
       this.proj.projName= this.popupForm.value.projName || this.proj.projName;
       this.proj.projDescription= this.popupForm.value.projDescription || this.proj.projDescription;
       this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
@@ -139,7 +121,6 @@ export class ProjectsEditComponent<T> implements OnInit{
       if(!resp){
         alert("Error: Not saved")
       };
-      console.log("Tech checked ", this.proj.techList)
     })
     
     this.closePopup();
@@ -148,7 +129,6 @@ export class ProjectsEditComponent<T> implements OnInit{
   closePopup(){
     this.techListFalse.length=0;
     this.techListTrue.length=0;
-    this.tec.length=0;
     this.techListTrueStr.length=0;
     this.insideForm.reset();
     $("#editProj").modal("hide");

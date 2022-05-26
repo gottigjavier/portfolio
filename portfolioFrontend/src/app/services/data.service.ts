@@ -25,7 +25,15 @@ export class DataService<T> {
     return this.http.get<T>(`${this.url}/${endPoint}`);
   }
 
+  public create<T>(endPoint: string, data: T): Observable<any>{
+    return this.http.post(`${this.url}/${endPoint}`, data);
+  }
+
   public update<T>(endPoint: string, data: T): Observable<any>{
     return this.http.put(`${this.url}/${endPoint}`, data);
+  }
+
+  public delete(endPoint: string): Observable<boolean>{
+    return this.http.delete<boolean>(`${this.url}/${endPoint}`);
   }
 }

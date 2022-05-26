@@ -7,7 +7,5 @@ export interface Technology{
     techIconUrl: string,
     techDescription: string,
     techLevel: number,
-    techIndex: number,
-    projectList: Array<MyProject>
-
+    techIndex: number
     }

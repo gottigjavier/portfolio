@@ -17,24 +17,30 @@ export class ProjectsComponent<T> implements OnInit {
 
   constructor(
     private dataService: DataService<T>,
-    private bindingService: BindingService<MyProject>
-    ) { }
-
-  ngOnInit(): void {
-    this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
-      console.log("proj list -> ", response);
-      response.sort((a,b) => a.projIndex - b.projIndex);
-      this.projList = response;
-    }) 
+    private bindingService: BindingService<T>
+    ) {
+    }
+    
+    ngOnInit(): void {
+      this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
+        console.log("proj list -> ", response);
+        response.sort((a,b) => a.projIndex - b.projIndex);
+        this.projList = response;
+      }) 
+      this.projList.forEach(proj =>{
+        this.bindingService.dataEmitter.subscribe((data: MyProject) =>{
+          proj= data;
+        })
+      })
 };
 
 openEdit(i: number){
-  this.binding(this.projList[i]);
+  this.binding<MyProject>(this.projList[i]);
   $("#editProj").modal("show");
 }
 
-binding(proj: MyProject){
-  this.bindingService.setData(proj);
+binding<T>(data: T){
+  this.bindingService.setData<T>(data);
 }
 
   }

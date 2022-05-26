@@ -31,12 +31,12 @@ export class ExperienceComponent<T> implements OnInit {
   }
 
   openEdit(i: number){
-    this.binding(this.jobList[i]);
+    this.binding<JobExperience>(this.jobList[i]);
     $("#editJob").modal("show");
   }
   
-  binding(job: JobExperience){
-    this.bindingService.setData(job);
+  binding<T>(data: T){
+    this.bindingService.setData<T>(data);
   }
 
 }

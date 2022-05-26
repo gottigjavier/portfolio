@@ -1,74 +1,82 @@
-.proj-container{
+.proj-container {
     background-color: aqua;
     padding: 3ch;
     border: solid 1px;
 }
 
-.proj{
+.proj {
     border: solid 2px;
     border-radius: 1%;
 }
 
-.proj-title{
+.proj-title {
     padding: 1.5ch 0ch 0ch 0ch;
     font-size: 4ch;
     text-align: center;
 }
 
-.items{
+.items {
     padding-top: 2ch;
     padding-inline: 1ch;
 }
 
-.items-title{
-    font-family:'Times New Roman', Times, serif;
+.items-title {
+    font-family: 'Times New Roman', Times, serif;
     font-size: 3ch;
     font-weight: 800;
 }
 
-.proj-name{
+.proj-name {
     padding: 2ch 0ch;
     font-size: 2.5ch;
 }
 
-.proj-logo{
+.proj-logo {
     width: 5vw;
     height: auto;
     border-radius: 20%;
     /* border: 1px solid blue; */
 }
 
-.repo-logo{
+.repo-logo {
     width: 4vw;
     height: auto;
     border-radius: 20%;
     /* border: 1px solid blue; */
 }
 
-.items-text{
+.items-text {
     font-size: 2ch;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
-    gap: 10px;
-    padding: 10px;
-  }
-  
-  .grid-container > div > img {
-    text-align: center;
-    padding: 20px 0;
-  }
-  
-  .item1 {
-    grid-column: 1 / 2;
-  }
+    justify-content: center;
+    grid-template-columns: auto auto auto auto; /*Make the grid smaller than the container*/
+    gap: 3px;
+    padding: 3px;
+}
 
-  .tech-cont{
-      margin-left: 2ch;
-      padding: 2ch 0 2ch 2ch;
-      border: 1px solid cornsilk;
-      border-radius: 1%;
-      background-color: aquamarine;
-  }
+.tech-title{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3ch;
+    font-weight: 800;
+}
+/* 
+.grid-container>div>img {
+    text-align: center;
+    padding: 2px 0;
+}
+ */
+/* .item1 {
+    grid-column: 1 / 2;
+}
+ */
+.tech-cont {
+    margin: 0 0 1ch 2ch;
+    padding: 2ch 0 2ch 2ch;
+    border: 1px solid cornsilk;
+    border-radius: 1%;
+    background-color: aquamarine;
+}

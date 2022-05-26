@@ -29,12 +29,12 @@ export class EducationComponent<T> implements OnInit {
   }
 
   openEdit(i: number){
-    this.binding(this.eduList[i]);
+    this.binding<Education>(this.eduList[i]);
     $("#editEdu").modal("show");
   }
   
-  binding(edu: Education){
-    this.bindingService.setData(edu);
+  binding<T>(data: T){
+    this.bindingService.setData<T>(data);
   }
 
 }
