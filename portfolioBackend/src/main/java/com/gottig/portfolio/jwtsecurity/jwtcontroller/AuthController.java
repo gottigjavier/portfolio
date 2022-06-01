@@ -51,7 +51,7 @@ public class AuthController {
     // Solo el administrador puede crear usuarios
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/newuser")
-    public ResponseEntity<?> nuevoUsuario(@Valid @RequestBody JwtNewUserDTO newUserDTO,
+    public ResponseEntity<?> newUser(@Valid @RequestBody JwtNewUserDTO newUserDTO,
                                           BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>("Wrong field or invalid email", HttpStatus.BAD_REQUEST);

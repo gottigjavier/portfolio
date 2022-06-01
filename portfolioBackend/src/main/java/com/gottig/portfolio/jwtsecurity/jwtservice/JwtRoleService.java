@@ -23,6 +23,8 @@ public class JwtRoleService {
 
     public void save(JwtRole role){
         //roleDao.save(role);
+         //Prueba para que no siga guardando roles porque me da error si hay
+         //más de uno de cada uno, además la catalogué como "unique" para forzar
     }
     
 }

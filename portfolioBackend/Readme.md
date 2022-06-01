@@ -162,3 +162,44 @@ Ejemplo: http://localhost:8080/user/delete/1
 \----------------------------------------
 
 
+### JWT Security
+
+##### Importante
+
+La clase "CreateRoles" del paquete "jwtutil" sólo se utiliza para generar la tabla 
+de roles con dos registros: "ROLE_USER" y "ROLE_ADMIN".
+
+Después de esto hay que comentar su código o borrarla para que no siga creando campos 
+de roles repetidos y lance error.
+
+Tener en cuenta que sólo puede crear nuevos usuarios un administrador (ver AuthController: newUser())
+que obviamente tiene que estar logueado y adjuntar el token.
+
+Para crear usuarios, el json debe tener la forma:
+
+```
+{
+    "userName": "username",
+    "email": "username@gmail.com",
+    "password": "password"
+}
+```
+
+Para crear un administrador, el json debe tener la forma:
+
+```
+{
+    "userName": "username",
+    "email": "username@gmail.com",
+    "password": "password",
+    "roles": ["admin"]
+}
+```
+
+El administrador tiene ambos roles: "ROLE_USER" y "ROLE_ADMIN".
+
+Todas las rutas terminadas en "/list" están exentas de autenticación ya que muestran
+el contenido público del sitio (ver: "MainSecurity" del paquete "jwtconfig").
+
+Si bien la norma es usar @Data de lombok, algunas clases necesitan que su
+constructor esté presente explícitamente para funcionar correctamente.
