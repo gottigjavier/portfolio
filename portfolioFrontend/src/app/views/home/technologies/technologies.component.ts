@@ -54,9 +54,9 @@ export class TechnologiesComponent<T> implements OnInit {
       this.techList = response;
       this.getScreenSize();
       // to link image size with level
-      this.techList.map(tech =>{
+      /* this.techList.map(tech =>{
         tech.techLevel= tech.techLevel*this.scrWidth/400;
-      })
+      }) */
     }) 
 };
 

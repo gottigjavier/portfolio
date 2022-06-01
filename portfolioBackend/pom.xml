@@ -110,6 +110,59 @@
 	  <artifactId>modelmapper</artifactId>
 	  <version>2.3.9</version>
 	 </dependency>
+	 <dependency>
+	  <groupId>io.jsonwebtoken</groupId>
+	  <artifactId>jjwt</artifactId>
+	  <version>0.9.1</version>
+	 </dependency>
+	 <dependency>
+	  <groupId>log4j</groupId>
+	  <artifactId>log4j</artifactId>
+	  <version>1.2.17</version>
+	  <type>zip</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-test</artifactId>
+	  <version>5.6.3</version>
+	  <type>pom.sha512</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.springframework.security</groupId>
+	  <artifactId>spring-security-config</artifactId>
+	  <version>5.6.1</version>
+	  <type>jar</type>
+	 </dependency>
+<!--	 <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.2</version>
+            <type>jar</type>
+	 </dependency>
+         <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>0.11.2</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>0.11.2</version>
+                <scope>runtime</scope>
+            </dependency>-->
+	 <dependency>
+	  <groupId>org.apache.commons</groupId>
+	  <artifactId>commons-lang3</artifactId>
+	  <version>3.12.0</version>
+	  <type>jar</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>javax.validation</groupId>
+	  <artifactId>validation-api</artifactId>
+	  <version>2.0.1.Final</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>

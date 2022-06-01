@@ -27,9 +27,10 @@
 
 .tech-logo{
     border-radius: 10%;
-/*     width: 8vw;
+    width: 8vw;
     max-height: 10vw;
-    border: 1px solid rgb(255, 60, 0);
+    margin: 4ch 0;
+/*     border: 1px solid rgb(255, 60, 0);
  */
 }
 
@@ -41,8 +42,8 @@
     grid-template-columns: repeat(auto-fill, 15%);
     grid-template-rows: repeat(auto-fill, 25%);
     justify-content: center;
-    grid-gap: 8ch;
-    padding: 5ch;
+    grid-gap: 2ch 0;
+    padding: 1ch;
     overflow-y: auto;
     overflow-x: hidden;
 }
