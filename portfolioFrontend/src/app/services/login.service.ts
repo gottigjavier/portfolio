@@ -1,21 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
 // Servicio genérico usa el parámetro T
-export class LoginService<T> {
+export class LoginService {
 
-  private urlUser: string = "http://localhost:8080/user";
-  //private urlUser: string = "http://localhost:3003/user";
+  private urlAuth: string = "http://localhost:8080/auth/login";
+  
+  currentUserSubject: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.currentUserSubject= new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('currentUser')|| '{}'))
+  }
 
-  public getUser<T>(): Observable<T>{
-    return this.http.get<T>(`${this.urlUser}/list`);
+  public login(data: any): Observable<any>{
+    return this.http.post(`${this.urlAuth}`, data).pipe(map(resp =>{
+      sessionStorage.setItem('currentUser', JSON.stringify(resp));
+      this.currentUserSubject.next(resp);
+      return resp;
+    }));
+  }
+
+  get authenticatedUser(){
+    return this.currentUserSubject.value;
   }
 }

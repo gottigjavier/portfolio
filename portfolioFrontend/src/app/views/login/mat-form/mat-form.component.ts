@@ -14,17 +14,22 @@ export class MatFormComponent <T>{
 
   private user: User;
 
+  private loginUser={
+    "userName": "",
+    "password": ""
+  }
+
   loginForm = this.fb.group({
-    userMail: [null,
+    userName: [null,
       [
         Validators.required,
-        Validators.email
+        Validators.minLength(4) //Para que acepte "admin". Aumentar en produccion
       ]
     ],
-    userPassword: [null,
+    password: [null,
       [
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(4)
       ]
     ]
   });
@@ -33,7 +38,7 @@ export class MatFormComponent <T>{
   constructor(
     private fb: FormBuilder,
     private routes:Router,
-    private service: LoginService<T>) {
+    private service: LoginService) {
       this.user = {
         userId: 0,
         userName : '',
@@ -46,26 +51,15 @@ export class MatFormComponent <T>{
     // al igual que DataService
     // Por ahora para pruebas se usa el metodo getUser igual a getAll de DataService 
     // pero para LoginService habrá que construir métodos exclusivos de login
-  onSubmit(): void {
-    this.service.getUser<User>().subscribe(usr =>{
-      //this.user = usr[0];
-      //this.user.userMail = await user[0].userMail;
-      //this.user.useruserPassword = await user[0].useruserPassword;
-      console.log("Usr  -> ", usr);
-      //console.log("this.user  ->> ", this.user);
+  onSubmit(event: Event): void {
+    event.preventDefault;
+    this.loginUser.userName= this.loginForm.value.userName;
+    this.loginUser.password= this.loginForm.value.password;
+    console.log("loginUsr  -> ", this.loginUser);
+    this.service.login(this.loginForm.value).subscribe(resp =>{
+      console.log("Usr  -> ", resp); //Viene el token con un 200, o un 401
+      this.onClose();
     });
-    // ojo estoy usando == en vez de ===
-/*     if (this.loginForm.value.email == this.user.userMail && this.loginForm.value.userPassword == this.user.userPassword){
-      this.routes.navigate(['/']);
-      this.loginForm.reset();
-    }else {
-      alert('Email or Password don\'t match those of a user registered');
-      console.log("Form mail", this.loginForm.value.email);
-      console.log("Db mail", this.user.userMail);
-      console.log("Form Pass", this.loginForm.value.userPassword);
-      console.log("Db pass", this.user.userPassword);
-      //this.routes.navigate(['/login']); // para qué navegar hacia donde ya estoy
-    };  */
   }
 
   onClose(): void {

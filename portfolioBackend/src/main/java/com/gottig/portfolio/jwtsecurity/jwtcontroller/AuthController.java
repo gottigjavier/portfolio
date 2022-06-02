@@ -31,6 +31,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RequestMapping("/auth")
 @CrossOrigin
 public class AuthController {
+    
+    private final String CROSSORIGIN = "http://localhost:4200";
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -39,7 +41,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    JwtUserService usuarioService;
+    JwtUserService userService;
 
     @Autowired
     JwtRoleService roleService;
@@ -50,16 +52,17 @@ public class AuthController {
     //Espera un json y lo convierte a tipo clase NuevoUsuario
     // Solo el administrador puede crear usuarios
     @PreAuthorize("hasRole('ADMIN')")
+    @CrossOrigin(origins = CROSSORIGIN)
     @PostMapping("/newuser")
     public ResponseEntity<?> newUser(@Valid @RequestBody JwtNewUserDTO newUserDTO,
                                           BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>("Wrong field or invalid email", HttpStatus.BAD_REQUEST);
         }
-        if(usuarioService.existsByUsuario(newUserDTO.getUserName())){
+        if(userService.existsByUsuario(newUserDTO.getUserName())){
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
-        if(usuarioService.existsByEmail(newUserDTO.getEmail())){
+        if(userService.existsByEmail(newUserDTO.getEmail())){
             return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
         }
 
@@ -73,11 +76,12 @@ public class AuthController {
             roles.add(roleService.getByRoleName(JwtRoleName.ROLE_ADMIN).get());
         user.setRoles(roles);
 
-        usuarioService.save(user);
+        userService.save(user);
 
         return new ResponseEntity<>("User Created", HttpStatus.CREATED);
     }
-
+    
+    @CrossOrigin(origins = CROSSORIGIN)
     @PostMapping("/login")
     public ResponseEntity<JwtDTO> login(@Valid @RequestBody JwtUserLoginDTO loginUserDTO, BindingResult bindingResult){
         if (bindingResult.hasErrors()){

@@ -1,11 +1,11 @@
 <div class="container myform align-middle">
   <div class="row">
     <div class="col-2">
-      <button title="close" class="mb-1 btn btn-sm btn-secondary" (click)="onClose()">X</button>
+      <button title="close" type="button" class="close" (click)="onClose()">&times;</button>
     </div>
     <div class="col-10"></div>
   </div>
-  <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit($event)">
     <mat-card class="shipping-card">
       <mat-card-header class="header">
         <mat-card-title>
@@ -14,15 +14,15 @@
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Email" formControlName="userMail">
-          <mat-error *ngIf="loginForm.controls['userMail'].hasError('email') || loginForm.controls['userMail'].hasError('required')">
-            Valid Email <strong>required</strong>
+          <input matInput placeholder="Username" formControlName="userName">
+          <mat-error *ngIf="loginForm.controls['userName'].hasError('minLength()') || loginForm.controls['userName'].hasError('required')">
+            Valid username <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <br/><br/>
         <mat-form-field class="full-width">
-            <input type="password" matInput placeholder="Password" formControlName="userPassword">
-            <mat-error *ngIf="loginForm.controls['userPassword'].hasError('minLength()') || !loginForm.controls['userPassword'].hasError('required')">
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="loginForm.controls['password'].hasError('minLength()') || !loginForm.controls['password'].hasError('required')">
               min 6 char password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
