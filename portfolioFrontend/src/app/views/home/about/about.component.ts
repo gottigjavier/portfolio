@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { About } from 'src/app/models/about.model';
 import { BindingService } from 'src/app/services/binding.service';
 import { DataService } from 'src/app/services/data.service';
+import { LoginService } from 'src/app/services/login.service';
 
 declare var $ : any;
 
@@ -14,6 +15,15 @@ export class AboutComponent<T> implements OnInit {
 
   public about: About;
   private endPoint: string= "about/list";
+
+
+  public editMode: boolean= false;
+  
+  costructor(
+    
+  ) {
+    
+  }
   
   constructor(
     private dataService: DataService<T>,
@@ -26,6 +36,14 @@ export class AboutComponent<T> implements OnInit {
         shortExplanation: "",
         photoUrl: ""
         }
+        /* if (sessionStorage.getItem('editMode')){
+          this.editMode= true;
+          this.ngOnInit();
+        } */
+        // Con sessionStorage no se actualiza el componente, con dataEmoter sí
+        this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+          this.editMode= data;
+        })
     }
     
     

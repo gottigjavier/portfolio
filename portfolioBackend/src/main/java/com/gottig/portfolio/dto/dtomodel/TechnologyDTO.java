@@ -20,4 +20,6 @@ public class TechnologyDTO {
     
     private int techIndex;
     
+    private boolean techShow;
+    
 }

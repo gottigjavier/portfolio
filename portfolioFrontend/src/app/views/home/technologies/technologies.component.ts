@@ -16,6 +16,7 @@ export class TechnologiesComponent<T> implements OnInit {
 
 
   public techList: Array<Technology>=[];
+  public techListShown: Array<Technology>=[];
   private tech: Technology;
   private projList: Array<MyProject>=[];
   private projGetAllEndPoint: string= "my-project/list";
@@ -31,6 +32,8 @@ export class TechnologiesComponent<T> implements OnInit {
         console.log(this.scrWidth);
   }
   
+  public editMode: boolean= false;
+  
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<T>) {
@@ -42,8 +45,13 @@ export class TechnologiesComponent<T> implements OnInit {
         techDescription: "",
         techIconUrl: "",
         techLevel: 0,
-        techIndex: 0
+        techIndex: 0,
+        techShow: false
       }
+
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
   }
   
   ngOnInit(): void {
@@ -52,6 +60,7 @@ export class TechnologiesComponent<T> implements OnInit {
       response.sort((a,b) => a.techIndex - b.techIndex);
       console.log("width  ", window.innerWidth)
       this.techList = response;
+      this.techListShown= this.techList.filter(elem => elem.techShow);
       this.getScreenSize();
       // to link image size with level
       /* this.techList.map(tech =>{
@@ -97,8 +106,9 @@ deleteTech(id:number){
 }
 
   
-openNewTech(){
-  $("#newTech").modal("show");
+openTechSet(){
+  //$("#newTech").modal("show");
+  $("#editTechSet").modal("show");
 }
 
 openEdit(i: number){

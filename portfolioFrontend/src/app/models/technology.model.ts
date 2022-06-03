@@ -7,5 +7,6 @@ export interface Technology{
     techIconUrl: string,
     techDescription: string,
     techLevel: number,
-    techIndex: number
+    techIndex: number,
+    techShow: boolean
     }

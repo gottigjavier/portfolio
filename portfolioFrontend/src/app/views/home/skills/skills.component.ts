@@ -16,10 +16,16 @@ export class SkillsComponent<T> implements OnInit {
 
   private endPoint: string= "skill/list";
 
+  public editMode: boolean= false;
+
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<Skill>
-    ) { }
+    ) {
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
+    }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Skill>>(this.endPoint).subscribe(response => {

@@ -15,10 +15,16 @@ export class EducationComponent<T> implements OnInit {
   public eduList: Array<Education>=[];
   private endPoint: string= "education/list";
 
+  public editMode: boolean= false;
+
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<Education>
-    ) { }
+    ) {
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
+    }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {

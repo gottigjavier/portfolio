@@ -11,6 +11,7 @@ import { SkillsEditModule } from './skills-edit/skills-edit/skills-edit.module';
 import { SpokenLanguagesEditModule } from './spoken-languages-edit/spoken-languages-edit/spoken-languages-edit.module';
 import { TechnologiesEditModule } from './technologies-edit/technologies-edit/technologies-edit.module';
 import { UserEditModule } from './user-edit/user-edit/user-edit.module';
+import { TechSetEditModule } from './tech-set-edit/tech-set-edit.module';
 
 
 
@@ -27,6 +28,7 @@ import { UserEditModule } from './user-edit/user-edit/user-edit.module';
     SkillsEditModule,
     SpokenLanguagesEditModule,
     TechnologiesEditModule,
+    TechSetEditModule,
     UserEditModule
   ],
   exports: [

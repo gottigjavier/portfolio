@@ -15,12 +15,17 @@ export class ExperienceComponent<T> implements OnInit {
   public jobList: Array<JobExperience>=[];
 
   private endPoint: string= "job-experience/list";
-  
+
+  public editMode: boolean= false;  
 
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<JobExperience>
-    ) { }
+    ) {
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
+    }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<JobExperience>>(this.endPoint).subscribe(response => {

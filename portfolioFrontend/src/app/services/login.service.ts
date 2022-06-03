@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,7 +15,10 @@ export class LoginService {
   
   currentUserSubject: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+    ) {
     this.currentUserSubject= new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('currentUser')|| '{}'))
   }
 
@@ -29,4 +33,12 @@ export class LoginService {
   get authenticatedUser(){
     return this.currentUserSubject.value;
   }
+
+  public logout() {
+    // remove user from local storage to log user out
+    sessionStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/']);
+    return false;
+}
 }

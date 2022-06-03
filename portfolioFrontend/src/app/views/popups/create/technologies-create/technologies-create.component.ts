@@ -18,7 +18,8 @@ export class TechnologiesCreateComponent<T> {
     techIconUrl: "",
     techDescription: "",
     techLevel: 0,
-    techIndex: 0
+    techIndex: 0,
+    techShow: true
   };
 
   private endPoint: string="technology/create";
@@ -44,6 +45,7 @@ export class TechnologiesCreateComponent<T> {
     this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
+    this.tech.techShow= true;
     this.service.create(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")

@@ -48,6 +48,9 @@ public class Technology implements Serializable{
     @Column(name="tech_index")// En caso de necesitar que persista el orden dado en el front
     private int techIndex;
     
+    @Column(name="tech_show", columnDefinition = "boolean default true")
+    private boolean techShow;
+    
     @ManyToMany(fetch= FetchType.LAZY, mappedBy = "techList")
     @JsonBackReference
     private List<MyProject> projectList= new ArrayList<>();

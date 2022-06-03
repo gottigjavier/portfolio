@@ -16,9 +16,15 @@ export class SpokenLanguagesComponent<T> implements OnInit {
 
   private endPoint: string= "spoken-language/list";
 
+  public editMode: boolean= false;
+
   constructor(
     private dataService: DataService<T>,
-    private bindingService: BindingService<SpokenLanguage>) { }
+    private bindingService: BindingService<SpokenLanguage>) {
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
+    }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<SpokenLanguage>>(this.endPoint).subscribe(response => {

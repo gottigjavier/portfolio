@@ -13,12 +13,18 @@ declare var $ : any;
 export class ProjectsComponent<T> implements OnInit {
 
   public projList: Array<MyProject>=[];
+  public projListTechShown: Array<MyProject>=[];
   private endPoint: string= "my-project/list";
+
+  public editMode: boolean= false;
 
   constructor(
     private dataService: DataService<T>,
     private bindingService: BindingService<T>
     ) {
+      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.editMode= data;
+      })
     }
     
     ngOnInit(): void {
@@ -26,6 +32,11 @@ export class ProjectsComponent<T> implements OnInit {
         console.log("proj list -> ", response);
         response.sort((a,b) => a.projIndex - b.projIndex);
         this.projList = response;
+        //Para mostrar los tech shown. Funciona pero cuando quiero ocultar
+        // un tech desde editTech la bd no toma el cambio
+        /* this.projList.forEach(function (proj) {
+            proj.techList = proj.techList.filter(elem => elem.techShow);
+          }) */
       }) 
       this.projList.forEach(proj =>{
         this.bindingService.dataEmitter.subscribe((data: MyProject) =>{

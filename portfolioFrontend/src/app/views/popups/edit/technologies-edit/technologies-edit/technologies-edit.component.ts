@@ -24,6 +24,7 @@ export class TechnologiesEditComponent<T>{
     techIconUrl: "",
     techLevel: 0,
     techIndex: 0,
+    techShow: true
   })
 
   constructor(
@@ -38,7 +39,8 @@ export class TechnologiesEditComponent<T>{
     techIconUrl: "",
     techDescription: "",
     techLevel: 0,
-    techIndex: 0
+    techIndex: 0,
+    techShow: false
   }
 
     this.binding.dataEmitter.subscribe((data: Technology) =>{
@@ -54,6 +56,7 @@ export class TechnologiesEditComponent<T>{
     this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
+    //this.tech.techShow= this.popupForm.value.techShow || this.tech.techShow;
     this.service.update(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
@@ -62,8 +65,14 @@ export class TechnologiesEditComponent<T>{
     this.closePopup();
   }
 
+  onCheckboxChange(event: boolean){
+    this.tech.techShow= event;
+    console.log("event radio ", event);
+  }
+
   closePopup(){
     $("#editTech").modal("hide");
+    this.popupForm.reset();
   }
 
 }
