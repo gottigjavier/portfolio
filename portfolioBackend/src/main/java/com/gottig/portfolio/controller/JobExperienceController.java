@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("job-experience")
 public class JobExperienceController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-    
     @Autowired
     private CRUDServiceInterface<JobExperience> jobService;
     
@@ -31,35 +29,35 @@ public class JobExperienceController {
     private CommonMapper<JobExperienceDTO, JobExperience> jobMapper;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public List<JobExperienceDTO> getAll(){
         return jobMapper.toDtoAll(jobService.getAll());
     }
     
     @GetMapping("/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public JobExperienceDTO getOne(@PathVariable Long id){
         return jobMapper.toDto(jobService.getOne(id));
     }
     
     @PostMapping("/create")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean create(@RequestBody JobExperienceDTO jobDTO){
         return jobService.create(jobMapper.toEntity(jobDTO));
     }
     
     @PutMapping("/update")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean update(@RequestBody JobExperienceDTO jobDTO){
         return jobService.update(jobMapper.toEntity(jobDTO));
     }
     
     @DeleteMapping("/delete/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){  
         return jobService.delete(id);

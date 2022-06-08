@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("spoken-language")
 public class SpokenLangController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-    
     @Autowired
     private CRUDServiceInterface<SpokenLang> langService;
     
@@ -32,14 +30,14 @@ public class SpokenLangController {
     private CommonMapper<SpokenLangDTO, SpokenLang> langMapper;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public List<SpokenLangDTO> getAll(){
         return langMapper.toDtoAll(langService.getAll());
     }
     
     @GetMapping("/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public SpokenLangDTO getOne(@PathVariable Long id){
         return langMapper.toDto(langService.getOne(id));
@@ -47,21 +45,21 @@ public class SpokenLangController {
     
     
     @PostMapping("/create")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean create(@RequestBody SpokenLangDTO langDTO){
         return langService.create(langMapper.toEntity(langDTO));
     }
     
     @PutMapping("/update")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean update(@RequestBody SpokenLangDTO langDTO){
         return langService.update(langMapper.toEntity(langDTO));
     }
     
     @DeleteMapping("/delete/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){  
         return langService.delete(id);

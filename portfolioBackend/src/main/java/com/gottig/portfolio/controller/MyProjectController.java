@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("my-project")
 public class MyProjectController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-    
     @Autowired
     private CRUDServiceInterface<MyProject> projService;
     
@@ -32,35 +30,35 @@ public class MyProjectController {
     private CommonMapper<MyProjectDTO, MyProject> projMapper;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public List<MyProjectDTO> getAll(){
         return projMapper.toDtoAll(projService.getAll());
     }
     
     @GetMapping("/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public MyProjectDTO getOne(@PathVariable Long id){
         return projMapper.toDto(projService.getOne(id));
     }
     
     @PostMapping("/create")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean create(@RequestBody MyProjectDTO projDTO){
         return projService.create(projMapper.toEntity(projDTO));
     }
     
     @PutMapping("/update")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean update(@RequestBody MyProjectDTO projDTO){
         return projService.update(projMapper.toEntity(projDTO));
     }
     
     @DeleteMapping("/delete/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){  
         return projService.delete(id);

@@ -31,11 +31,13 @@ export class ProjectsEditComponent<T>{
   onCheckboxChange(e: any) {
     if (e.target.checked) {
       this.techList.push(new FormControl(e.target.value));
+      console.log("techList from projescts-edit", e.target.value);
     } else {
       let i: number = 0;
       this.techList.controls.forEach((item: any) => {
         if (item.value == e.target.value) {
           this.techList.removeAt(i);
+          console.log("techList from projescts-edit else", e.target.value);
           return;
         }
         i++;

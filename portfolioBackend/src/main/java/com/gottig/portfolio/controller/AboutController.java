@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("about")
 public class AboutController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-    
     @Autowired
     private CRUDServiceInterface<About> aboutService;
     
@@ -30,35 +28,35 @@ public class AboutController {
     private CommonMapper<AboutDTO, About> aboutMapper;
         
     @GetMapping("/list")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public List<AboutDTO> getAll(){
         return aboutMapper.toDtoAll(aboutService.getAll());
     }
     
     @GetMapping("/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public AboutDTO getOne(@PathVariable Long id){
         return aboutMapper.toDto(aboutService.getOne(id));
     }
     
     @PostMapping("/create")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean create(@RequestBody AboutDTO aboutDTO){
         return aboutService.create(aboutMapper.toEntity(aboutDTO));
     }
     
     @PutMapping("/update")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean update(@RequestBody AboutDTO aboutDTO){
         return aboutService.update(aboutMapper.toEntity(aboutDTO));
     }
     
     @DeleteMapping("/delete/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){
         return aboutService.delete(id);

@@ -52,6 +52,9 @@ export class TechnologiesComponent<T> implements OnInit {
       this.bindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
       })
+      this.bindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
+        this.techListShown= data;
+      })
   }
   
   ngOnInit(): void {
@@ -62,6 +65,7 @@ export class TechnologiesComponent<T> implements OnInit {
       this.techList = response;
       this.techListShown= this.techList.filter(elem => elem.techShow);
       this.getScreenSize();
+      this.binding<Array<Technology>>(this.techListShown);
       // to link image size with level
       /* this.techList.map(tech =>{
         tech.techLevel= tech.techLevel*this.scrWidth/400;

@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("technology")
 public class TechnologyController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-    
     @Autowired
     private CRUDServiceInterface<Technology> techService;
     
@@ -31,35 +29,35 @@ public class TechnologyController {
     private CommonMapper<TechnologyDTO, Technology> techMapper;
     
     @GetMapping("/list")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public List<TechnologyDTO> getAll(){
         return techMapper.toDtoAll(techService.getAll());
     }
     
     @GetMapping("/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public TechnologyDTO getOne(@PathVariable Long id){
         return techMapper.toDto(techService.getOne(id));
     }
     
     @PostMapping("/create")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean create(@RequestBody TechnologyDTO techDTO){
         return techService.create(techMapper.toEntity(techDTO));
     }
     
     @PutMapping("/update")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean update(@RequestBody TechnologyDTO techDTO){  
         return techService.update(techMapper.toEntity(techDTO));
     }
     
     @DeleteMapping("/delete/{id}")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){  
         return techService.delete(id);

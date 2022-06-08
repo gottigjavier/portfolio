@@ -19,13 +19,13 @@
                             </div>
                             <label for="technotsownlist"><b>Not Shown Techs</b></label>
                             <div id="technoshownlist" *ngFor="let techFalse of techListFalse; index as i">
-                <input id="techFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{techFalse.techName}} (Id: {{techFalse.techId}}) </span>
-            </div>
-                            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <input id="techFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{techFalse.techName}} (Id: {{techFalse.techId}}) </span>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-success m-2" type="submit" value="Submit">
                     Confirm
                 </button>
-            </div> -->
+            </div>
                         </div>
                     </form>
                 </div>

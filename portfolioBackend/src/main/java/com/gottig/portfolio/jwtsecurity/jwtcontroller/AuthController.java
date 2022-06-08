@@ -32,8 +32,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @CrossOrigin
 public class AuthController {
     
-    private final String CROSSORIGIN = "http://localhost:4200";
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -52,7 +50,7 @@ public class AuthController {
     //Espera un json y lo convierte a tipo clase NuevoUsuario
     // Solo el administrador puede crear usuarios
     @PreAuthorize("hasRole('ADMIN')")
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @PostMapping("/newuser")
     public ResponseEntity<?> newUser(@Valid @RequestBody JwtNewUserDTO newUserDTO,
                                           BindingResult bindingResult){
@@ -81,7 +79,7 @@ public class AuthController {
         return new ResponseEntity<>("User Created", HttpStatus.CREATED);
     }
     
-    @CrossOrigin(origins = CROSSORIGIN)
+    @CrossOrigin(origins = "${cross.origin.value}")
     @PostMapping("/login")
     public ResponseEntity<JwtDTO> login(@Valid @RequestBody JwtUserLoginDTO loginUserDTO, BindingResult bindingResult){
         if (bindingResult.hasErrors()){

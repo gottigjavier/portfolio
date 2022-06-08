@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
 
   public mode: boolean= false;
 
-  public buttonText: string="Open Edit Mode";
+  public buttonText: string="Go View Mode";
   
   constructor(
     private loginService: LoginService,
@@ -24,7 +24,9 @@ export class NavbarComponent implements OnInit {
     if (sessionStorage.getItem('currentUser')){
       this.logged= true;
       this.currentUser= this.loginService.currentUserSubject.value.userName;
+      this.mode=true;
     }
+    this.binding<boolean>(this.mode);
   }
   
   ngOnInit(): void {
