@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BindingService } from 'src/app/services/binding.service';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/services/auth-sevices/login.service';
+import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,14 +19,14 @@ export class NavbarComponent implements OnInit {
   
   constructor(
     private loginService: LoginService,
-    private bindingService: BindingService<boolean>
+    private modeBindingService: ModeBindingService<boolean>
   ) {
     if (sessionStorage.getItem('currentUser')){
       this.logged= true;
       this.currentUser= this.loginService.currentUserSubject.value.userName;
       this.mode=true;
     }
-    this.binding<boolean>(this.mode);
+    this.modeBinding<boolean>(this.mode);
   }
   
   ngOnInit(): void {
@@ -37,23 +37,23 @@ export class NavbarComponent implements OnInit {
       //sessionStorage.setItem("editMode", "true");
       this.mode=true;
       this.buttonText= "Go View Mode";
-      this.binding<boolean>(this.mode);
+      this.modeBinding<boolean>(this.mode);
     }else{
       this.mode=false;
       //sessionStorage.removeItem("editMode");
       this.buttonText= "Open Edit Mode"
-      this.binding<boolean>(this.mode);
+      this.modeBinding<boolean>(this.mode);
     }
   }
 
   ngLogout(){
     this.logged= this.loginService.logout();
-    this.binding<boolean>(false);
+    this.modeBinding<boolean>(false);
     //this.ngOnInit();
   }
 
-  binding<T>(data: T){
-    this.bindingService.setData<T>(data);
+  modeBinding<T>(data: T){
+    this.modeBindingService.setData<T>(data);
   }
 
 }

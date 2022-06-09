@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { SpokenLanguage } from 'src/app/models/spoken-language.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -28,8 +28,8 @@ export class SpokenLanguagesEditComponent<T>{
 
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<SpokenLanguage>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<SpokenLanguage>
   ) {
     this.lang={
     languageId: 0,
@@ -41,7 +41,7 @@ export class SpokenLanguagesEditComponent<T>{
     languageIndex: 0
     }
 
-    this.binding.dataEmitter.subscribe((data: SpokenLanguage) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: SpokenLanguage) =>{
       this.lang= data;
     })
 
@@ -54,7 +54,7 @@ export class SpokenLanguagesEditComponent<T>{
     this.lang.langLevel= this.popupForm.value.langLevel || this.lang.langLevel;
     this.lang.percentLevel= this.popupForm.value.percentLevel || this.lang.percentLevel;
     this.lang.languageIndex= this.popupForm.value.languageIndex || this.lang.languageIndex;
-    this.service.update(this.editEndPoint, this.lang).subscribe(resp =>{
+    this.dataService.update(this.editEndPoint, this.lang).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

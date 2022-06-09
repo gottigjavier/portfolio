@@ -7,12 +7,16 @@ import { BannerModule } from './banner/banner.module';
 import { TechnologiesModule } from './technologies/technologies.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ExperienceModule } from './experience/experience.module';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 import { EducationModule } from './education/education.module';
 import { SkillsModule } from './skills/skills.module';
 import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoken-languages.module';
-import { BindingService } from 'src/app/services/binding.service';
 import { PopusModule } from '../popups/popus.module';
+import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
+import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
+import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 
 
 @NgModule({
@@ -44,7 +48,11 @@ import { PopusModule } from '../popups/popus.module';
   ],
   providers: [
     DataService,
-    BindingService
+    ModeBindingService,
+    TechBindingService,
+    ProjBindingService,
+    PopupBindingService,
+    TechListBindingService
   ]
 })
 export class HomeModule { }

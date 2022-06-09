@@ -55,4 +55,12 @@ public class Technology implements Serializable{
     @JsonBackReference
     private List<MyProject> projectList= new ArrayList<>();
     
+    public Long getTechId(){
+        return techId;
+    }
+    
+    public List<MyProject> getProjectList(){
+        return projectList;
+    }
+    
 }

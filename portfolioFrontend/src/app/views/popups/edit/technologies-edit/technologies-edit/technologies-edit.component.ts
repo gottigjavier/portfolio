@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Technology } from 'src/app/models/technology.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -29,8 +29,8 @@ export class TechnologiesEditComponent<T>{
 
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<Technology>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<Technology>
   ) {
     this.tech={
     techId: 0,
@@ -43,7 +43,7 @@ export class TechnologiesEditComponent<T>{
     techShow: false
   }
 
-    this.binding.dataEmitter.subscribe((data: Technology) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: Technology) =>{
       this.tech= data;
     })
 
@@ -57,7 +57,7 @@ export class TechnologiesEditComponent<T>{
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     //this.tech.techShow= this.popupForm.value.techShow || this.tech.techShow;
-    this.service.update(this.endPoint, this.tech).subscribe(resp =>{
+    this.dataService.update(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

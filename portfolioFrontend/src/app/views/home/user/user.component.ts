@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 @Component({
@@ -19,7 +19,7 @@ export class UserComponent<T> implements OnInit {
   
     constructor(
       private dataService: DataService<T>,
-      private bindingService: BindingService<User>
+      private popupBindingService: PopupBindingService<User>
     ) {
       this.user={
         userId: 0,
@@ -37,12 +37,12 @@ export class UserComponent<T> implements OnInit {
     }
   
     openEdit(){
-      this.binding<User>(this.user);
+      this.popupBinding<User>(this.user);
       $("#editUser").modal("show");
     }
     
-    binding<T>(data: T){
-      this.bindingService.setData<T>(data);
+    popupBinding<T>(data: T){
+      this.popupBindingService.setData<T>(data);
     }
   
   

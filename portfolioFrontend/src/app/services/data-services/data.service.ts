@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class DataService<T> {
     return this.http.put(`${this.url}/${endPoint}`, data);
   }
 
-  public delete(endPoint: string): Observable<boolean>{
-    return this.http.delete<boolean>(`${this.url}/${endPoint}`);
+  public delete(endPoint: string): Observable<any>{
+    return this.http.delete<any>(`${this.url}/${endPoint}`);
   }
 }

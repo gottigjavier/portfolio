@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Technology } from 'src/app/models/technology.model';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 import { HostListener } from "@angular/core";
-import { BindingService } from 'src/app/services/binding.service';
 import { MyProject } from 'src/app/models/my-project.model';
+import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
+import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
+import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
+import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 
-declare var $ : any;
+declare var $: any;
 
 @Component({
   selector: 'app-technologies',
@@ -15,113 +18,98 @@ declare var $ : any;
 export class TechnologiesComponent<T> implements OnInit {
 
 
-  public techList: Array<Technology>=[];
-  public techListShown: Array<Technology>=[];
+  public techList: Array<Technology> = [];
+  public techListShown: Array<Technology> = [];
   private tech: Technology;
-  private projList: Array<MyProject>=[];
-  private projGetAllEndPoint: string= "my-project/list";
-  private projUpdateEndPoint: string= "my-project/update";
-  private endPoint: string= "technology/list";
-  private delEndPoint: string= "technology/delete";
+  private projList: Array<MyProject> = [];
+  private projGetAllEndPoint: string = "my-project/list";
+  private projUpdateEndPoint: string = "my-project/update";
+  private endPoint: string = "technology/list";
+  private delEndPoint: string = "technology/delete";
 
-  scrWidth:any;
+  scrWidth: any;
 
   @HostListener('window:resize', ['$event'])
-  getScreenSize(_event?:any) {
-        this.scrWidth = window.innerWidth;
-        console.log(this.scrWidth);
+  getScreenSize(_event?: any) {
+    this.scrWidth = window.innerWidth;
+    console.log(this.scrWidth);
   }
-  
-  public editMode: boolean= false;
-  
+
+  public editMode: boolean = false;
+
   constructor(
     private dataService: DataService<T>,
-    private bindingService: BindingService<T>) {
+    private modeBindingService: ModeBindingService<T>,
+    private techBindingService: TechBindingService<T>,
+    private projBindingService: ProjBindingService<T>,
+    private techListBindingService: TechListBindingService<T>
+  ) {
 
-      this.tech={
-        techId: 0,
-        techName: "",
-        techType: "",
-        techDescription: "",
-        techIconUrl: "",
-        techLevel: 0,
-        techIndex: 0,
-        techShow: false
-      }
+    this.tech = {
+      techId: 0,
+      techName: "",
+      techType: "",
+      techDescription: "",
+      techIconUrl: "",
+      techLevel: 0,
+      techIndex: 0,
+      techShow: false
+    }
 
-      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
-        this.editMode= data;
-      })
-      this.bindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
-        this.techListShown= data;
-      })
+    this.modeBindingService.dataEmitter.subscribe((data: boolean) => {
+      this.editMode = data;
+    })
+    /* this.techBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+      this.techListShown = data;
+      this.ngOnInit();
+    }) */
   }
-  
+
   ngOnInit(): void {
     this.dataService.getAll<Array<Technology>>(this.endPoint).subscribe(response => {
       console.log("tech -> ", response);
-      response.sort((a,b) => a.techIndex - b.techIndex);
+      response.sort((a, b) => a.techIndex - b.techIndex);
       console.log("width  ", window.innerWidth)
       this.techList = response;
-      this.techListShown= this.techList.filter(elem => elem.techShow);
+      this.techListShown = this.techList.filter(elem => elem.techShow);
+      this.techListBinding(this.techListShown);
       this.getScreenSize();
-      this.binding<Array<Technology>>(this.techListShown);
-      // to link image size with level
-      /* this.techList.map(tech =>{
-        tech.techLevel= tech.techLevel*this.scrWidth/400;
-      }) */
-    }) 
-};
-
-deleteTech(id:number){
-  // Traigo todos los projects
-  this.dataService.getAll<Array<MyProject>>(this.projGetAllEndPoint).subscribe(response => {
-    this.projList = response;
-    //por cada proyecto filtro a ver si tira un tech con el id del que quiero borrar
-    this.projList.forEach(proj =>{
-    this.tech= proj.techList.filter(elem => elem.techId==id)[0];
-      // Si encuentra in tech hago que me tire el resto de techs menos ese
-      if(this.tech!=undefined){
-        proj.techList= proj.techList.filter(el => el.techId!=this.tech.techId);
-        // Actualizo el project pero sin ese tech
-          this.dataService.update(this.projUpdateEndPoint, proj).subscribe(resp =>{
-            if(!resp){
-              alert("Error: Not saved")
-            };
-            this.binding<MyProject>(proj);
-          })
-      }
     })
-    // Lo anterior es porque si no actualizo la lista de tech en los proyectos, la base de datos
-    // no me permite borrar un tech asociado a un proyecto (ManyToMany)
-    // En realidad debería ser responsabilidad del backend. Trasladar.
-    this.dataService.delete(`${this.delEndPoint}/${id}`).subscribe(resp =>{
-      if(!resp){
-        alert("Error. Not Deleted");
-      }
-      window.location.reload(); // mala practica ya que recarga toda la pagina 
-      // Hay que encontrar la forma de que los componentes "Project" se actualicen también
-      // Si llevo la funcion de borrar a la ventana emergente edit (con un boton) se 
-      // creo que actualizarían los proyectos
-      //this.ngOnInit(); // Acualiza solo este componente
-    })
-  }); 
+  };
 
-}
+  deleteTech(id: number) {
+    this.dataService.delete(`${this.delEndPoint}/${id}`).subscribe(resp => {
+      console.log("tec respones delete ", resp)
+      this.projBinding<MyProject>(resp);
+    });
 
-  
-openTechSet(){
-  //$("#newTech").modal("show");
-  $("#editTechSet").modal("show");
-}
+  }
 
-openEdit(i: number){
-  this.binding<Technology>(this.techList[i]);
-  $("#editTech").modal("show");
-}
 
-binding<T>(data: T){
-  this.bindingService.setData<T>(data);
-}
+  openTechSet() {
+    //$("#newTech").modal("show");
+    $("#editTechSet").modal("show");
+  }
+
+  openEdit(i: number) {
+    this.techBinding<Technology>(this.techList[i]);
+    $("#editTech").modal("show");
+  }
+
+  modeBinding<T>(data: T) {
+    this.modeBindingService.setData<T>(data);
+  }
+
+  techBinding<T>(data: T) {
+    this.techBindingService.setData<T>(data);
+  }
+
+  projBinding<T>(data: T) {
+    this.projBindingService.setData<T>(data);
+  }
+
+  techListBinding<T>(data: T) {
+    this.techListBindingService.setData<T>(data);
+  }
 
 }

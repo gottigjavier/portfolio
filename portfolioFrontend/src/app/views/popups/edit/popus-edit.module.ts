@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
-import { BindingService } from 'src/app/services/binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 import { PopusEditComponent } from './popus-edit.component';
 import { AboutEditModule } from './about-edit/about-edit/about-edit.module';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,7 @@ import { SpokenLanguagesEditModule } from './spoken-languages-edit/spoken-langua
 import { TechnologiesEditModule } from './technologies-edit/technologies-edit/technologies-edit.module';
 import { UserEditModule } from './user-edit/user-edit/user-edit.module';
 import { TechSetEditModule } from './tech-set-edit/tech-set-edit.module';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 
 
 
@@ -36,7 +36,7 @@ import { TechSetEditModule } from './tech-set-edit/tech-set-edit.module';
   ],
   providers: [
     DataService,
-    BindingService
+    PopupBindingService
   ]
 })
 export class PopusEditModule { }

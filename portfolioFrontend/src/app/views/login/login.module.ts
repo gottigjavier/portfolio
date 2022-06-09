@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/services/auth-sevices/login.service';
 
 @NgModule({
   declarations: [

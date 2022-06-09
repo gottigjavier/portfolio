@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { About } from 'src/app/models/about.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -26,8 +26,8 @@ export class AboutEditComponent<T>{
   
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<About>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<About>
     ) {
     this.about={
       aboutId: 0,
@@ -37,7 +37,7 @@ export class AboutEditComponent<T>{
       photoUrl: ""
     }
 
-    this.binding.dataEmitter.subscribe((data: About) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: About) =>{
       this.about= data;
     })
   }
@@ -47,7 +47,7 @@ export class AboutEditComponent<T>{
     this.about.lastName= this.popupForm.value.lastName || this.about.lastName;
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
-    this.service.update(this.endPoint, this.about).subscribe(resp =>{
+    this.dataService.update(this.endPoint, this.about).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

@@ -19,10 +19,10 @@ export class InterceptorService implements HttpInterceptor{
           Authorization: `Bearer ${currentUser.token}`
         }
       })
-      console.log("currentUser en Interceptor ", currentUser.token);
+      //console.log("currentUser en Interceptor ", currentUser.token);
       this.logged=true;
     }
-    console.log("Interceptor req ->>>> ", req);
+    //console.log("Interceptor req ->>>> ", req);
     return next.handle(req);
   }
 

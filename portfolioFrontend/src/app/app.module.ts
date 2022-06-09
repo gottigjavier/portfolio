@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './services/interceptor.service';
+import { InterceptorService } from './services/auth-sevices/interceptor.service';
 
 @NgModule({
   declarations: [

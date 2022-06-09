@@ -43,10 +43,8 @@
           </div>
           <div class="row grid-container mb-2">
               <div *ngFor="let tech of proj.techList">
-                <div *ngFor="let shown of techListShown">
-                  <div *ngIf="shown.techId == tech.techId">
+                  <div *ngIf="tech.techShow">
                     <img src="{{tech.techIconUrl}}" title="{{tech.techDescription}}" alt="Technology Logo" class="proj-logo">
-                  </div>
                 </div>
               </div>
             </div>

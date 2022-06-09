@@ -24,22 +24,32 @@
                     </div>
                     <div class="mb-3">
                         <label for="techSelect" class="form-label">Select Technologies</label>
-                        <form class="p-3" [formGroup]="insideForm" (submit)="insideSubmit()">
                         <div class="grid-container">
-                                <div *ngFor="let tec of techListTrue; index as i">
-                                    <input id="tec{{tec.techId}}" type="checkbox" [value]="tec.techId" checked="true"  (change)="onCheckboxChange($event)" ><span>{{tec.techName}} </span>
+                            <div class="row">
+                                <div class="tech">
+                                    <label for="techshownlist"><b>Shown Techs</b></label>
+                                    <div id="techshownlist" *ngFor="let techTrue of techListTrue; index as i">
+                                        <input id="techTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
+                                        (change)="onCheckboxChange($event)"><span class="ms-1">{{techTrue.techName}}</span>
+                                    </div>
                                 </div>
-                                <div *ngFor="let techn of techListFalse; index as i">
-                                    <input id="techn{{techn.techId}}" type="checkbox" [value]="techn.techId"   (change)="onCheckboxChange($event)" ><span>{{techn.techName}} </span>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="tech">
+                                    <label for="technotsownlist"><b>Not Shown Techs</b></label>
+                                    <div id="technoshownlist" *ngFor="let techFalse of techListFalse; index as i">
+                                        <input id="techFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{techFalse.techName}}</span>
+                                    </div>
                                 </div>
+                            </div>
                                 <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <button class="btn btn-success m-2" type="submit" value="Submit">
                                         Confirm
                                     </button>
                                 </div> -->
                             </div>
-                        </form>
-                    </div>
+                        </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

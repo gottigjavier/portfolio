@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Education } from 'src/app/models/education.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 @Component({
@@ -30,8 +30,8 @@ export class EducationEditComponent<T>{
 
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<Education>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<Education>
   ) {
     this.education={
       educationId: 0,
@@ -46,7 +46,7 @@ export class EducationEditComponent<T>{
       eduIndex: 0
     }
 
-    this.binding.dataEmitter.subscribe((data: Education) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: Education) =>{
       this.education= data;
     })
 
@@ -61,7 +61,7 @@ export class EducationEditComponent<T>{
     this.education.educationStart= this.popupForm.value.educationStart || this.education.educationStart;
     this.education.educationEnd= this.popupForm.value.educationEnd || this.education.educationEnd;
     this.education.approvedLevel= this.popupForm.value.approvedLevel || this.education.approvedLevel;
-    this.service.update(this.endPoint, this.education).subscribe(resp =>{
+    this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { About } from 'src/app/models/about.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
-import { LoginService } from 'src/app/services/login.service';
+import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -27,7 +27,8 @@ export class AboutComponent<T> implements OnInit {
   
   constructor(
     private dataService: DataService<T>,
-    private bindingService: BindingService<About>
+    private modeBindingService: ModeBindingService<boolean>,
+    private popupBindingService: PopupBindingService<About>
     ) {
       this.about={
         aboutId: 0,
@@ -36,13 +37,9 @@ export class AboutComponent<T> implements OnInit {
         shortExplanation: "",
         photoUrl: ""
         }
-        /* if (sessionStorage.getItem('editMode')){
-          this.editMode= true;
-          this.ngOnInit();
-        } */
-        // Con sessionStorage no se actualiza el componente, con dataEmoter sí
-        this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+        this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
           this.editMode= data;
+          console.log("about mode ", this.editMode);
         })
     }
     
@@ -55,12 +52,12 @@ export class AboutComponent<T> implements OnInit {
   };
   
   openEdit(){
-    this.binding<About>(this.about);
+    this.popupBinding<About>(this.about);
     $("#editAbout").modal("show");
   }
   
-  binding<T>(data: T){
-    this.bindingService.setData<T>(data);
+  popupBinding<T>(data: T){
+    this.popupBindingService.setData<T>(data);
   }
 
 }

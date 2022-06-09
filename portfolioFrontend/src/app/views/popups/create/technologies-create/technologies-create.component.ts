@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Technology } from 'src/app/models/technology.model';
-import { DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 

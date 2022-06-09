@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SpokenLanguage } from 'src/app/models/spoken-language.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -20,8 +21,10 @@ export class SpokenLanguagesComponent<T> implements OnInit {
 
   constructor(
     private dataService: DataService<T>,
-    private bindingService: BindingService<SpokenLanguage>) {
-      this.bindingService.dataEmitter.subscribe((data: boolean) =>{
+    private modeBindingService: ModeBindingService<boolean>,
+    private popupBindingService: PopupBindingService<SpokenLanguage>) 
+    {
+      this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
       })
     }
@@ -35,12 +38,12 @@ export class SpokenLanguagesComponent<T> implements OnInit {
   }
 
 openEdit(i: number){
-  this.binding<SpokenLanguage>(this.langList[i]);
+  this.popupBinding<SpokenLanguage>(this.langList[i]);
   $("#editLang").modal("show");
 }
 
-binding<T>(data: T){
-  this.bindingService.setData<T>(data);
+popupBinding<T>(data: T){
+  this.popupBindingService.setData<T>(data);
 }
 
 }

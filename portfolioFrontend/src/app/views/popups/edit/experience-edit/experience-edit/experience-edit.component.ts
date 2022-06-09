@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { JobExperience } from 'src/app/models/job-experience.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -32,8 +32,8 @@ export class ExperienceEditComponent<T> {
   
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<JobExperience>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<JobExperience>
   ) {
     this.job={
     jobId: 0,
@@ -49,7 +49,7 @@ export class ExperienceEditComponent<T> {
     jobIndex: 0
     }
 
-    this.binding.dataEmitter.subscribe((data: JobExperience) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: JobExperience) =>{
       this.job= data;
     })
   
@@ -66,7 +66,7 @@ export class ExperienceEditComponent<T> {
     this.job.lessonsLearned= this.popupForm.value.lessonsLearned || this.job.lessonsLearned;
     this.job.jobStart= this.popupForm.value.jobStart || this.job.jobStart;
     this.job.jobEnd= this.popupForm.value.jobEnd || this.job.jobEnd;
-    this.service.update(this.endPoint, this.job).subscribe(resp =>{
+    this.dataService.update(this.endPoint, this.job).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

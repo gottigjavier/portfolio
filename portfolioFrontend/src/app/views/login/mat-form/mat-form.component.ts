@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/services/auth-sevices/login.service';
 import { User } from '../../../models/user.model';
 
 @Component({
@@ -38,7 +38,7 @@ export class MatFormComponent <T>{
   constructor(
     private fb: FormBuilder,
     private routes:Router,
-    private service: LoginService) {
+    private loginService: LoginService) {
       this.user = {
         userId: 0,
         userName : '',
@@ -56,7 +56,7 @@ export class MatFormComponent <T>{
     this.loginUser.userName= this.loginForm.value.userName;
     this.loginUser.password= this.loginForm.value.password;
     console.log("loginUsr  -> ", this.loginUser);
-    this.service.login(this.loginForm.value).subscribe(resp =>{
+    this.loginService.login(this.loginForm.value).subscribe(resp =>{
       console.log("Usr  -> ", resp); //Viene el token con un 200, o un 401
       this.onClose();
     });

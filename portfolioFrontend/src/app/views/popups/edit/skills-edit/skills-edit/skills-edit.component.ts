@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -29,8 +29,8 @@ export class SkillsEditComponent<T> {
 
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>,
-    private binding: BindingService<Skill>
+    private dataService: DataService<T>,
+    private popupBindingService: PopupBindingService<Skill>
   ) {
     this.skill={
     skillId: 0,
@@ -42,7 +42,7 @@ export class SkillsEditComponent<T> {
     skillIndex: 0
     }
 
-    this.binding.dataEmitter.subscribe((data: Skill) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: Skill) =>{
       this.skill= data;
     })
 
@@ -55,7 +55,7 @@ export class SkillsEditComponent<T> {
     this.skill.skillUrlIcon= this.popupForm.value.skillUrlIcon || this.skill.skillUrlIcon;
     this.skill.skillLevel= this.popupForm.value.skillLevel || this.skill.skillLevel;
     this.skill.skillIndex= this.popupForm.value.skillIndex || this.skill.skillIndex;
-    this.service.update(this.editEndPoint, this.skill).subscribe(resp =>{
+    this.dataService.update(this.editEndPoint, this.skill).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };

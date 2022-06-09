@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
-import { BindingService } from 'src/app/services/binding.service';
-import { DataService } from 'src/app/services/data.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
 
@@ -44,7 +44,7 @@ export class UserEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private service: DataService<T>,
-    private binding: BindingService<User>
+    private popupBindingService: PopupBindingService<User>
   ) {
     this.user={
       userId: 0,
@@ -53,7 +53,7 @@ export class UserEditComponent<T> {
       userPassword: ""
     }
 
-    this.binding.dataEmitter.subscribe((data: User) =>{
+    this.popupBindingService.dataEmitter.subscribe((data: User) =>{
       this.user= data;
     })
 
