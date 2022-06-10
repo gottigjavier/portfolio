@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MyProject } from 'src/app/models/my-project.model';
 import { Technology } from 'src/app/models/technology.model';
@@ -41,19 +41,18 @@ export class ProjectsEditComponent<T> {
 
   onCheckboxChange(e: any) {
     this.techSetChanged.add(e.target.value);
+    console.log("event in projects edit ", e.target.checked);
     this.tech = this.techListShown.find((elem) => elem.techId == e.target.value) || this.tech;
-    if (this.techListTrue.includes(this.tech)) {
+    if (!e.target.checked) {
       this.techListTrue = this.techListTrue.filter(elem => elem.techId!=this.tech.techId);
       this.techListFalse.push(this.tech);
     } 
-    if (this.techListFalse.includes(this.tech)){
+    if (e.target.checked){
       this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId);
       this.techListTrue.push(this.tech);
     }
-
-    // REVISAR qué pasa con los que están en proj.techList
-    // Tal vez solo marcarlos
-    console.log('techSetChanged ', this.techSetChanged);
+    console.log("prject edit tech true ", this.techListTrue);
+    console.log("prject edit tech false ", this.techListFalse);
   }
 
   constructor(
@@ -97,55 +96,29 @@ export class ProjectsEditComponent<T> {
       for(let techFalse of this.techListFalse){
         for(let techTrue of this.techListTrue){
           if(techFalse.techId==techTrue.techId){
-            this.techListFalse.pop();
+            this.techListFalse= this.techListFalse.filter(elem => elem.techId!= techTrue.techId);
             break;
           }
         }
       }
-      console.log("techList true proj edit ", this.techListTrue);
-      console.log("techList false proj edit ", this.techListFalse);
     })
-    /* this.dataService
-      .getAll<Array<Technology>>(this.techEndPoint)
-      .subscribe((response) => {
-        this.proj.techList.length = 0;
-        this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
-          this.proj = data;
-          this.techListAll = response;
-        });
-      }); */
+    
   } //end constructor
-/* 
-  insideSubmit(): Array<Technology> {
-    this.proj.techList.length = 0;
-    this.techFormArray.value.forEach((element: number) => {
-      if (element != null) {
-        this.proj.techList.push(
-          this.techListAll.filter((el) => el.techId == element)[0]
-        );
-      }
-    });
-    return this.proj.techList;
-  }
- */
+
+  
   onSubmit() {
-    //this.proj.techList = this.insideSubmit();
-    this.proj.projName = this.popupForm.value.projName || this.proj.projName;
-    this.proj.projDescription =
-      this.popupForm.value.projDescription || this.proj.projDescription;
-    this.proj.projUrl = this.popupForm.value.projUrl || this.proj.projUrl;
-    this.proj.projIndex = this.popupForm.value.projIndex || this.proj.projIndex;
+    this.proj.techList = this.techListTrue;
     this.dataService.update(this.projEndPoint, this.proj).subscribe((resp) => {
       if (!resp) {
         alert('Error: Not saved');
       }
     });
-
+    this.closePopup();
     this.closePopup();
   }
-
+  
   closePopup() {
-    //this.projBinding<MyProject>(this.proj);
+    this.projBinding<MyProject>(this.proj);
     /* this.techListFalse.length=0;
     this.techListTrue.length=0;
     this.techListTrueStr.length=0;
@@ -153,5 +126,9 @@ export class ProjectsEditComponent<T> {
     this.popupForm.reset();
     //this.insideForm.reset();
     $('#editProj').modal('hide');
+  }
+
+  projBinding<T>(data: T) {
+    this.projBindingService.setData<T>(data);
   }
 }

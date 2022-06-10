@@ -1,0 +1,35 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteTech">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Set Edit</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label">Technologies</label>
+                    <div class="grid-container">
+                        <label for="techshownlist"><b>Ids of Techs</b></label>
+                        <div id="techshownlist" *ngFor="let tech of techListAll; index as i">
+                            <span id="{{i}}" class="ms-1">{{tech.techName}} (Id: {{tech.techId}})</span>
+                        </div>
+                        <hr>
+                        <i>This action has no turning back. Maybe you just want to hide the element via "Edit Set"</i>
+                        <hr>
+                        <form class="p-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                            <label for="technotsownlist"><b>Write Id to delete :</b></label>
+                            <input value={{techToDelete.techId}} type="text" formControlName="techId">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-success m-2" type="submit" value="Submit">
+                                    Confirm
+                                </button>
+                            </div>
+                        </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { TechnologiesEditModule } from './technologies-edit/technologies-edit/te
 import { UserEditModule } from './user-edit/user-edit/user-edit.module';
 import { TechSetEditModule } from './tech-set-edit/tech-set-edit.module';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { TechDeleteModule } from '../delete/tech-delete/tech-delete.module';
 
 
 
@@ -29,7 +30,8 @@ import { PopupBindingService } from 'src/app/services/binding-services/popup-bin
     SpokenLanguagesEditModule,
     TechnologiesEditModule,
     TechSetEditModule,
-    UserEditModule
+    UserEditModule,
+    TechDeleteModule
   ],
   exports: [
     PopusEditComponent

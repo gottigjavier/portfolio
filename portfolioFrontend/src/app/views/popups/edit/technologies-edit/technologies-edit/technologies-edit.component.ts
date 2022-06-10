@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Technology } from 'src/app/models/technology.model';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -30,7 +31,8 @@ export class TechnologiesEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Technology>
+    private popupBindingService: PopupBindingService<Technology>,
+    private techBindingService: TechBindingService<T>
   ) {
     this.tech={
     techId: 0,
@@ -56,23 +58,31 @@ export class TechnologiesEditComponent<T>{
     this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
-    //this.tech.techShow= this.popupForm.value.techShow || this.tech.techShow;
+    this.tech.techShow= this.tech.techShow;
     this.dataService.update(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };
     })
+    this.techBinding<Technology>(this.tech);
+    this.closePopup();
     this.closePopup();
   }
 
   onCheckboxChange(event: boolean){
     this.tech.techShow= event;
-    console.log("event radio ", event);
+    console.log("technologies-esdit this.tech.techShow ", this.tech.techShow);
+    console.log("technologies-esdit this.popupForm.value.techShow ", this.popupForm.value.techShow);
   }
 
   closePopup(){
+    this.techBinding<Technology>(this.tech);
     $("#editTech").modal("hide");
     this.popupForm.reset();
+  }
+
+  techBinding<T>(data: T) {
+    this.techBindingService.setData<T>(data);
   }
 
 }

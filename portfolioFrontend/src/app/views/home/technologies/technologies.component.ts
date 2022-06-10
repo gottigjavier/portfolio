@@ -7,6 +7,7 @@ import { ModeBindingService } from 'src/app/services/binding-services/mode-bindi
 import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
 import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
+import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 
 declare var $: any;
 
@@ -40,9 +41,10 @@ export class TechnologiesComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<T>,
-    private techBindingService: TechBindingService<T>,
+    private techBindingService: TechBindingService<Technology>,
     private projBindingService: ProjBindingService<T>,
-    private techListBindingService: TechListBindingService<T>
+    private techListBindingService: TechListBindingService<T>,
+    private popupBindingService: PopupBindingService<T>
   ) {
 
     this.tech = {
@@ -59,10 +61,16 @@ export class TechnologiesComponent<T> implements OnInit {
     this.modeBindingService.dataEmitter.subscribe((data: boolean) => {
       this.editMode = data;
     })
-    /* this.techBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-      this.techListShown = data;
-      this.ngOnInit();
-    }) */
+    this.techBindingService.dataEmitter.subscribe((data: Technology) => {
+      this.tech = data;
+      this.techList.forEach(elem => {
+        if(elem.techId==this.tech.techId){
+          elem=this.tech;
+          return
+        }
+      })
+    })
+
   }
 
   ngOnInit(): void {
@@ -71,33 +79,48 @@ export class TechnologiesComponent<T> implements OnInit {
       response.sort((a, b) => a.techIndex - b.techIndex);
       console.log("width  ", window.innerWidth)
       this.techList = response;
-      this.techListShown = this.techList.filter(elem => elem.techShow);
-      this.techListBinding(this.techListShown);
+      this.techListShown = this.techList.filter(elem => elem.techShow==true);
+      this.techListBinding<Array<Technology>>(this.techList);
       this.getScreenSize();
+      this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+        this.techListShown = data.filter(elem => elem.techShow==true);
+      })
     })
   };
 
-  deleteTech(id: number) {
+/*   deleteTech(id: number) {
     this.dataService.delete(`${this.delEndPoint}/${id}`).subscribe(resp => {
       console.log("tec respones delete ", resp)
       this.projBinding<MyProject>(resp);
     });
 
   }
-
+ */
 
   openTechSet() {
     //$("#newTech").modal("show");
     $("#editTechSet").modal("show");
   }
 
+  openNewTech() {
+    $("#newTech").modal("show");
+  }
+
   openEdit(i: number) {
-    this.techBinding<Technology>(this.techList[i]);
+    this.popupBinding<Technology>(this.techList[i]);
     $("#editTech").modal("show");
+  }
+
+  openDeleteTech(){
+    $("#deleteTech").modal("show");
   }
 
   modeBinding<T>(data: T) {
     this.modeBindingService.setData<T>(data);
+  }
+
+  popupBinding<T>(data: T) {
+    this.popupBindingService.setData<T>(data);
   }
 
   techBinding<T>(data: T) {

@@ -36,9 +36,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="techsshowtrue" class="form-label">Show Tech _</label>
-                        <input name="techshow" id="techshowtrue" type="radio" value='true' checked (change)="onCheckboxChange(true)" >
+                        <input name="techshow" id="techshowtrue" type="radio" (value)="true" checked (change)="onCheckboxChange(true)" >
                         <label for="techsshowfalse" class="form-label">Hidde Tech _</label>
-                        <input name="techshow" id="techshowfalse" type="radio" value='false' (change)="onCheckboxChange(false)" >
+                        <input name="techshow" id="techshowfalse" type="radio" (value)="false" (change)="onCheckboxChange(false)" >
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">

@@ -52,7 +52,6 @@ export class AboutEditComponent<T>{
         alert("Error: Not saved")
       };
     })
-    console.log("first name popup depues de send ",this.about.firstName);
     this.closePopup();
   }
   

@@ -35,12 +35,20 @@ export class ProjectsComponent<T> implements OnInit {
     this.modeBindingService.dataEmitter.subscribe((data: boolean) => {
       this.editMode = data;
     })
-    /* this.techBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-      this.techListShown = data;
+    
+    this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
+      if(data){
+          this.projList.forEach(proj => {
+            if (data.projId==proj.projId) {
+              proj = data;
+            }
+          })
+          this.ngOnInit();
+        }
     })
- */
+
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
-      this.techListShown= data;
+      this.techListShown= data.filter(elem => elem.techShow==true);
       this.ngOnInit();
     })
   }
@@ -49,25 +57,21 @@ export class ProjectsComponent<T> implements OnInit {
     this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
       response.sort((a, b) => a.projIndex - b.projIndex);
       this.projList = response;
-      //Para mostrar los tech shown. Funciona pero cuando quiero ocultar
-      // un tech desde editTech la bd no toma el cambio
-      /* this.projList.forEach(function (proj) {
-        proj.techList = proj.techList.filter(elem => elem.techShow);
-      }) */
-      console.log("proj tech list shown list -> ", this.techListShown);
     })
-    this.projList.forEach(proj => {
-      this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
-        if (data) {
-          proj = data;
+    this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
+      if(data){
+          this.projList.forEach(proj => {
+            if (data.projId==proj.projId) {
+              proj = data;
+            }
+          })
         }
-      })
     })
   };
 
   openEdit(i: number) {
     this.popupBinding<MyProject>(this.projList[i]);
-    this.techListBinding(this.techListShown);
+    this.techListBinding<Array<Technology>>(this.techListShown);
     $("#editProj").modal("show");
   }
 

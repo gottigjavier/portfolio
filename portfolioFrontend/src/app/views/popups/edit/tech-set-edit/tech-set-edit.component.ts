@@ -107,12 +107,13 @@ export class TechSetEditComponent<T> implements OnInit {
           })
         })
       }
-      this.techListBinding<Array<Technology>>(this.techListTrue);
       this.closePopup();
-  }
-
-
-  closePopup(){
+      this.closePopup();
+    }
+    
+    
+    closePopup(){
+    this.techListBinding<Array<Technology>>(this.techListTrue);
     $("#editTechSet").modal("hide");
   }
 

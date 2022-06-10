@@ -34,7 +34,7 @@ export class TechnologiesCreateComponent<T> {
 
   constructor(
     private fb: FormBuilder,
-    private service: DataService<T>
+    private dataService: DataService<T>
   ) { }
 
   onSubmit(){
@@ -45,7 +45,7 @@ export class TechnologiesCreateComponent<T> {
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;
-    this.service.create(this.endPoint, this.tech).subscribe(resp =>{
+    this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
       };
