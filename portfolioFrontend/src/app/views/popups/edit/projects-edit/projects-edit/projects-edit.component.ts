@@ -33,8 +33,8 @@ export class ProjectsEditComponent<T> {
     techShow: false,
   };
 
-  private projEndPoint: string = 'my-project/update';
-  private techEndPoint: string = 'technology/list';
+  private projUpdateEndPoint: string = 'my-project/update';
+  private projListEndPoint: string = 'my-project/list';
 
   popupForm: FormGroup;
   techFormArray: FormArray;
@@ -91,7 +91,7 @@ export class ProjectsEditComponent<T> {
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
       this.techListShown = data;
-      this.techListTrue = this.proj.techList.filter(elem => elem.techShow);
+      this.techListTrue = this.proj.techList.filter(elem => elem.techShow==true);
       this.techListFalse= this.techListShown;
       for(let techFalse of this.techListFalse){
         for(let techTrue of this.techListTrue){
@@ -108,7 +108,7 @@ export class ProjectsEditComponent<T> {
   
   onSubmit() {
     this.proj.techList = this.techListTrue;
-    this.dataService.update(this.projEndPoint, this.proj).subscribe((resp) => {
+    this.dataService.update(this.projUpdateEndPoint, this.proj).subscribe((resp) => {
       if (!resp) {
         alert('Error: Not saved');
       }
@@ -119,12 +119,7 @@ export class ProjectsEditComponent<T> {
   
   closePopup() {
     this.projBinding<MyProject>(this.proj);
-    /* this.techListFalse.length=0;
-    this.techListTrue.length=0;
-    this.techListTrueStr.length=0;
-    */
     this.popupForm.reset();
-    //this.insideForm.reset();
     $('#editProj').modal('hide');
   }
 

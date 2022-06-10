@@ -25,7 +25,7 @@ export class TechnologiesComponent<T> implements OnInit {
   private projList: Array<MyProject> = [];
   private projGetAllEndPoint: string = "my-project/list";
   private projUpdateEndPoint: string = "my-project/update";
-  private endPoint: string = "technology/list";
+  private techListEndPoint: string = "technology/list";
   private delEndPoint: string = "technology/delete";
 
   scrWidth: any;
@@ -65,7 +65,7 @@ export class TechnologiesComponent<T> implements OnInit {
       this.tech = data;
       this.techList.forEach(elem => {
         if(elem.techId==this.tech.techId){
-          elem=this.tech;
+          this.tech=elem;
           return
         }
       })
@@ -74,7 +74,7 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<Technology>>(this.endPoint).subscribe(response => {
+    this.dataService.getAll<Array<Technology>>(this.techListEndPoint).subscribe(response => {
       console.log("tech -> ", response);
       response.sort((a, b) => a.techIndex - b.techIndex);
       console.log("width  ", window.innerWidth)
@@ -107,7 +107,12 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   openEdit(i: number) {
-    this.popupBinding<Technology>(this.techList[i]);
+    this.techList.forEach(elem=>{
+      if(elem.techId==i){
+        this.tech= elem;
+      }
+    })
+    this.popupBinding<Technology>(this.tech);
     $("#editTech").modal("show");
   }
 

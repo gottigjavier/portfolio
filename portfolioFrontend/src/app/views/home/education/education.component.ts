@@ -30,7 +30,6 @@ export class EducationComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
-    console.log("education -> ", response);
     response.sort((a,b) => a.eduIndex - b.eduIndex);
     this.eduList = response;
     })
@@ -41,10 +40,6 @@ export class EducationComponent<T> implements OnInit {
     $("#editEdu").modal("show");
   }
   
-  /* binding<T>(data: T){
-    this.bindingService.setData<T>(data);
-  }
- */
   popupBinding<T>(data: T){
     this.popupBindingService.setData<T>(data);
   }

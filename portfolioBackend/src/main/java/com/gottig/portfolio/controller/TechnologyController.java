@@ -63,8 +63,11 @@ public class TechnologyController {
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody TechnologyDTO techDTO){  
-        return techService.update(techMapper.toEntity(techDTO));
+    public ResponseEntity update(@RequestBody TechnologyDTO techDTO){  
+        if(!techService.update(techMapper.toEntity(techDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update/list")

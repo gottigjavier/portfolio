@@ -36,7 +36,7 @@ export class ProjectsComponent<T> implements OnInit {
       this.editMode = data;
     })
     
-    this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
+    /* this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
       if(data){
           this.projList.forEach(proj => {
             if (data.projId==proj.projId) {
@@ -45,7 +45,7 @@ export class ProjectsComponent<T> implements OnInit {
           })
           this.ngOnInit();
         }
-    })
+    }) */
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
       this.techListShown= data.filter(elem => elem.techShow==true);
@@ -59,13 +59,17 @@ export class ProjectsComponent<T> implements OnInit {
       this.projList = response;
     })
     this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
-      if(data){
+      //if(data){
           this.projList.forEach(proj => {
             if (data.projId==proj.projId) {
               proj = data;
             }
           })
-        }
+          this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
+            response.sort((a, b) => a.projIndex - b.projIndex);
+            this.projList = response;
+          })
+        //}
     })
   };
 

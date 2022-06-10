@@ -113,7 +113,7 @@ export class TechSetEditComponent<T> implements OnInit {
     
     
     closePopup(){
-    this.techListBinding<Array<Technology>>(this.techListTrue);
+    this.techListBinding<Array<Technology>>(this.techListAll);
     $("#editTechSet").modal("hide");
   }
 

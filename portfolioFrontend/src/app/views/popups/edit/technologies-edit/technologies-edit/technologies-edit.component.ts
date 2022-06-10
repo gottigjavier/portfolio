@@ -14,9 +14,9 @@ declare var $ : any;
 })
 export class TechnologiesEditComponent<T>{
 
-  tech: Technology;
-
-  private endPoint: string="technology/update";
+  public tech: Technology;
+  
+  private techUpdateEndPoint: string="technology/update";
 
   popupForm= this.fb.group({
     techName: "",
@@ -58,27 +58,21 @@ export class TechnologiesEditComponent<T>{
     this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
-    this.tech.techShow= this.tech.techShow;
-    this.dataService.update(this.endPoint, this.tech).subscribe(resp =>{
+    this.dataService.update(this.techUpdateEndPoint, this.tech).subscribe(resp =>{
       if(!resp){
-        alert("Error: Not saved")
-      };
+        window.alert("Error: Not saved");
+        return
+      }
+      this.techBinding<Technology>(this.tech);
     })
-    this.techBinding<Technology>(this.tech);
     this.closePopup();
     this.closePopup();
-  }
-
-  onCheckboxChange(event: boolean){
-    this.tech.techShow= event;
-    console.log("technologies-esdit this.tech.techShow ", this.tech.techShow);
-    console.log("technologies-esdit this.popupForm.value.techShow ", this.popupForm.value.techShow);
   }
 
   closePopup(){
     this.techBinding<Technology>(this.tech);
+    //this.popupForm.reset();
     $("#editTech").modal("hide");
-    this.popupForm.reset();
   }
 
   techBinding<T>(data: T) {
