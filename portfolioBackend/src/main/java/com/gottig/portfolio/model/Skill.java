@@ -39,6 +39,9 @@ public class Skill implements Serializable{
     @Column(name="skill_url_icon")
     private String skillUrlIcon;
     
+    @Column(name="skill_show", columnDefinition = "boolean default true")
+    private boolean skillShow;
+    
     @Column(name="skill_index")// En caso de necesitar que persista el orden dado en el front
     private int skillIndex;
     

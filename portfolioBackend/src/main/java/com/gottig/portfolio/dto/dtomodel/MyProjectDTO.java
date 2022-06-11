@@ -18,6 +18,8 @@ public class MyProjectDTO {
     
     private int projIndex;
     
+    private boolean projShow;
+    
     private List<Technology> techList;
     
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -53,8 +55,11 @@ public class MyProjectController {
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody MyProjectDTO projDTO){
-        return projService.update(projMapper.toEntity(projDTO));
+    public ResponseEntity update(@RequestBody MyProjectDTO projDTO){
+        if(!projService.update(projMapper.toEntity(projDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getOne(projDTO.getProjId()), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")

@@ -53,6 +53,9 @@ public class Education implements Serializable{
     @Column(name="approved_level")
     private Double approvedLevel;
     
+    @Column(name="edu_show", columnDefinition = "boolean default true")
+    private boolean eduShow;
+    
     @Column(name="edu_index")// En caso de necesitar que persista el orden dado en el front
     private int eduIndex;
     

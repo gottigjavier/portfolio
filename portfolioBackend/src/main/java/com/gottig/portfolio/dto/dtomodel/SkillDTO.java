@@ -19,6 +19,8 @@ public class SkillDTO {
     
     private String skillUrlIcon;
     
+    private boolean skillShow;
+    
     private int skillIndex;
     
 }

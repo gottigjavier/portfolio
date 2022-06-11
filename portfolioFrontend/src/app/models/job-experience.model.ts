@@ -9,5 +9,6 @@ export interface JobExperience{
     lessonsLearned: string,
     jobStart: string,
     jobEnd: string,
+    jobShow: boolean,
     jobIndex: number
 }

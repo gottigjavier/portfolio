@@ -46,6 +46,7 @@ export class ExperienceEditComponent<T> {
     lessonsLearned: "",
     jobStart: "",
     jobEnd: "",
+    jobShow: true,
     jobIndex: 0
     }
 

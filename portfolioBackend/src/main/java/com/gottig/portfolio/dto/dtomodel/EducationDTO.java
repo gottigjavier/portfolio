@@ -24,6 +24,8 @@ public class EducationDTO {
     
     private Double approvedLevel;
     
+    private boolean eduShow;
+    
     private int eduIndex;
     
 }

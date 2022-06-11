@@ -8,5 +8,6 @@ export interface Education{
     educationStart: string,
     educationEnd: string,
     approvedLevel: number,
+    eduShow: boolean,
     eduIndex: number
 }

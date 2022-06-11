@@ -39,6 +39,7 @@ export class SkillsEditComponent<T> {
     skillDescription: "",
     skillLevel: 0,
     skillUrlIcon: "",
+    skillShow: true,
     skillIndex: 0
     }
 

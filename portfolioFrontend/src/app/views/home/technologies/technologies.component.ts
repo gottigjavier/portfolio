@@ -83,6 +83,7 @@ export class TechnologiesComponent<T> implements OnInit {
       this.techListBinding<Array<Technology>>(this.techList);
       this.getScreenSize();
       this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+        data.sort((a, b) => a.techIndex - b.techIndex);
         this.techListShown = data.filter(elem => elem.techShow==true);
       })
     })

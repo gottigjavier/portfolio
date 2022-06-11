@@ -18,6 +18,8 @@ public class SpokenLangDTO {
     
     private String langFlagUrl;
     
+    private boolean langShow;
+    
     private int languageIndex;
     
 }

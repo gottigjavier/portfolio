@@ -43,6 +43,7 @@ export class EducationEditComponent<T>{
       institutionName: "",
       institutionLink: "",
       institutionLogo: "",
+      eduShow: true,
       eduIndex: 0
     }
 

@@ -5,22 +5,26 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Set Edit</h4>
+                    <h4 class="modal-title"><b>Delete Technology</b></h4>
                     <button type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
                 <div class="mb-3">
-                    <label for="setForm" class="form-label">Technologies</label>
-                    <div class="grid-container">
-                        <label for="techshownlist"><b>Ids of Techs</b></label>
+                    <label for="setForm" class="form-label m-3"><b>Technologies and IDs</b></label>
+                    <div class="grid-container p-2">
                         <div id="techshownlist" *ngFor="let tech of techListAll; index as i">
                             <span id="{{i}}" class="ms-1">{{tech.techName}} (Id: {{tech.techId}})</span>
                         </div>
                         <hr>
-                        <i>This action has no turning back. Maybe you just want to hide the element via "Edit Set"</i>
+                        <div class="text-center ps-4 pe-4 tech-index">
+                            <i>This action has no turning back. It might be convenient to just hide the element via "Edit Set"</i>
+                        </div>
                         <hr>
-                        <form class="p-3" [formGroup]="deleteForm" (submit)="delSubmit()">
-                            <label for="technotsownlist"><b>Write Id to delete :</b></label>
-                            <input value={{techToDelete.techId}} type="text" formControlName="techId">
+                        <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
+                        <form class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                            <div class="text-center">
+                                <label for="technotsownlist"><b>Id :</b></label>
+                                <input value={{techToDelete.techId}} type="text" formControlName="techId" size="2">
+                            </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button class="btn btn-success m-2" type="submit" value="Submit">
                                     Confirm

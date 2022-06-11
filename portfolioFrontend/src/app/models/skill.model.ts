@@ -5,5 +5,6 @@ export interface Skill{
     skillDescription: string,
     skillLevel: number,
     skillUrlIcon: string,
+    skillShow: boolean,
     skillIndex: number
 }

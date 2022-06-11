@@ -48,21 +48,18 @@ export class TechSetEditComponent<T> implements OnInit {
       this.techListFalse= this.techListFalse.filter(elem => elem.techId != this.tech.techId);
       this.techListTrue.push(this.tech); 
     }
-    /* if (e.target.checked) {
-      this.setFormArray.push(new FormControl(e.target.value));
-    } else {
-      let i: number = 0;
-      this.setFormArray.controls.forEach((item: any) => {
-        if (item.value == e.target.value) {
-          this.setFormArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    } */
-    //console.log("techListTrue ", this.techListTrue);
-    //console.log("techListFalse ", this.techListFalse);
     console.log("techSetChanged ", this.techSetChanged);
+  }
+
+  onIndexChange(e:any){
+    this.techSetChanged.add(e.target.id);
+    this.techListTrue.forEach(elem=>{
+      if(elem.techId==e.target.id){
+        elem.techIndex=e.target.value;
+      }
+    })
+    console.log("set tech event value", e.target.value);
+    console.log("set tech event id", e.target.id);
   }
 
   constructor(
@@ -71,6 +68,7 @@ export class TechSetEditComponent<T> implements OnInit {
     private techListBindingService: TechListBindingService<T>
   ) {
     this.service.getAll<Array<Technology>>(this.techListEndPoint).subscribe(response =>{
+      response.sort((a, b) => a.techIndex - b.techIndex);
       this.techListAll=response;
       this.techListTrue= this.techListAll.filter(elm => elm.techShow);
       this.techListFalse= this.techListAll.filter(elm => !elm.techShow);
@@ -100,6 +98,7 @@ export class TechSetEditComponent<T> implements OnInit {
             if(!resp){
               alert("Error: Not saved");
             }else{
+              resp.sort((a:any, b:any) => a.techIndex - b.techIndex);
               this.techListAll= resp;
               this.techListTrue= this.techListAll.filter(elm => elm.techShow);
               this.techListFalse= this.techListAll.filter(elm => !elm.techShow);

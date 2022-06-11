@@ -58,6 +58,9 @@ public class JobExperience implements Serializable {
     @Column(name="job_end")
     private java.util.Date jobEnd;
     
+    @Column(name="job_show", columnDefinition = "boolean default true")
+    private boolean jobShow;
+    
     @Column(name="job_index")// En caso de necesitar que persista el orden dado en el front
     private int jobIndex;
     

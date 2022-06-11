@@ -6,5 +6,6 @@ export interface MyProject{
     projDescription: string,
     projUrl: string,
     techList: Array<Technology>,
+    projShow: boolean,
     projIndex: number
 }

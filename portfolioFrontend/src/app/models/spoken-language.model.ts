@@ -5,5 +5,6 @@ export interface SpokenLanguage{
     percentLevel: number,
     certificationUrl: string,
     langFlagUrl: string,
+    langShow: boolean,
     languageIndex: number
 }

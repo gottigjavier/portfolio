@@ -25,6 +25,8 @@ public class JobExperienceDTO {
     
     private java.util.Date jobEnd;
     
+    private boolean jobShow;
+    
     private int jobIndex;
     
 }

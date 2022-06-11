@@ -40,6 +40,9 @@ public class MyProject implements Serializable {
     @Column(name="proj_url")
     private String projUrl;
     
+    @Column(name="proj_show", columnDefinition = "boolean default true")
+    private boolean projShow;
+    
     @Column(name="proj_index")// En caso de necesitar que persista el orden dado en el front
     private int projIndex;
     

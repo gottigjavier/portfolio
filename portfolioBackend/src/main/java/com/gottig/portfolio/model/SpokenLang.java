@@ -39,6 +39,9 @@ public class SpokenLang implements Serializable{
     @Column(name="language_flag_url")
     private String langFlagUrl;
     
+    @Column(name="lang_show", columnDefinition = "boolean default true")
+    private boolean langShow;
+    
     @Column(name="language_index")// En caso de necesitar que persista el orden dado en el front
     private int languageIndex;
     

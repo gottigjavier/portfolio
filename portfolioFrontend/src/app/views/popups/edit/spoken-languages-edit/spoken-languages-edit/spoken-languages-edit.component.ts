@@ -38,6 +38,7 @@ export class SpokenLanguagesEditComponent<T>{
     percentLevel: 0,
     certificationUrl: "",
     langFlagUrl: "",
+    langShow: true,
     languageIndex: 0
     }
 

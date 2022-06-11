@@ -48,6 +48,7 @@ export class ProjectsComponent<T> implements OnInit {
     }) */
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
+      data.sort((a, b) => a.techIndex - b.techIndex);
       this.techListShown= data.filter(elem => elem.techShow==true);
       this.ngOnInit();
     })
@@ -57,6 +58,9 @@ export class ProjectsComponent<T> implements OnInit {
     this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
       response.sort((a, b) => a.projIndex - b.projIndex);
       this.projList = response;
+      this.projList.forEach(elem=>{
+        elem.techList.sort((a, b) => a.techIndex - b.techIndex);
+      })
     })
     this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
       //if(data){
@@ -64,6 +68,7 @@ export class ProjectsComponent<T> implements OnInit {
             if (data.projId==proj.projId) {
               proj = data;
             }
+            return this.projList;
           })
           this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
             response.sort((a, b) => a.projIndex - b.projIndex);
@@ -79,6 +84,13 @@ export class ProjectsComponent<T> implements OnInit {
     $("#editProj").modal("show");
   }
 
+  openNewProj(){
+
+  }
+
+  openDeleteProj(){
+
+  }
 
   popupBinding<T>(data: T) {
     this.popupBindingService.setData<T>(data);
