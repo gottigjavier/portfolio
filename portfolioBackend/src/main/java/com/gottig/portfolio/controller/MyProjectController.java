@@ -65,8 +65,11 @@ public class MyProjectController {
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){  
-        return projService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){  
+        if(!projService.delete(id)){
+            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
 }

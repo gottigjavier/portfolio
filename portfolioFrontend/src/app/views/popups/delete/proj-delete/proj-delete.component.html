@@ -1,0 +1,39 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteProj">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Delete Project</b></h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label m-3"><b>Projects and IDs</b></label>
+                    <div class="grid-container p-2">
+                        <div id="techshownlist" *ngFor="let proj of projList; index as i">
+                            <span id="{{i}}" class="ms-1">{{proj.projName}} (Id: {{proj.projId}})</span>
+                        </div>
+                        <hr>
+                        <div class="text-center ps-4 pe-4 proj-index">
+                            <i>This action has no turning back. It might be convenient to just hide the element via "Edit Set"</i>
+                        </div>
+                        <hr>
+                        <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
+                        <form class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                            <div class="text-center">
+                                <label for="projId"><b>Id :</b></label>
+                                <input id="projId" value="" type="text" formControlName="projId" size="2">
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-success m-2" type="submit" value="Submit">
+                                    Confirm
+                                </button>
+                            </div>
+                        </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

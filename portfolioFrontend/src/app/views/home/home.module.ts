@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data-services/data.service';
 import { EducationModule } from './education/education.module';
 import { SkillsModule } from './skills/skills.module';
 import { SpokenLanguagesModule } from './spoken-languages/spoken-languages/spoken-languages.module';
-import { PopusModule } from '../popups/popus.module';
+import { PopupsModule } from '../popups/popups.module';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
 import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
@@ -34,7 +34,7 @@ import { TechListBindingService } from 'src/app/services/binding-services/tech-l
     ProjectsModule,
     TechnologiesModule,
     SharedModule,
-    PopusModule
+    PopupsModule
   ],
   exports: [
     AboutModule,
@@ -44,7 +44,7 @@ import { TechListBindingService } from 'src/app/services/binding-services/tech-l
     SpokenLanguagesModule,
     ProjectsModule,
     TechnologiesModule,
-    PopusModule
+    PopupsModule
   ],
   providers: [
     DataService,

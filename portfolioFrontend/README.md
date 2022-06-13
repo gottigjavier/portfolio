@@ -2,14 +2,19 @@
 
 ### Self help
 
-#### Service
+#### DataService
 
-La capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
-Por el momento se creó otra clase genérica para manejar la autenticacón de login pero en el futuro se podrá optar por dejar solo DataService.  
+Una capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
+Para mejor claridad se creó otra clase genérica para manejar la autenticacón de login.
+
+Dado que entre los componentes MyProject y Technology existe una estrecha relación, también se utiliza un service de binding para comunicar las modificaciones en uno u otro.
+En consecuencia de que ya se tiene en uso esta capa de servicio, se optó por no diseñar los componentes popup como hijos de los componentes a editar sino en módulos separados e hijos de PopupsModule. Esto permite prescindir de @Input y @Output.
 
 #### Modal Form y Bindin Service
 
-Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela al servicio (genérico) "binding" y así tanto el componente y la ventana comparten los datos.
+Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela al servicio (genérico) "PopupBinding" y así tanto el componente y la ventana comparten los datos.
+ Además se creó una capa ModeBinding para alternar entre el modo edición y visualización para un usuario logueado.
+
 
 #### Iconos
 

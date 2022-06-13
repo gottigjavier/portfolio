@@ -1,0 +1,17 @@
+/* @import '~bootstrap/dist/css/bootstrap.min.css';
+ */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 3px;
+    padding: 1px;
+  }
+
+  .tech{
+    margin-left: 1ch;
+    border: solid 1px;
+  }
+
+  .proj-index-box{
+    width: 3em;
+  }

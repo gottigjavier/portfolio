@@ -59,9 +59,10 @@ export class TechDeleteComponent<T> implements OnInit {
         }
       })
         if(this.techToDelete.techId<0){
-          window.alert("Id not match");
+          window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.techToDelete.techId}`).subscribe(resp =>{
+            resp.sort((a: any, b: any) => a.projIndex - b.projIndex);
             this.techListAll= resp;
           })
           // Con dos closePopup se actualizan los componentes
