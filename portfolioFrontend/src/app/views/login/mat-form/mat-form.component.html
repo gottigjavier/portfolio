@@ -14,7 +14,7 @@
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Username" formControlName="userName">
+          <input matInput placeholder="Username" formControlName="userName" autofocus>
           <mat-error *ngIf="loginForm.controls['userName'].hasError('minLength()') || loginForm.controls['userName'].hasError('required')">
             Valid username <strong>required</strong>
           </mat-error>

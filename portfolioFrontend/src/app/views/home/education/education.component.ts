@@ -14,6 +14,8 @@ declare var $ : any;
 export class EducationComponent<T> implements OnInit {
 
   public eduList: Array<Education>=[];
+  public eduListShown: Array<Education>=[];
+
   private endPoint: string= "education/list";
 
   public editMode: boolean= false;
@@ -32,6 +34,7 @@ export class EducationComponent<T> implements OnInit {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
     response.sort((a,b) => a.eduIndex - b.eduIndex);
     this.eduList = response;
+    this.eduListShown= this.eduList.filter(elem => elem.eduShow==true);
     })
   }
 

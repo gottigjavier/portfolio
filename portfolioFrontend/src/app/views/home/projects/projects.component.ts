@@ -19,6 +19,7 @@ declare var $: any;
 export class ProjectsComponent<T> implements OnInit {
 
   public projList: Array<MyProject> = [];
+  public projListShown: Array<MyProject> = [];
   public projListTechShown: Array<MyProject> = [];
   private endPoint: string = "my-project/list";
   public techListShown: Array<Technology> = [];
@@ -60,6 +61,7 @@ export class ProjectsComponent<T> implements OnInit {
     this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
       response.sort((a, b) => a.projIndex - b.projIndex);
       this.projList = response;
+      this.projListShown= this.projList.filter(elem => elem.projShow==true);
       this.projList.forEach(elem=>{
         elem.techList.sort((a, b) => a.techIndex - b.techIndex);
       })
@@ -73,8 +75,9 @@ export class ProjectsComponent<T> implements OnInit {
             this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
               response.sort((a, b) => a.projIndex - b.projIndex);
               this.projList = response;
+              this.projListShown= this.projList.filter(elem => elem.projShow==true);
             })
-            return this.projList;
+            return this.projListShown;
           })
         }
     })
@@ -82,6 +85,7 @@ export class ProjectsComponent<T> implements OnInit {
       if(data){
         data.sort((a: any, b: any) => a.projIndex - b.projIndex);
         this.projList=data;
+        this.projListShown= this.projList.filter(elem => elem.projShow==true);
       }
     })
   };
@@ -100,7 +104,7 @@ export class ProjectsComponent<T> implements OnInit {
   }
   
   openEditProjSet(){
-
+    $("#editProjSet").modal("show");
   }
 
   openDeleteProj(){

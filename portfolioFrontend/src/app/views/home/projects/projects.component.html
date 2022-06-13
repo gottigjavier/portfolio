@@ -19,7 +19,7 @@
       </button>
     </div>
     <h2 class="proj-title">Projects</h2>
-    <div class="proj" *ngFor="let proj of projList; index as i">
+    <div class="proj" *ngFor="let proj of projListShown; index as i">
       <div id='proj{{i}}'>
         <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
           <button id='projbtn{{proj.projId}}' type="button" class="btn" (click)="openEditOneProj(proj.projId)">

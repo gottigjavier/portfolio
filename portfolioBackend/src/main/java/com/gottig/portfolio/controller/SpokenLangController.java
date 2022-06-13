@@ -6,6 +6,8 @@ import com.gottig.portfolio.model.SpokenLang;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,37 +34,54 @@ public class SpokenLangController {
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<SpokenLangDTO> getAll(){
-        return langMapper.toDtoAll(langService.getAll());
+    public ResponseEntity getAll(){
+        List<SpokenLangDTO> list = langMapper.toDtoAll(langService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public SpokenLangDTO getOne(@PathVariable Long id){
-        return langMapper.toDto(langService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        SpokenLangDTO oneLang= langMapper.toDto(langService.getOne(id));
+        if(oneLang == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneLang, HttpStatus.OK);
     }
     
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody SpokenLangDTO langDTO){
-        return langService.create(langMapper.toEntity(langDTO));
+    public ResponseEntity create(@RequestBody SpokenLangDTO langDTO){
+        if(!langService.create(langMapper.toEntity(langDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody SpokenLangDTO langDTO){
-        return langService.update(langMapper.toEntity(langDTO));
+    public ResponseEntity update(@RequestBody SpokenLangDTO langDTO){
+        if(!langService.update(langMapper.toEntity(langDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getOne(langDTO.getLanguageId()), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){  
-        return langService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){  
+        if(!langService.delete(id)){
+            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
 }

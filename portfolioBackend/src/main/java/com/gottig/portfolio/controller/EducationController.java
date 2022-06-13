@@ -6,6 +6,8 @@ import com.gottig.portfolio.model.Education;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,36 +34,53 @@ public class EducationController {
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<EducationDTO> getAll(){
-        return eduMapper.toDtoAll(eduService.getAll());
+    public ResponseEntity getAll(){
+        List<EducationDTO> list = eduMapper.toDtoAll(eduService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public EducationDTO getOne(@PathVariable Long id){
-        return eduMapper.toDto(eduService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        EducationDTO oneEdu= eduMapper.toDto(eduService.getOne(id));
+        if(oneEdu == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneEdu, HttpStatus.OK);
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody EducationDTO eduDTO){
-        return eduService.create(eduMapper.toEntity(eduDTO));
+    public ResponseEntity create(@RequestBody EducationDTO eduDTO){
+        if(!eduService.create(eduMapper.toEntity(eduDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody EducationDTO eduDTO){
-        return eduService.update(eduMapper.toEntity(eduDTO));
+    public ResponseEntity update(@RequestBody EducationDTO eduDTO){
+        if(!eduService.update(eduMapper.toEntity(eduDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getOne(eduDTO.getEducationId()), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){
-        return eduService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){  
+        if(!eduService.delete(id)){
+            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
 }

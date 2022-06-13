@@ -1,6 +1,5 @@
 package com.gottig.portfolio.controller;
 
-import com.gottig.portfolio.dto.dtomodel.MyProjectDTO;
 import com.gottig.portfolio.dto.dtomodel.TechnologyDTO;
 import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.MyProject;
@@ -36,28 +35,37 @@ public class TechnologyController {
     @Autowired
     private CRUDServiceInterface<MyProject> projService;
     
-    @Autowired
-    private CommonMapper<MyProjectDTO, MyProject> projMapper;
     
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<TechnologyDTO> getAll(){
-        return techMapper.toDtoAll(techService.getAll());
+    public ResponseEntity getAll(){
+        List<TechnologyDTO> list = techMapper.toDtoAll(techService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public TechnologyDTO getOne(@PathVariable Long id){
-        return techMapper.toDto(techService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        TechnologyDTO oneTech= techMapper.toDto(techService.getOne(id));
+        if(oneTech == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneTech, HttpStatus.OK);
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody TechnologyDTO techDTO){
-        return techService.create(techMapper.toEntity(techDTO));
+    public ResponseEntity create(@RequestBody TechnologyDTO techDTO){
+        if(!techService.create(techMapper.toEntity(techDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
@@ -73,11 +81,11 @@ public class TechnologyController {
     @PutMapping("/update/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<TechnologyDTO> updateList(@RequestBody List<TechnologyDTO> techListDTO){
+    public ResponseEntity updateList(@RequestBody List<TechnologyDTO> techListDTO){
         for(TechnologyDTO techDTO : techListDTO){
          techService.update(techMapper.toEntity(techDTO));   
         }
-        return getAll();
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
@@ -97,7 +105,7 @@ public class TechnologyController {
             }
         }
         techService.delete(id);
-          return new ResponseEntity<>(getAll(), HttpStatus.OK);  
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);  
     }
     
 }

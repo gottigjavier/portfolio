@@ -34,22 +34,33 @@ public class MyProjectController {
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<MyProjectDTO> getAll(){
-        return projMapper.toDtoAll(projService.getAll());
+    public ResponseEntity getAll(){
+        List<MyProjectDTO> list = projMapper.toDtoAll(projService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public MyProjectDTO getOne(@PathVariable Long id){
-        return projMapper.toDto(projService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        MyProjectDTO oneProj= projMapper.toDto(projService.getOne(id));
+        if(oneProj == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneProj, HttpStatus.OK);
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody MyProjectDTO projDTO){
-        return projService.create(projMapper.toEntity(projDTO));
+    public ResponseEntity create(@RequestBody MyProjectDTO projDTO){
+        if(!projService.create(projMapper.toEntity(projDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
@@ -60,6 +71,16 @@ public class MyProjectController {
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
         return new ResponseEntity<>(getOne(projDTO.getProjId()), HttpStatus.OK);
+    }
+    
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<MyProjectDTO> projListDTO){
+        for(MyProjectDTO projDTO : projListDTO){
+         projService.update(projMapper.toEntity(projDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")

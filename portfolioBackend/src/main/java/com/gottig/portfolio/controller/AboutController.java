@@ -6,6 +6,8 @@ import com.gottig.portfolio.model.About;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,36 +32,53 @@ public class AboutController {
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<AboutDTO> getAll(){
-        return aboutMapper.toDtoAll(aboutService.getAll());
+    public ResponseEntity getAll(){
+        List<AboutDTO> list = aboutMapper.toDtoAll(aboutService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public AboutDTO getOne(@PathVariable Long id){
-        return aboutMapper.toDto(aboutService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        AboutDTO oneAbout= aboutMapper.toDto(aboutService.getOne(id));
+        if(oneAbout == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneAbout, HttpStatus.OK);
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody AboutDTO aboutDTO){
-        return aboutService.create(aboutMapper.toEntity(aboutDTO));
+    public ResponseEntity create(@RequestBody AboutDTO aboutDTO){
+        if(!aboutService.create(aboutMapper.toEntity(aboutDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody AboutDTO aboutDTO){
-        return aboutService.update(aboutMapper.toEntity(aboutDTO));
+    public ResponseEntity update(@RequestBody AboutDTO aboutDTO){
+        if(!aboutService.update(aboutMapper.toEntity(aboutDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getOne(aboutDTO.getAboutId()), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){
-        return aboutService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){  
+        if(!aboutService.delete(id)){
+            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
 }

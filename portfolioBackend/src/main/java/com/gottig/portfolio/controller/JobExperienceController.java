@@ -6,6 +6,8 @@ import com.gottig.portfolio.model.JobExperience;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,36 +33,53 @@ public class JobExperienceController {
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public List<JobExperienceDTO> getAll(){
-        return jobMapper.toDtoAll(jobService.getAll());
+    public ResponseEntity getAll(){
+        List<JobExperienceDTO> list = jobMapper.toDtoAll(jobService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public JobExperienceDTO getOne(@PathVariable Long id){
-        return jobMapper.toDto(jobService.getOne(id));
+    public ResponseEntity getOne(@PathVariable Long id){
+        JobExperienceDTO oneJob= jobMapper.toDto(jobService.getOne(id));
+        if(oneJob == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(oneJob, HttpStatus.OK);
     }
     
     @PostMapping("/create")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean create(@RequestBody JobExperienceDTO jobDTO){
-        return jobService.create(jobMapper.toEntity(jobDTO));
+    public ResponseEntity create(@RequestBody JobExperienceDTO jobDTO){
+        if(!jobService.create(jobMapper.toEntity(jobDTO))){
+            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
     @PutMapping("/update")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean update(@RequestBody JobExperienceDTO jobDTO){
-        return jobService.update(jobMapper.toEntity(jobDTO));
+    public ResponseEntity update(@RequestBody JobExperienceDTO jobDTO){
+        if(!jobService.update(jobMapper.toEntity(jobDTO))){
+            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(getOne(jobDTO.getJobId()), HttpStatus.OK);
     }
     
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){  
-        return jobService.delete(id);
+    public ResponseEntity delete(@PathVariable Long id){  
+        if(!jobService.delete(id)){
+            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
     }
     
 }

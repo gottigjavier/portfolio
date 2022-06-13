@@ -23,7 +23,7 @@
                         <form class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
                             <div class="text-center">
                                 <label for="technotsownlist"><b>Id :</b></label>
-                                <input value={{techToDelete.techId}} type="text" formControlName="techId" size="2">
+                                <input value={{techToDelete.techId}} type="text" formControlName="techId" size="2" autofocus>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button class="btn btn-success m-2" type="submit" value="Submit">

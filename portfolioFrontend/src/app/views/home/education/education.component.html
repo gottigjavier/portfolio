@@ -2,7 +2,7 @@
   <div class="container-fluid edu-container">
     <h2 class="edu-title">Education</h2>
     <div class="row">
-      <div *ngFor="let edu of eduList; index as i">
+      <div *ngFor="let edu of eduListShown; index as i">
         <div id='edu{{i}}'>
           <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
             <button id='edubtn{{i}}' type="button" class="btn" (click)="openEdit(i)">
