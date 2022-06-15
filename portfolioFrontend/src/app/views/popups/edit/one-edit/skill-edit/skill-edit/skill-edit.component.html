@@ -30,10 +30,11 @@
                         <label for="skurl" class="form-label">Icon Url</label>
                         <input id="skurl" class="form-control" type="text" value={{skill.skillUrlIcon}} formControlName="skillUrlIcon">
                     </div>
-                    <div class="mb-3">
-                        <label for="skindex" class="form-label">Skill Index</label>
-                        <input id="skindex" class="form-control" type="text" value={{skill.skillIndex}} formControlName="skillIndex">
+                    <div class="text-center">
+                        <label for="skillIndex">Order of Apperance :</label>
+                        <input id="skillIndex" class="skill-index-box" value={{skill.skillIndex}} type="number" min="1" max="99" formControlName="skillIndex">
                     </div>
+                    <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

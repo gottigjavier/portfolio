@@ -1,0 +1,43 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newAbout">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New About</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input id="fname" class="form-control" formControlName="firstName" value={{about.firstName}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input id="lname" class="form-control" type="text" value={{about.lastName}} formControlName="lastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="about-description" class="form-label">About Description</label>
+                        <textarea class="form-control" formControlName="shortExplanation" value={{about.shortExplanation}} id="about-description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image-url" class="form-label">Image URL</label>
+                        <input id="image-url" class="form-control" type="text" value={{about.photoUrl}} formControlName="photoUrl">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

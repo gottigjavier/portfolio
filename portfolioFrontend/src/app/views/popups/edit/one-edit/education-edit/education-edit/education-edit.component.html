@@ -42,6 +42,11 @@
                         <label for="elevel" class="form-label">Aproved Level</label>
                         <input id="elevel" class="form-control" value={{education.approvedLevel}} formControlName="approvedLevel">
                     </div>
+                    <div class="text-center">
+                        <label for="eduIndex"><b>Order of Apperance :</b></label>
+                        <input id="eduIndex" class="edu-index-box" value={{education.eduIndex}} type="number" min="1" max="99" formControlName="eduIndex">
+                    </div>
+                    <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

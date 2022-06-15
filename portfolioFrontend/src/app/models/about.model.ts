@@ -3,5 +3,6 @@ export interface About{
     firstName: string,
     lastName: string,
     shortExplanation: string,
-    photoUrl: string
+    photoUrl: string,
+    aboutShown: boolean
 }

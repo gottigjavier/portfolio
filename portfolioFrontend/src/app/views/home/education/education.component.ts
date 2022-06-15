@@ -38,9 +38,21 @@ export class EducationComponent<T> implements OnInit {
     })
   }
 
-  openEdit(i: number){
+  openEditOne(i: number){
     this.popupBinding<Education>(this.eduList[i]);
     $("#editEdu").modal("show");
+  }
+
+  openNewEdu(){
+
+  }
+
+  openDeleteEdu(){
+
+  }
+
+  openEditSetEdu(){
+    
   }
   
   popupBinding<T>(data: T){

@@ -16,4 +16,6 @@ public class AboutDTO {
     
     private String photoUrl;
     
+    private boolean aboutShown;
+    
 }

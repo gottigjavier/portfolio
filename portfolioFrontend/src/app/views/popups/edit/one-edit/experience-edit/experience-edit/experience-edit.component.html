@@ -46,6 +46,11 @@
                         <label for="jend" class="form-label">End Date</label>
                         <input id="jend" class="form-control" type="date" value={{job.jobEnd}} formControlName="jobEnd">
                     </div>
+                    <div class="text-center">
+                        <label for="jobIndex">Order of Apperance :</label>
+                        <input id="jobIndex" class="job-index-box" value={{job.jobIndex}} type="number" min="1" max="99" formControlName="jobIndex">
+                    </div>
+                    <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

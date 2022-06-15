@@ -14,6 +14,7 @@ declare var $ : any;
 export class AboutComponent<T> implements OnInit {
 
   public about: About;
+  private aboutList: Array<About>=[];
   private endPoint: string= "about/list";
 
 
@@ -35,7 +36,8 @@ export class AboutComponent<T> implements OnInit {
         firstName: "",
         lastName: "",
         shortExplanation: "",
-        photoUrl: ""
+        photoUrl: "",
+        aboutShown: false
         }
         this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
           this.editMode= data;
@@ -46,14 +48,32 @@ export class AboutComponent<T> implements OnInit {
     
   ngOnInit(): void {
     this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
-      this.about= response[response.length-1]; // Last created
-      console.log("about -> ", this.about);
+      if(response.length>0){
+        this.aboutList= response;
+        this.about= response.find(elem => elem.aboutShown== true)|| this.about;
+        console.log("about -> ", this.about);
+      }else{
+        window.alert("Can not find an About of user")
+      }
     }) 
   };
   
-  openEdit(){
+  openEditAbout(){
     this.popupBinding<About>(this.about);
     $("#editAbout").modal("show");
+  }
+
+  openNewAbout(){
+    $("#newAbout").modal("show");
+  }
+  
+  openDeleteAbout(){
+    $("#deleteAbout").modal("show");
+  }
+
+  openShownAbout(){
+    this.popupBinding<Array<About>>(this.aboutList);
+    $("#shownAbout").modal("show");
   }
   
   popupBinding<T>(data: T){

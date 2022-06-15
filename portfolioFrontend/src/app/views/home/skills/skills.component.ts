@@ -36,9 +36,21 @@ export class SkillsComponent<T> implements OnInit {
   });
 }
 
-openEdit(i: number){
+openEditOne(i: number){
   this.popupBinding<Skill>(this.skills[i]);
   $("#editSkill").modal("show");
+}
+
+openNewSkill(){
+
+}
+
+openDeleteSkill(){
+
+}
+
+openEditSetSkills(){
+
 }
 
 popupBinding<T>(data: T){

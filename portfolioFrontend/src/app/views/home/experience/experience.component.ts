@@ -36,11 +36,22 @@ export class ExperienceComponent<T> implements OnInit {
       })
   }
 
-  openEdit(i: number){
+  openEditOne(i: number){
     this.popupBinding<JobExperience>(this.jobList[i]);
     $("#editJob").modal("show");
   }
+
+  openNewJob(){
+
+  }
   
+  openEditJobSet(){
+
+  }
+
+  openDeleteJob(){
+
+  }
   popupBinding<T>(data: T){
     this.popupBindingService.setData<T>(data);
   }

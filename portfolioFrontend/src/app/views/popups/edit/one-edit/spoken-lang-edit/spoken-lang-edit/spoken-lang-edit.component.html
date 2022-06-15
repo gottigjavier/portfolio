@@ -30,10 +30,11 @@
                         <label for="pclevel" class="form-label">Language Percent Level</label>
                         <input id="pclevel" class="form-control" type="text" value={{lang.percentLevel}} formControlName="percentLevel">
                     </div>
-                    <div class="mb-3">
-                        <label for="langindex" class="form-label">Language Index</label>
-                        <input id="langindex" class="form-control" type="text" value={{lang.languageIndex}} formControlName="languageIndex">
+                    <div class="text-center">
+                        <label for="langIndex">Order of Apperance :</label>
+                        <input class="lang-index-box" value={{lang.languageIndex}} type="number" min="1" max="99" formControlName="languageIndex">
                     </div>
+                    <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

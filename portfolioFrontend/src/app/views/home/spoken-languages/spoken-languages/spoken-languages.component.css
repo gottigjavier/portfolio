@@ -1,5 +1,7 @@
 .lang-container{
     background-color: aqua;
+    padding: 3ch;
+    border: solid 1px;
 }
 
 .lang-title{

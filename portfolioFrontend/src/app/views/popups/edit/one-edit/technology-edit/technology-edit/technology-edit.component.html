@@ -28,12 +28,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="tlevel" class="form-label">Experience Level</label>
-                        <input id="tlevel" class="form-control" type="text" value={{tech.techLevel}} formControlName="techLevel">
+                        <input id="tlevel" class="tech-index-box" type="number" min="1" max="100" value={{tech.techLevel}} formControlName="techLevel">
                     </div>
-                    <div class="mb-3">
-                        <label for="tindex" class="form-label">Appearance Order</label>
-                        <input id="tindex" class="form-control" type="text" value={{tech.techIndex}} formControlName="techIndex">
+                    <div class="text-center">
+                        <label for="techIndex">Order of Apperance :</label>
+                        <input id="techIndex" class="tech-index-box" value={{tech.techIndex}} type="number" min="1" max="99" formControlName="techIndex">
                     </div>
+                    <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-success m-2" type="submit">
                             Send

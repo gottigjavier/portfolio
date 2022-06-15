@@ -1,11 +1,30 @@
 <div class="header container-fluid">
   <div class="container-fluid edu-container">
+    <div class="d-flex justify-content-end" *ngIf="editMode">
+      <button id="btnAdd" type="button" class="btn" title="New Education" (click)="openNewEdu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
+          <path
+            d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z" />
+        </svg>
+      </button>
+      <button title="Edit Set of Education" id="tchbtn" type="button" class="btn btn-light mx-2"
+        (click)="openEditSetEdu()">
+        <b>Edit Set</b>
+      </button>
+      <button id="btnDel" type="button" class="btn" title="Delete Education" (click)="openDeleteEdu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-square-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
+        </svg>
+      </button>
+    </div>
     <h2 class="edu-title">Education</h2>
     <div class="row">
       <div *ngFor="let edu of eduListShown; index as i">
         <div id='edu{{i}}'>
           <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
-            <button id='edubtn{{i}}' type="button" class="btn" (click)="openEdit(i)">
+            <button id='edubtn{{i}}' type="button" title="Edit Education" class="btn" (click)="openEditOne(i)">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
               </svg>

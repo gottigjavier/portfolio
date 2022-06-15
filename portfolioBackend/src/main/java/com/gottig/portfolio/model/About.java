@@ -37,4 +37,7 @@ public class About implements Serializable {
     @Column(name="photo_url")
     private String photoUrl;
     
+     @Column(name="about_shown", columnDefinition = "boolean default false")
+    private boolean aboutShown;
+    
 }

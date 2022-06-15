@@ -36,9 +36,21 @@ export class SpokenLanguagesComponent<T> implements OnInit {
       })
   }
 
-openEdit(i: number){
+openEditOne(i: number){
   this.popupBinding<SpokenLanguage>(this.langList[i]);
   $("#editLang").modal("show");
+}
+
+openNewLang(){
+
+}
+
+openEditSetLang(){
+
+}
+
+openDeleteLang(){
+  
 }
 
 popupBinding<T>(data: T){
