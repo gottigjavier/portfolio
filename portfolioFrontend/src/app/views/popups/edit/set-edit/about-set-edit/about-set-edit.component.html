@@ -1,1 +1,38 @@
-<p>about-set-edit works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="shownAbout">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Shown About</b></h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label ps-3"><b><i>Select About to Show</i></b></label>
+                    <form class="p-3" [formGroup]="setForm" (submit)="shownSubmit()">
+                        <div class="grid-container">
+                            <div id="abouthownlist" *ngFor="let about of aboutList">
+                                    <p class="labelish">First Name: {{about.firstName}}</p>
+                                    <p class="labelish">Last Name: {{about.lastName}}</p>
+                                    <p class="labelish">Short Explanation: {{about.shortExplanation}}</p>
+                                    <p class="labelish">Photo Url: {{about.photoUrl || "No Photo"}}</p>
+                                    <div id="about{{about.aboutId}}" name="aboutContainer" class="aboutOptions">
+                        
+                                        <div id="aID{{about.aboutId}}" class="floatBlock">
+                                            <label for="paymentCC"> <input (change)="onCheckboxChange($event)" id="{{about.aboutId}}" name="paymentType" type="radio" [value]=about.aboutShown />  Show  </label>
+                                        </div>
+                                    </div>    
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success m-2" type="submit" value="Submit">
+                    Confirm
+                </button>
+            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

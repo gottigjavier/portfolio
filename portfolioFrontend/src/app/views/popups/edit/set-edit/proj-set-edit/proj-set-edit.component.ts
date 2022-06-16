@@ -16,6 +16,7 @@ export class ProjSetEditComponent<T> implements OnInit {
   private projListEndPoint: string="my-project/list";
   private projUpdateEndPoint: string="my-project/update/list";
 
+  private list: Array<MyProject>=[];
   public projListAll: Array<MyProject>=[];
   public projListTrue: Array<MyProject>=[];
   public projListFalse: Array<MyProject>=[];
@@ -70,12 +71,13 @@ export class ProjSetEditComponent<T> implements OnInit {
     this.setFormArray= this.setForm.get('setFormArray') as FormArray;
 
     this.setForm= this.fb.group({
-      projList: this.fb.array([])
+      setList: this.fb.array([])
     })
 
     this.service.getAll<Array<MyProject>>(this.projListEndPoint).subscribe(response =>{
-      response.sort((a, b) => a.projIndex - b.projIndex);
-      this.projListAll=response;
+      this.list= Object.values(response);
+      this.list.sort((a, b) => a.projIndex - b.projIndex);
+      this.projListAll=this.list;
       this.projListTrue= this.projListAll.filter(elm => elm.projShow);
       this.projListFalse= this.projListAll.filter(elm => !elm.projShow);
     })
@@ -97,8 +99,9 @@ export class ProjSetEditComponent<T> implements OnInit {
             if(!resp){
               alert("Error: Not saved");
             }else{
-              resp.sort((a:any, b:any) => a.projIndex - b.projIndex);
-              this.projListAll= resp;
+              this.list= Object.values(resp.body);
+              this.list.sort((a:any, b:any) => a.projIndex - b.projIndex);
+              this.projListAll= this.list;
               this.projListTrue= this.projListAll.filter(elm => elm.projShow);
               this.projListFalse= this.projListAll.filter(elm => !elm.projShow);
             }

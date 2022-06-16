@@ -1,0 +1,46 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteAbout">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Delete About</b></h4>
+                    <button id="delabbtnx" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label id="labsetform" for="setForm" class="form-label m-3"><b>Abouts and IDs</b></label>
+                    <div class="grid-container p-2">
+                        <div id="ngForaboutList" *ngFor="let about of aboutListFalse; index as i">
+                            <hr>
+                                <p id="abdi{{about.aboutId}}" class="labelish"><b>ID:</b> {{about.aboutId}}</p>
+                                <p id="avfname{{about.aboutId}}" class="labelish">First Name: {{about.firstName}}</p>
+                                <p id="ablastnam{{about.aboutId}}" class="labelish">Last Name: {{about.lastName}}</p>
+                                <p id="abexplan{{about.aboutId}}" class="labelish">Short Explanation: {{about.shortExplanation}}</p>
+                                <p id="abphoto{{about.aboutId}}" class="labelish">Photo Url: {{about.photoUrl || "No Photo"}}</p>
+                        </div>
+                        <hr>
+                        <div class="text-center ps-4 pe-4 about-message">
+                            <p>Attention!</p>
+                            <i>This action has no turning back. 
+                                If you want delete a "About" shown, you first must select other "About" via "Edit Set" to show it.</i>
+                        </div>
+                        <hr>
+                        <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
+                        <form class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                            <div class="text-center">
+                                <label for="aboutDlist"><b>Id :</b></label>
+                                <input id="aboutDlist" type="text" formControlName="aboutId" size="2" autofocus>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button id="abnbtnsubbmit" class="btn btn-success m-2" type="submit" value="Submit">
+                                    Confirm
+                                </button>
+                            </div>
+                        </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

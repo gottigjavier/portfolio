@@ -6,9 +6,9 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Skill Edit</h4>
-                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="skilledbtnx" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
-                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                <form id="skillEdForm" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
                         <label for="skname" class="form-label">Skill Name</label>
@@ -36,10 +36,10 @@
                     </div>
                     <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="skillbtnEdsend" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="skillBtnEdclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

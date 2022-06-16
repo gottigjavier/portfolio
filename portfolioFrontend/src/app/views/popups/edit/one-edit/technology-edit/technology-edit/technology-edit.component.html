@@ -6,40 +6,40 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Technology Edit</h4>
-                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="tecEdbuttonx" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
-                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                <form id="techedOneform" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
-                        <label for="tname" class="form-label">Tecnology Name</label>
-                        <input id="tname" class="form-control" formControlName="techName" value={{tech.techName}}>
+                        <label for="tEname" class="form-label">Tecnology Name</label>
+                        <input id="tEname" class="form-control" formControlName="techName" value={{tech.techName}}>
                     </div>
                     <div class="mb-3">
-                        <label for="ttype" class="form-label">Technology Type</label>
-                        <input id="ttype" class="form-control" type="text" value={{tech.techType}} formControlName="techType">
+                        <label for="tEtype" class="form-label">Technology Type</label>
+                        <input id="tEtype" class="form-control" type="text" value={{tech.techType}} formControlName="techType">
                     </div>
                     <div class="mb-3">
-                        <label for="tdesc" class="form-label">Technology Description</label>
-                        <input id="tdesc" class="form-control" value={{tech.techDescription}} formControlName="techDescription">
+                        <label for="tEdesc" class="form-label">Technology Description</label>
+                        <input id="tEdesc" class="form-control" value={{tech.techDescription}} formControlName="techDescription">
                     </div>
                     <div class="mb-3">
-                        <label for="ticon" class="form-label">Url Icon Url</label>
-                        <input id="ticon" class="form-control" type="text" value={{tech.techIconUrl}} formControlName="techIconUrl">
+                        <label for="tEicon" class="form-label">Url Icon Url</label>
+                        <input id="tEicon" class="form-control" type="text" value={{tech.techIconUrl}} formControlName="techIconUrl">
                     </div>
                     <div class="mb-3">
-                        <label for="tlevel" class="form-label">Experience Level</label>
-                        <input id="tlevel" class="tech-index-box" type="number" min="1" max="100" value={{tech.techLevel}} formControlName="techLevel">
+                        <label for="tElevel" class="form-label">Experience Level</label>
+                        <input id="tElevel" class="tech-index-box" type="number" min="1" max="100" value={{tech.techLevel}} formControlName="techLevel">
                     </div>
                     <div class="text-center">
-                        <label for="techIndex">Order of Apperance :</label>
-                        <input id="techIndex" class="tech-index-box" value={{tech.techIndex}} type="number" min="1" max="99" formControlName="techIndex">
+                        <label for="techEEIndex">Order of Apperance :</label>
+                        <input id="techEEIndex" class="tech-index-box" value={{tech.techIndex}} type="number" min="1" max="99" formControlName="techIndex">
                     </div>
                     <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="techBntSend" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="techBtnCancel" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

@@ -6,56 +6,56 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Job Experience Edit</h4>
-                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="jobeditbtnclosex" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
                 <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
-                        <label for="cname" class="form-label">Company Name</label>
-                        <input id="cname" class="form-control" formControlName="companyName" value={{job.companyName}}>
+                        <label for="jobcname" class="form-label">Company Name</label>
+                        <input id="jobcname" class="form-control" formControlName="companyName" value={{job.companyName}}>
                     </div>
                     <div class="mb-3">
-                        <label for="clink" class="form-label">Company Link</label>
-                        <input id="clikn" class="form-control" type="text" value={{job.companyLink}} formControlName="companyLink">
+                        <label for="jobclink" class="form-label">Company Link</label>
+                        <input id="jobclikn" class="form-control" type="text" value={{job.companyLink}} formControlName="companyLink">
                     </div>
                     <div class="mb-3">
-                        <label for="clogo" class="form-label">Company Logo</label>
-                        <input id="clogo" class="form-control" value={{job.companyLogoUrl}} formControlName="companyLogoUrl">
+                        <label for="jobclogo" class="form-label">Company Logo</label>
+                        <input id="jobclogo" class="form-control" value={{job.companyLogoUrl}} formControlName="companyLogoUrl">
                     </div>
                     <div class="mb-3">
-                        <label for="cactivity" class="form-label">Company Activity</label>
-                        <input id="cactivity" class="form-control" type="text" value={{job.companyActivity}} formControlName="companyActivity">
+                        <label for="jobcactivity" class="form-label">Company Activity</label>
+                        <input id="jobcactivity" class="form-control" type="text" value={{job.companyActivity}} formControlName="companyActivity">
                     </div>
                     <div class="mb-3">
-                        <label for="jposition" class="form-label">Job Position</label>
-                        <input id="jposition" class="form-control" type="text" value={{job.jobPosition}} formControlName="jobPosition">
+                        <label for="jobposition" class="form-label">Job Position</label>
+                        <input id="jobposition" class="form-control" type="text" value={{job.jobPosition}} formControlName="jobPosition">
                     </div>
                     <div class="mb-3">
-                        <label for="jduties" class="form-label">Job Duties</label>
-                        <input id="jduties" class="form-control" type="text" value={{job.jobDuties}} formControlName="jobDuties">
+                        <label for="jobduties" class="form-label">Job Duties</label>
+                        <input id="jobduties" class="form-control" type="text" value={{job.jobDuties}} formControlName="jobDuties">
                     </div>
                     <div class="mb-3">
-                        <label for="jlessons" class="form-label">Lessons Learned</label>
-                        <textarea id="jlessons" class="form-control" type="text" value={{job.lessonsLearned}} formControlName="lessonsLearned" rows="4"></textarea>
+                        <label for="joblessons" class="form-label">Lessons Learned</label>
+                        <textarea id="joblessons" class="form-control" type="text" value={{job.lessonsLearned}} formControlName="lessonsLearned" rows="4"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="jstart" class="form-label">Start Date</label>
-                        <input id="jstart" class="form-control" type="date" value={{job.jobStart}} formControlName="jobStart">
+                        <label for="jobstart" class="form-label">Start Date</label>
+                        <input id="jobstart" class="form-control" type="date" value={{job.jobStart}} formControlName="jobStart">
                     </div>
                     <div class="mb-3">
-                        <label for="jend" class="form-label">End Date</label>
-                        <input id="jend" class="form-control" type="date" value={{job.jobEnd}} formControlName="jobEnd">
+                        <label for="jobend" class="form-label">End Date</label>
+                        <input id="jobend" class="form-control" type="date" value={{job.jobEnd}} formControlName="jobEnd">
                     </div>
                     <div class="text-center">
-                        <label for="jobIndex">Order of Apperance :</label>
-                        <input id="jobIndex" class="job-index-box" value={{job.jobIndex}} type="number" min="1" max="99" formControlName="jobIndex">
+                        <label for="jobEIndex">Order of Apperance :</label>
+                        <input id="jobEIndex" class="job-index-box" value={{job.jobIndex}} type="number" min="1" max="99" formControlName="jobIndex">
                     </div>
                     <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="jobEbtnsubbmit" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="jobEbtnclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

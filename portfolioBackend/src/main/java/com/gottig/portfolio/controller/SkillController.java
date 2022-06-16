@@ -72,6 +72,16 @@ public class SkillController {
         return new ResponseEntity<>(getOne(skillDTO.getSkillId()), HttpStatus.OK);
     }
     
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<SkillDTO> skillListDTO){
+        for(SkillDTO skillDTO : skillListDTO){
+         skillService.update(skillMapper.toEntity(skillDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+    }
+    
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody

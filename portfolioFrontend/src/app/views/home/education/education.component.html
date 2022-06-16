@@ -22,9 +22,9 @@
     <h2 class="edu-title">Education</h2>
     <div class="row">
       <div *ngFor="let edu of eduListShown; index as i">
-        <div id='edu{{i}}'>
+        <div id='edu{{edu.educationId}}'>
           <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
-            <button id='edubtn{{i}}' type="button" title="Edit Education" class="btn" (click)="openEditOne(i)">
+            <button id='eduEbtn{{edu.educationId}}' type="button" title="Edit Education" class="btn" (click)="openEditOne(i)">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
               </svg>
@@ -32,10 +32,10 @@
           </div>
       <p *ngIf="(edu.institutionLogo != null) else defaultphoto">
         <b class="items-title">Institution: </b>
-          <span class="inst-name">{{edu.institutionName}}  </span>
+          <span id="eduInstN{{edu.educationId}}" class="inst-name">{{edu.institutionName}}  </span>
           <span>
-          <a href="{{edu.institutionLink}}" target="_blank">
-            <img src="{{edu.institutionLogo}}" alt="Institution Logo" class="inst-logo">
+          <a id="eduinsL{{edu.educationId}}" href="{{edu.institutionLink}}" target="_blank">
+            <img id="eduinsLog{{edu.educationId}}" src="{{edu.institutionLogo}}" alt="Institution Logo" class="inst-logo">
             </a> .. </span>
           <small>  (*click on the image to visit the site)</small>
       </p>
@@ -49,13 +49,13 @@
           <small>  (*click on the image to visit the site)</small>
       </ng-template>
       
-      <p>
+      <p id="edulev{{edu.educationId}}">
         <b class="items-title">Level: </b>
           <span class="inst-name">
         {{edu.educationType}}
         </span>
       </p>
-      <p>
+      <p id="educarr{{edu.educationId}}">
         <b class="items-title">Career: </b>
           <span class="inst-name">
         {{edu.educationCareer}}
@@ -67,13 +67,13 @@
       <p>
         
       </p>
-      <p>
+      <p id="edudataR{{edu.educationId}}">
         <b class="items-title">Course Date Range: </b>
         <span class="items-text">
           {{edu.educationStart}} to {{edu.educationEnd || "(Not Finished)"}}
         </span>
       </p>
-      <p>
+      <p id="eduapp{{edu.educationId}}">
         <b class="items-title">Approved Percentage: </b>
           <span class="inst-name">
         {{edu.approvedLevel}} %;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Education } from 'src/app/models/education.model';
+import { EduBindingService } from 'src/app/services/binding-services/edu-binding.service';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -13,7 +14,7 @@ declare var $ : any;
 export class EducationEditComponent<T>{
 
   public education: Education;
-
+  
   private endPoint: string="education/update";
 
   popupForm= this.fb.group({
@@ -31,7 +32,8 @@ export class EducationEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Education>
+    private popupBindingService: PopupBindingService<Education>,
+    private eduBindingService: EduBindingService<T>
   ) {
     this.education={
       educationId: 0,
@@ -65,7 +67,10 @@ export class EducationEditComponent<T>{
     this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.education= resp.body;
+        this.eduBinding<Education>(this.education);
+      }
     })
     this.closePopup();
   }
@@ -74,5 +79,8 @@ export class EducationEditComponent<T>{
     $("#editEdu").modal("hide");
   }
 
+  eduBinding<T>(data: T){
+    this.eduBindingService.setData<T>(data);
+  }
 
 }

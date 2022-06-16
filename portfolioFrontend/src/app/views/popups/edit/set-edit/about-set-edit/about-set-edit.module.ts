@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutSetEditComponent } from './about-set-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,12 @@ import { AboutSetEditComponent } from './about-set-edit.component';
     AboutSetEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    AboutSetEditComponent
   ]
 })
 export class AboutSetEditModule { }

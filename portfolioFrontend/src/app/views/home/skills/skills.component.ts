@@ -31,8 +31,8 @@ export class SkillsComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Skill>>(this.endPoint).subscribe(response => {
-      response.sort((a,b) => a.skillIndex - b.skillIndex);
-      this.skills = response;
+      this.skills = Object.values(response);
+      this.skills.sort((a: Skill,b: Skill): number => a.skillIndex - b.skillIndex);
   });
 }
 

@@ -71,6 +71,16 @@ public class AboutController {
         return new ResponseEntity<>(getOne(aboutDTO.getAboutId()), HttpStatus.OK);
     }
     
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<AboutDTO> aboutListDTO){
+        for(AboutDTO aboutDTO : aboutListDTO){
+         aboutService.update(aboutMapper.toEntity(aboutDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+    }
+    
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody

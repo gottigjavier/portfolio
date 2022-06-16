@@ -32,9 +32,11 @@ export class EducationComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
-    response.sort((a,b) => a.eduIndex - b.eduIndex);
-    this.eduList = response;
-    this.eduListShown= this.eduList.filter(elem => elem.eduShow==true);
+      this.eduList = Object.values(response);
+      if(Array.isArray(this.eduList)){
+        this.eduList.sort((a,b) => a.eduIndex - b.eduIndex);
+        this.eduListShown= this.eduList.filter(elem => elem.eduShow==true);
+      }
     })
   }
 

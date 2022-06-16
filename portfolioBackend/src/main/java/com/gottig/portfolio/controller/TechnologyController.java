@@ -75,7 +75,7 @@ public class TechnologyController {
         if(!techService.update(techMapper.toEntity(techDTO))){
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(getOne(techDTO.getTechId()), HttpStatus.OK);
     }
     
     @PutMapping("/update/list")

@@ -12,8 +12,8 @@
                     <label for="setForm" class="form-label ps-3"><b><i>Select Projects to Show and Order of Appearance</i></b></label>
                     <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
                         <div class="grid-container">
-                            <label for="projshownlist"><b>Shown Projects</b></label>
-                            <div id="projshownlist" *ngFor="let projTrue of projListTrue; index as i">
+                            <label for="pprojshownlist"><b>Shown Projects</b></label>
+                            <div id="pprojshownlist" *ngFor="let projTrue of projListTrue; index as i">
                                 <input id="projTrue{{projTrue.projId}}" type="checkbox" [value]="projTrue.projId" checked
                                     (change)="onCheckboxChange($event)"><span class="ms-1">{{projTrue.projName}} </span>
                                     <input class="proj-index" type="number" id="{{projTrue.projId}}" [value]=projTrue.projIndex min="1" max="99" (change)="onIndexChange($event)">

@@ -72,6 +72,16 @@ public class JobExperienceController {
         return new ResponseEntity<>(getOne(jobDTO.getJobId()), HttpStatus.OK);
     }
     
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<JobExperienceDTO> jobListDTO){
+        for(JobExperienceDTO jobDTO : jobListDTO){
+         jobService.update(jobMapper.toEntity(jobDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+    }
+    
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody

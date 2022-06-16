@@ -6,59 +6,54 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Projects Edit</h4>
-                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="proEdbutttonx" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
                 <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
-                        <label for="pname" class="form-label">Project Name</label>
-                        <input id="pname" class="form-control" formControlName="projName" value={{proj.projName}}>
+                        <label for="prename" class="form-label">Project Name</label>
+                        <input id="prename" class="form-control" formControlName="projName" value={{proj.projName}}>
                     </div>
                     <div class="mb-3">
-                        <label for="pdesc" class="form-label">Project Description</label>
-                        <input id="pdesc" class="form-control" type="text" value={{proj.projDescription}} formControlName="projDescription">
+                        <label for="predesc" class="form-label">Project Description</label>
+                        <input id="predesc" class="form-control" type="text" value={{proj.projDescription}} formControlName="projDescription">
                     </div>
                     <div class="mb-3">
-                        <label for="purl" class="form-label">Project Url</label>
-                        <input id="purl" class="form-control" value={{proj.projUrl}} formControlName="projUrl">
+                        <label for="preurl" class="form-label">Project Url</label>
+                        <input id="preurl" class="form-control" value={{proj.projUrl}} formControlName="projUrl">
                     </div>
                     <div class="text-center">
-                        <label for="projIndex"><b>Order of Apperance :</b></label>
-                        <input class="proj-index-box" value={{proj.projIndex}} type="number" min="1" max="99" formControlName="projIndex">
+                        <label for="projEdIndex"><b>Order of Apperance :</b></label>
+                        <input id="projEdIndex" class="proj-index-box" value={{proj.projIndex}} type="number" min="1" max="99" formControlName="projIndex">
                     </div>
                     <div class="mb-3">
-                        <label for="techSelect" class="form-label">Select Technologies</label>
-                        <div class="grid-container">
+                        <label for="prtechSelect" class="form-label">Select Technologies</label>
+                        <div id="prtechSelect" class="grid-container">
                             <div class="row">
                                 <div class="tech">
-                                    <label for="techshownlist"><b>Shown Techs</b></label>
-                                    <div id="techshownlist" *ngFor="let techTrue of techListTrue; index as i">
-                                        <input id="techTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
-                                        (change)="onCheckboxChange($event)"><span class="ms-1">{{techTrue.techName}}</span>
+                                    <label for="prtechshownlist"><b>Shown Techs</b></label>
+                                    <div name="prtechshownlist" *ngFor="let techTrue of techListTrue">
+                                        <input id="prEdtechTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
+                                        (change)="onCheckboxChange($event)"><span id="spanTR{{techTrue.techId}}" class="ms-1">{{techTrue.techName}}</span>
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="tech">
-                                    <label for="technotsownlist"><b>Not Shown Techs</b></label>
-                                    <div id="technoshownlist" *ngFor="let techFalse of techListFalse; index as i">
-                                        <input id="techFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{techFalse.techName}}</span>
+                                    <label for="prtechnotsownlist"><b>Not Shown Techs</b></label>
+                                    <div name="prtechnoshownlist" *ngFor="let techFalse of techListFalse">
+                                        <input id="prEdtechFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span id="spantech{{techFalse.techId}}" class="ms-1">{{techFalse.techName}}</span>
                                     </div>
                                 </div>
                             </div>
-                                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-success m-2" type="submit" value="Submit">
-                                        Confirm
-                                    </button>
-                                </div> -->
                             </div>
                         </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="prEdbuttonSend" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="prBtnEdClos" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

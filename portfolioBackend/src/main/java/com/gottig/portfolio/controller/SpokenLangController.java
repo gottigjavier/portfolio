@@ -74,6 +74,16 @@ public class SpokenLangController {
         return new ResponseEntity<>(getOne(langDTO.getLanguageId()), HttpStatus.OK);
     }
     
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<SpokenLangDTO> langListDTO){
+        for(SpokenLangDTO langDTO : langListDTO){
+         langService.update(langMapper.toEntity(langDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+    }
+    
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody

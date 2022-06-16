@@ -4,6 +4,7 @@ import { MyProject } from 'src/app/models/my-project.model';
 import { Technology } from 'src/app/models/technology.model';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
+import { ProjListBindingService } from 'src/app/services/binding-services/proj-list-binding-service';
 import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -17,6 +18,8 @@ declare var $: any;
 export class ProjCreateComponent<T> {
 
   public proj: MyProject;
+  private projList: Array<MyProject>=[];
+  private list: Array<MyProject>=[];
 
   private techSetChanged: Set<number> = new Set();
   public techListAll: Array<Technology> = [];
@@ -37,7 +40,7 @@ export class ProjCreateComponent<T> {
   private projCreateEndPoint: string = 'my-project/create';
   
   popupForm: FormGroup;
-  techFormArray: FormArray;
+  setFormArray: FormArray;
 
   onCheckboxChange(e: any) {
     this.techSetChanged.add(e.target.value);
@@ -57,7 +60,7 @@ export class ProjCreateComponent<T> {
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private projBindingService: ProjBindingService<MyProject>,
-    private popupBindingService: PopupBindingService<MyProject>,
+    private projListBindingService: ProjListBindingService<MyProject>,
     private techListBindingService: TechListBindingService<T>
   ) {
     this.proj = {
@@ -70,13 +73,13 @@ export class ProjCreateComponent<T> {
       projIndex: 99,
     };
 
-    this.popupForm = this.fb.group({ techFormArray: this.fb.array([]) });
-    this.techFormArray = this.popupForm.get('setFormArray') as FormArray;
+    this.popupForm = this.fb.group({ setFormArray: this.fb.array([]) });
+    this.setFormArray = this.popupForm.get('setFormArray') as FormArray;
 
-    this.popupForm = this.fb.group({
-      techList: this.fb.array([]),
+    /* this.popupForm = this.fb.group({
+      setList: this.fb.array([]),
     });
-
+ */
     this.popupForm = this.fb.group({
       projName: '',
       projDescription: '',
@@ -85,24 +88,10 @@ export class ProjCreateComponent<T> {
       techList: this.fb.array([]),
     });
 
-    /* this.popupBindingService.dataEmitter.subscribe((data: MyProject) => {
-      this.proj = data;
-    });
- */
     // to create the grid with used and unused techs for the project
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
       this.techListShown = data;
       this.techListFalse= this.techListShown;
-/*       this.techListTrue = this.proj.techList.filter(elem => elem.techShow==true);
-      this.techListFalse= this.techListShown;
-      for(let techFalse of this.techListFalse){
-        for(let techTrue of this.techListTrue){
-          if(techFalse.techId==techTrue.techId){
-            this.techListFalse= this.techListFalse.filter(elem => elem.techId!= techTrue.techId);
-            break;
-          }
-        }
-      } */
     })
     
   } //end constructor
@@ -118,7 +107,9 @@ export class ProjCreateComponent<T> {
       if (!resp) {
         alert('Error: Not saved');
       }else{
-        this.proj=resp;
+        this.list= Object.values(resp.body);
+        this.projList= this.list;
+        this.projListBinding<Array<MyProject>>(this.projList);
       }
     });
     this.projBinding<MyProject>(this.proj);
@@ -135,5 +126,9 @@ export class ProjCreateComponent<T> {
 
   projBinding<T>(data: T) {
     this.projBindingService.setData<T>(data);
+  }
+
+  projListBinding<T>(data: T) {
+    this.projListBindingService.setData<T>(data);
   }
 }

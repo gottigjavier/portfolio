@@ -2,16 +2,16 @@
   <div (window:resize)="getScreenSize($event)">
     <div class="tech-container">
       <div class="d-flex justify-content-end" *ngIf='editMode'>
-        <button id='btnAdd' type="button" class="btn" title="Create Technology" (click)="openNewTech()">
+        <button id='tbtnAdd' type="button" class="btn" title="Create Technology" (click)="openNewTech()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
             <path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-32 252c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92H92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"/>
           </svg>
         </button>
-        <button title="Edit Set of Technologies" id='tchbtn' type="button" class="btn btn-light mx-2"
+        <button title="Edit Set of Technologies" id='tEchbtn' type="button" class="btn btn-light mx-2"
         (click)="openTechSet()">
         <b>Edit Set</b>
       </button>
-      <button id='btnDel' type="button" class="btn" title="Delete Technology" (click)="openDeleteTech()">
+      <button id='tbtnDel' type="button" class="btn" title="Delete Technology" (click)="openDeleteTech()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
             class="bi bi-x-square-fill" viewBox="0 0 16 16">
             <path
@@ -25,7 +25,7 @@
           <div class="row tech-logo">
             <div class="">
               <div class="d-flex justify-content-end" *ngIf='editMode'>
-                <button id='projbtn{{i}}' title="Edit Technology" type="button" class="btn" (click)="openEdit(tech.techId)">
+                <button id='tEdbtn{{tech.techId}}' title="Edit Technology" type="button" class="btn" (click)="openEdit(tech.techId)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil-fill" viewBox="0 0 16 16">
                     <path
@@ -34,7 +34,7 @@
                 </button>
               </div>
               <div class="row">
-                <img id="tech{{i}}" src="{{tech.techIconUrl}}" title="{{tech.techDescription}}" alt="Technology Logo"
+                <img id="techEL{{tech.techId}}" src="{{tech.techIconUrl}}" title="{{tech.techDescription}}" alt="Technology Logo"
                   class="">
               </div>
             </div>

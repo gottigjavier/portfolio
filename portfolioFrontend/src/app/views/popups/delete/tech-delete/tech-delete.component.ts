@@ -62,20 +62,17 @@ export class TechDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.techToDelete.techId}`).subscribe(resp =>{
-            resp.sort((a: any, b: any) => a.projIndex - b.projIndex);
-            this.techListAll= resp;
+            this.techListAll= Object.values(resp.body);
+            this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+            this.techListBinding<Array<Technology>>(this.techListAll);
           })
           // Con dos closePopup se actualizan los componentes
-          this.techListBinding<Array<Technology>>(this.techListAll);
-          this.ngOnInit();
-        this.closePopup();
-        this.closePopup();
-        this.closePopup();
+          this.closePopup();
         }
   }
   
   closePopup(){
-    this.techListBinding<Array<Technology>>(this.techListAll);
+    //this.techListBinding<Array<Technology>>(this.techListAll);
     this.techToDelete=this.emptyTech;
     this.deleteForm.reset();
     $("#deleteTech").modal("hide");

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { SpokenLanguage } from 'src/app/models/spoken-language.model';
+import { LangBindingService } from 'src/app/services/binding-services/lang-binding.service';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -29,7 +30,8 @@ export class SpokenLangEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<SpokenLanguage>
+    private popupBindingService: PopupBindingService<SpokenLanguage>,
+    private langBindingService: LangBindingService<T>
   ) {
     this.lang={
     languageId: 0,
@@ -58,13 +60,20 @@ export class SpokenLangEditComponent<T>{
     this.dataService.update(this.editEndPoint, this.lang).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.lang= resp.body;
+        this.langBinding<SpokenLanguage>(this.lang);
+      }
     })
     this.closePopup();
   }
   
       closePopup(){
     $("#editLang").modal("hide");
+  }
+
+  langBinding<T>(data: T){
+    this.langBindingService.setData<T>(data);
   }
 
 }

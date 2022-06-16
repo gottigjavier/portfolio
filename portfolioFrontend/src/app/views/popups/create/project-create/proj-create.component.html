@@ -6,33 +6,33 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Create Project</h4>
-                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="nprbtn" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
-                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                <form id="nprform" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
-                        <label for="pname" class="form-label">Project Name</label>
-                        <input id="pname" class="form-control" formControlName="projName" value={{proj.projName}}>
+                        <label for="prname" class="form-label">Project Name</label>
+                        <input id="prname" class="form-control" formControlName="projName" value={{proj.projName}}>
                     </div>
                     <div class="mb-3">
-                        <label for="pdesc" class="form-label">Project Description</label>
-                        <input id="pdesc" class="form-control" type="text" value={{proj.projDescription}} formControlName="projDescription">
+                        <label for="prdesc" class="form-label">Project Description</label>
+                        <input id="prdesc" class="form-control" type="text" value={{proj.projDescription}} formControlName="projDescription">
                     </div>
                     <div class="mb-3">
-                        <label for="purl" class="form-label">Project Url</label>
-                        <input id="purl" class="form-control" value={{proj.projUrl}} formControlName="projUrl">
+                        <label for="prurl" class="form-label">Project Url</label>
+                        <input id="prurl" class="form-control" value={{proj.projUrl}} formControlName="projUrl">
                     </div>
                     <div class="text-center">
-                        <label for="projIndex"><b>Order of Apperance :</b></label>
-                        <input class="proj-index-box" value={{proj.projIndex}} type="number" formControlName="projIndex" min="1" max="99">
+                        <label for="nprojIndex"><b>Order of Apperance :</b></label>
+                        <input id="nprojIndex" class="proj-index-box" value={{proj.projIndex}} type="number" formControlName="projIndex" min="1" max="99">
                     </div>
                     <div class="mb-3">
-                        <label for="techSelect" class="form-label">Select Technologies</label>
+                        <label for="nprtechSelect" class="form-label">Select Technologies</label>
                         <div class="grid-container">
                             <div class="row">
                                 <div class="tech">
-                                    <label for="techshownlist"><b>Shown Techs</b></label>
-                                    <div id="techshownlist" *ngFor="let techTrue of techListTrue; index as i">
+                                    <label for="prtechshownlist"><b>Shown Techs</b></label>
+                                    <div id="prtechshownlist" *ngFor="let techTrue of techListTrue; index as i">
                                         <input id="techTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
                                         (change)="onCheckboxChange($event)"><span class="ms-1">{{techTrue.techName}}</span>
                                     </div>
@@ -47,18 +47,13 @@
                                     </div>
                                 </div>
                             </div>
-                                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button class="btn btn-success m-2" type="submit" value="Submit">
-                                        Confirm
-                                    </button>
-                                </div> -->
                             </div>
                         </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="prbtnsubmit" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="prbtnclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

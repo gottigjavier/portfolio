@@ -11,26 +11,26 @@
                 <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
                     <br />
                     <div class="mb-3">
-                        <label for="fname" class="form-label">First Name</label>
-                        <input id="fname" class="form-control" formControlName="firstName" value={{about.firstName}}>
+                        <label for="abedfaname" class="form-label">First Name</label>
+                        <input id="abedfaname" class="form-control" formControlName="firstName" value={{about.firstName}}>
                     </div>
                     <div class="mb-3">
-                        <label for="lname" class="form-label">Last Name</label>
-                        <input id="lname" class="form-control" type="text" value={{about.lastName}} formControlName="lastName">
+                        <label for="abedlaname" class="form-label">Last Name</label>
+                        <input id="abedlaname" class="form-control" type="text" value={{about.lastName}} formControlName="lastName">
                     </div>
                     <div class="mb-3">
-                        <label for="about-description" class="form-label">About Description</label>
-                        <textarea class="form-control" formControlName="shortExplanation" value={{about.shortExplanation}} id="about-description" rows="3"></textarea>
+                        <label for="delabout-description" class="form-label">About Description</label>
+                        <textarea class="form-control" formControlName="shortExplanation" value={{about.shortExplanation}} id="delabout-description" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="image-url" class="form-label">Image URL</label>
-                        <input id="image-url" class="form-control" type="text" value={{about.photoUrl}} formControlName="photoUrl">
+                        <label for="delabimage-url" class="form-label">Image URL</label>
+                        <input id="delabimage-url" class="form-control" type="text" value={{about.photoUrl}} formControlName="photoUrl">
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-success m-2" type="submit">
+                        <button id="delabbttnnsub" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="delabbttnclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
                             Cancel
                         </button>
                     </div>

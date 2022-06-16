@@ -38,6 +38,8 @@ export class TechnologiesComponent<T> implements OnInit {
 
   public editMode: boolean = false;
 
+  private list: Array<Technology>=[];
+
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<T>,
@@ -58,6 +60,7 @@ export class TechnologiesComponent<T> implements OnInit {
       techShow: false
     }
 
+
     this.modeBindingService.dataEmitter.subscribe((data: boolean) => {
       this.editMode = data;
     })
@@ -76,15 +79,16 @@ export class TechnologiesComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<Array<Technology>>(this.techListEndPoint).subscribe(response => {
       console.log("tech -> ", response);
-      response.sort((a, b) => a.techIndex - b.techIndex);
+      this.list= Object.values(response);
+      this.list.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
       console.log("width  ", window.innerWidth)
-      this.techList = response;
-      this.techListShown = this.techList.filter(elem => elem.techShow==true);
+      this.techList = this.list;
+      this.techListShown = this.list.filter((elem: Technology) => elem.techShow==true);
       this.techListBinding<Array<Technology>>(this.techList);
       this.getScreenSize();
       this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-        data.sort((a, b) => a.techIndex - b.techIndex);
-        this.techListShown = data.filter(elem => elem.techShow==true);
+        data.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+        this.techListShown = data.filter((elem: Technology) => elem.techShow==true) || [];
       })
     })
   };
@@ -99,7 +103,7 @@ export class TechnologiesComponent<T> implements OnInit {
  */
 
   openTechSet() {
-    //$("#newTech").modal("show");
+    this.techListBinding<Array<Technology>>(this.techList);
     $("#editTechSet").modal("show");
   }
 
@@ -108,11 +112,12 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   openEdit(i: number) {
-    this.techList.forEach(elem=>{
+    this.tech= this.techList.find((elem: Technology)=> elem.techId==i) || this.tech;
+    /* this.techList.forEach(elem=>{
       if(elem.techId==i){
         this.tech= elem;
       }
-    })
+    }) */
     this.popupBinding<Technology>(this.tech);
     $("#editTech").modal("show");
   }

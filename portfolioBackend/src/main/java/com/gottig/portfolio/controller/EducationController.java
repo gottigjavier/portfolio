@@ -73,6 +73,16 @@ public class EducationController {
         return new ResponseEntity<>(getOne(eduDTO.getEducationId()), HttpStatus.OK);
     }
     
+    @PutMapping("/update/list")
+    @CrossOrigin(origins = "${cross.origin.value}")
+    @ResponseBody
+    public ResponseEntity updateList(@RequestBody List<EducationDTO> eduListDTO){
+        for(EducationDTO eduDTO : eduListDTO){
+         eduService.update(eduMapper.toEntity(eduDTO));   
+        }
+        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+    }
+    
     @DeleteMapping("/delete/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody

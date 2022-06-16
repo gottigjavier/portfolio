@@ -31,8 +31,8 @@ export class ExperienceComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<Array<JobExperience>>(this.endPoint).subscribe(response => {
-      response.sort((a,b) => a.jobIndex - b.jobIndex);
-      this.jobList = response;
+      this.jobList = Object.values(response);
+      this.jobList.sort((a,b) => a.jobIndex - b.jobIndex);
       })
   }
 

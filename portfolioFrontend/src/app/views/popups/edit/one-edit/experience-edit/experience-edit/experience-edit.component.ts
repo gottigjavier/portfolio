@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { JobExperience } from 'src/app/models/job-experience.model';
+import { JobBindingService } from 'src/app/services/binding-services/job-binding.service';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -13,7 +14,7 @@ declare var $ : any;
 })
 export class ExperienceEditComponent<T> {
 
-  job: JobExperience;
+  public job: JobExperience;
   
   private endPoint: string="job-experience/update";
 
@@ -33,7 +34,8 @@ export class ExperienceEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<JobExperience>
+    private popupBindingService: PopupBindingService<JobExperience>,
+    private jobBindingService: JobBindingService<T>
   ) {
     this.job={
     jobId: 0,
@@ -70,13 +72,20 @@ export class ExperienceEditComponent<T> {
     this.dataService.update(this.endPoint, this.job).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.job= resp.body;
+        this.jobBinding<JobExperience>(this.job);
+      }
     })
     this.closePopup();
   }
 
   closePopup(){
     $("#editJob").modal("hide");
+  }
+
+  jobBinding<T>(data: T){
+    this.jobBindingService.setData<T>(data);
   }
 
 }

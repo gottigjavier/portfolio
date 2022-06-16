@@ -12,8 +12,8 @@
                     <label for="setForm" class="form-label ps-3"><b><i>Select Technologies to Show and Order of Appearance</i></b></label>
                     <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
                         <div class="grid-container">
-                            <label for="techshownlist"><b>Shown Techs</b></label>
-                            <div id="techshownlist" *ngFor="let techTrue of techListTrue; index as i">
+                            <label for="ttechshownlist"><b>Shown Techs</b></label>
+                            <div id="ttechshownlist" *ngFor="let techTrue of techListTrue; index as i">
                                 <input id="techTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
                                     (change)="onCheckboxChange($event)"><span class="ms-1">{{techTrue.techName}} </span>
                                     <input class="tech-index" type="number" id="{{techTrue.techId}}" [value]=techTrue.techIndex min="1" max="99" (change)="onIndexChange($event)">

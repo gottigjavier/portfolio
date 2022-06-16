@@ -18,7 +18,7 @@ export class ProjectEditComponent<T> {
   
   public proj: MyProject;
 
-  private techSetChanged: Set<number> = new Set();
+  private techSetChanged: Set<number> = new Set<number>();
   public techListAll: Array<Technology> = [];
   public techListTrue: Array<Technology> = [];
   public techListShown: Array<Technology> = [];
@@ -92,13 +92,13 @@ export class ProjectEditComponent<T> {
 
     // to create the grid with used and unused techs for the project
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-      this.techListShown = data;
-      this.techListTrue = this.proj.techList.filter(elem => elem.techShow==true);
-      this.techListFalse= this.techListShown;
+      this.techListShown = data || [];
+      this.techListTrue = this.proj.techList.filter((elem: Technology) => elem.techShow==true) || [];
+      this.techListFalse= this.techListShown || [];
       for(let techFalse of this.techListFalse){
         for(let techTrue of this.techListTrue){
           if(techFalse.techId==techTrue.techId){
-            this.techListFalse= this.techListFalse.filter(elem => elem.techId!= techTrue.techId);
+            this.techListFalse= this.techListFalse.filter((elem: Technology) => elem.techId!= techTrue.techId) || [];
             break;
           }
         }
@@ -118,16 +118,14 @@ export class ProjectEditComponent<T> {
       if (!resp) {
         alert('Error: Not saved');
       }else{
-        this.proj=resp;
+        this.proj=resp.body;
+        this.projBinding<MyProject>(this.proj);
       }
     });
-    this.projBinding<MyProject>(this.proj);
-    this.closePopup();
     this.closePopup();
   }
   
   closePopup() {
-    this.projBinding<MyProject>(this.proj);
     //this.popupForm.reset();
     $('#editProj').modal('hide');
   }

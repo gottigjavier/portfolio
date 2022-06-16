@@ -35,6 +35,7 @@ export class ProjectsComponent<T> implements OnInit {
 
 
   public editMode: boolean = false;
+  list: any;
 
   constructor(
     private dataService: DataService<T>,
@@ -51,21 +52,24 @@ export class ProjectsComponent<T> implements OnInit {
     
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
-      data.sort((a, b) => a.techIndex - b.techIndex);
-      this.techListShown= data.filter(elem => elem.techShow==true);
+      data.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+      this.techListShown= data.filter(elem => elem.techShow==true) || [];
       this.ngOnInit();
     })
   }
 
   ngOnInit(): void {
     this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
-      response.sort((a, b) => a.projIndex - b.projIndex);
-      this.projList = response;
-      this.projListShown= this.projList.filter(elem => elem.projShow==true);
-      this.projList.forEach(elem=>{
-        elem.techList.sort((a, b) => a.techIndex - b.techIndex);
+      this.list= Object.values(response);
+      if(Array.isArray(this.list)){
+        this.list.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+        this.projList = this.list;
+        this.projListShown= this.list.filter((elem: MyProject) => elem.projShow==true) || [];
+        this.projList.forEach(elem=>{
+          elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+        })
+      }
       })
-    })
     this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
       if(data){
           this.projList.forEach(proj => {
@@ -73,9 +77,12 @@ export class ProjectsComponent<T> implements OnInit {
               proj = data;
             }
             this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
-              response.sort((a, b) => a.projIndex - b.projIndex);
-              this.projList = response;
-              this.projListShown= this.projList.filter(elem => elem.projShow==true);
+              this.list= Object.values(response);
+              if(Array.isArray(this.list)){
+                this.list.sort((a:MyProject, b:MyProject): number => a.projIndex - b.projIndex);
+                this.projList = this.list;
+                this.projListShown= this.list.filter((elem: MyProject) => elem.projShow==true) || [];
+              }
             })
             return this.projListShown;
           })
@@ -83,8 +90,8 @@ export class ProjectsComponent<T> implements OnInit {
     })
     this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
       if(data){
-        data.sort((a: any, b: any) => a.projIndex - b.projIndex);
-        this.projList=data;
+        this.projList= Object.values(data);
+        this.projList.sort((a: any, b: any) => a.projIndex - b.projIndex);
         this.projListShown= this.projList.filter(elem => elem.projShow==true);
       }
     })
@@ -104,6 +111,7 @@ export class ProjectsComponent<T> implements OnInit {
   }
   
   openEditProjSet(){
+    this.popupBinding<Array<MyProject>>(this.projList);
     $("#editProjSet").modal("show");
   }
 

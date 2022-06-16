@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { About } from 'src/app/models/about.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { AboutListBindingService } from 'src/app/services/binding-services/about-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -14,6 +14,7 @@ declare var $ : any;
 export class AboutCreateComponent<T> {
 
   public about: About;
+  private list: Array<About>=[];
 
   private createAboutEndPoint: string="about/create";
 
@@ -28,7 +29,7 @@ export class AboutCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<About>
+    private aboutListBindingService: AboutListBindingService<About>
     ) {
     this.about={
       aboutId: 0,
@@ -49,12 +50,21 @@ export class AboutCreateComponent<T> {
     this.dataService.create(this.createAboutEndPoint, this.about).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.list= Object.values(resp.body); // From ResponseEntity
+        this.aboutListBinding<Array<About>>(this.list);
+      }
     })
+    this.closePopup();
     this.closePopup();
   }
   
-      closePopup(){
+  closePopup(){
+    this.popupForm.reset();
     $("#newAbout").modal("hide");
+  }
+
+  aboutListBinding<T>(data: T){
+    this.aboutListBindingService.setData<T>(data);
   }
 }

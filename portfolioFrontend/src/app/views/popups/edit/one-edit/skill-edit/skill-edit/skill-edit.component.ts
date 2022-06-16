@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { SkillBindingService } from 'src/app/services/binding-services/skill-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -30,7 +31,8 @@ export class SkillEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Skill>
+    private popupBindingService: PopupBindingService<Skill>,
+    private skillBindingService: SkillBindingService<T>
   ) {
     this.skill={
     skillId: 0,
@@ -59,13 +61,20 @@ export class SkillEditComponent<T> {
     this.dataService.update(this.editEndPoint, this.skill).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.skill= resp.body;
+        this.skillBinding<Skill>(this.skill);
+      }
     })
     this.closePopup();
   }
   
       closePopup(){
     $("#editSkill").modal("hide");
+  }
+
+  skillBinding<T>(data: T){
+    this.skillBindingService.setData<T>(data);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Technology } from 'src/app/models/technology.model';
+import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -11,7 +13,9 @@ declare var $ : any;
 })
 export class TechCreateComponent<T> {
 
-  tech={
+  private techList: Array<Technology>=[];
+
+  private tech={
     techName: "",
     techType: "",
     techIconUrl: "",
@@ -34,7 +38,8 @@ export class TechCreateComponent<T> {
 
   constructor(
     private fb: FormBuilder,
-    private dataService: DataService<T>
+    private dataService: DataService<T>,
+    private techListBindingService: TechListBindingService<Technology>
   ) { }
 
   onSubmit(){
@@ -48,7 +53,10 @@ export class TechCreateComponent<T> {
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
       if(!resp){
         alert("Error: Not saved")
-      };
+      }else{
+        this.techList= Object.values(resp.body);
+        this.techListBinding<Array<Technology>>(this.techList);
+      }
     })
     this.closePopup();
     this.closePopup();
@@ -58,5 +66,9 @@ export class TechCreateComponent<T> {
   closePopup(){
     this.popupForm.reset();
     $("#newTech").modal("hide");
+  }
+
+  techListBinding<T>(data: T) {
+    this.techListBindingService.setData<T>(data);
   }
 }
