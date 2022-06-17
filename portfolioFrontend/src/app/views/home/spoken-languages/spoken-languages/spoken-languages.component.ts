@@ -30,9 +30,16 @@ export class SpokenLanguagesComponent<T> implements OnInit {
     }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<SpokenLanguage>>(this.endPoint).subscribe(response => {
-      this.langList = Object.values(response);
-      this.langList.sort((a,b) => a.languageIndex - b.languageIndex);
+    this.dataService.getAll<any>(this.endPoint).subscribe(response => {
+      if(response.statusCode == "OK"){
+        let list: Array<SpokenLanguage>= Object.values(response.body);
+        this.langList = list;
+        if(Array.isArray(this.langList)){
+          this.langList.sort((a: SpokenLanguage, b: SpokenLanguage): number => a.languageIndex - b.languageIndex);
+        }
+      }else{
+        window.alert(`Error: ${response.statusCode}`);
+      }
       })
   }
 

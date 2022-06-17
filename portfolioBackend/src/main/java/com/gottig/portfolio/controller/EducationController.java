@@ -35,22 +35,14 @@ public class EducationController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        List<EducationDTO> list = eduMapper.toDtoAll(eduService.getAll());
-        if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        EducationDTO oneEdu= eduMapper.toDto(eduService.getOne(id));
-        if(oneEdu == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(oneEdu, HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(id));
     }
     
     @PostMapping("/create")
@@ -60,7 +52,7 @@ public class EducationController {
         if(!eduService.create(eduMapper.toEntity(eduDTO))){
             return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @PutMapping("/update")
@@ -70,7 +62,7 @@ public class EducationController {
         if(!eduService.update(eduMapper.toEntity(eduDTO))){
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return new ResponseEntity<>(getOne(eduDTO.getEducationId()), HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(eduDTO.getEducationId()));
     }
     
     @PutMapping("/update/list")
@@ -80,7 +72,7 @@ public class EducationController {
         for(EducationDTO eduDTO : eduListDTO){
          eduService.update(eduMapper.toEntity(eduDTO));   
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @DeleteMapping("/delete/{id}")
@@ -90,7 +82,27 @@ public class EducationController {
         if(!eduService.delete(id)){
             return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
+    }
+    
+    
+    
+    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
+    // sino solo devuelve el objeto o lista (body) en un 200
+    public ResponseEntity getList(){
+        List<EducationDTO> list = eduMapper.toDtoAll(eduService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    public ResponseEntity singleGet(Long id){
+        EducationDTO obj= eduMapper.toDto(eduService.getOne(id));
+        if(obj == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
     
 }

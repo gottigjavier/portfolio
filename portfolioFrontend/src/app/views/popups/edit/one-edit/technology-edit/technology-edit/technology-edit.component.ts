@@ -33,9 +33,9 @@ export class TechnologyEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Technology>,
+    private popupBindingService: PopupBindingService<T>,
     private techBindingService: TechBindingService<T>,
-    private techListBindingService: TechListBindingService<Technology>
+    private techListBindingService: TechListBindingService<T>
   ) {
     this.tech={
     techId: 0,
@@ -56,9 +56,13 @@ export class TechnologyEditComponent<T>{
       this.techList= data;
     })
 
+    this.dataService.getOne("technology/91").subscribe(data => {
+      console.log("tech edit get one data ", data);
+    })
+
   }
 
-  onSubmit(){
+  onTSubmit(){
     this.tech.techName= this.popupForm.value.techName || this.tech.techName;
     this.tech.techType= this.popupForm.value.techType || this.tech.techType;
     this.tech.techDescription= this.popupForm.value.techDescription || this.tech.techDescription;
@@ -66,25 +70,27 @@ export class TechnologyEditComponent<T>{
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.dataService.update(this.techUpdateEndPoint, this.tech).subscribe(resp =>{
-      if(!resp){
-        window.alert("Error: Not saved");
-        return
-      }else{
-        this.tech= resp.body;
+      console.log("tech edit one ", resp);
+      if(resp.statusCode == "OK"){
+        this.tech = resp.body;
         this.techBinding<Technology>(this.tech);
-        this.techList.forEach(elem=>{
-          if(elem.techId==this.tech.techId){
-            elem= this.tech;
-            return;
-          }
-        })
+        if(Array.isArray(this.techList)){
+          this.techList.forEach(elem=>{
+            if(elem.techId==this.tech.techId){
+              elem= this.tech;
+              return;
+            }
+          })
+        }
         this.techListBinding<Array<Technology>>(this.techList);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     })
-    this.closePopup();
+    this.closeTPopup();
   }
 
-  closePopup(){
+  closeTPopup(){
     this.techListBinding<Array<Technology>>(this.techList);
     //this.popupForm.reset();
     $("#editTech").modal("hide");

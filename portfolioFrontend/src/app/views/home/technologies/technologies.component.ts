@@ -77,19 +77,27 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<Technology>>(this.techListEndPoint).subscribe(response => {
+    this.dataService.getAll<any>(this.techListEndPoint).subscribe(response => {
       console.log("tech -> ", response);
-      this.list= Object.values(response);
-      this.list.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-      console.log("width  ", window.innerWidth)
-      this.techList = this.list;
-      this.techListShown = this.list.filter((elem: Technology) => elem.techShow==true);
-      this.techListBinding<Array<Technology>>(this.techList);
-      this.getScreenSize();
-      this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-        data.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-        this.techListShown = data.filter((elem: Technology) => elem.techShow==true) || [];
-      })
+      if(response.statusCode == "OK"){
+        let list: Array<Technology>= Object.values(response.body);
+        list.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+        console.log("width  ", window.innerWidth)
+        this.techList = list;
+        if(Array.isArray(this.techList)){
+          this.techListShown = list.filter((elem: Technology) => elem.techShow==true) || [];
+        }
+        this.techListBinding<Array<Technology>>(this.techList);
+        this.getScreenSize();
+        this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+          if(Array.isArray(data)){
+            data.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+            this.techListShown = data.filter((elem: Technology) => elem.techShow==true) || [];
+          }
+        })
+      }else{
+        window.alert(`Error: ${response.statusCode}`);
+      }
     })
   };
 

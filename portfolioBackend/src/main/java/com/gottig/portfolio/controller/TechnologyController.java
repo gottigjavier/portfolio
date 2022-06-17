@@ -40,22 +40,14 @@ public class TechnologyController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        List<TechnologyDTO> list = techMapper.toDtoAll(techService.getAll());
-        if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        TechnologyDTO oneTech= techMapper.toDto(techService.getOne(id));
-        if(oneTech == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(oneTech, HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(id));
     }
     
     @PostMapping("/create")
@@ -65,7 +57,7 @@ public class TechnologyController {
         if(!techService.create(techMapper.toEntity(techDTO))){
             return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @PutMapping("/update")
@@ -75,7 +67,7 @@ public class TechnologyController {
         if(!techService.update(techMapper.toEntity(techDTO))){
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return new ResponseEntity<>(getOne(techDTO.getTechId()), HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(techDTO.getTechId()));
     }
     
     @PutMapping("/update/list")
@@ -85,7 +77,7 @@ public class TechnologyController {
         for(TechnologyDTO techDTO : techListDTO){
          techService.update(techMapper.toEntity(techDTO));   
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @DeleteMapping("/delete/{id}")
@@ -105,7 +97,25 @@ public class TechnologyController {
             }
         }
         techService.delete(id);
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);  
+        return ResponseEntity.ok(getList());  
+    }
+    
+    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
+    // sino solo devuelve el objeto o lista (body) en un 200
+    public ResponseEntity getList(){
+        List<TechnologyDTO> list = techMapper.toDtoAll(techService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    public ResponseEntity singleGet(Long id){
+        TechnologyDTO obj= techMapper.toDto(techService.getOne(id));
+        if(obj == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
     
 }

@@ -8,10 +8,11 @@
                     <h4 class="modal-title"><b>Delete Technology</b></h4>
                     <button id="tdelbttn" type="button" class="close" (click)="closePopup()">&times;</button>
                 </div>
+                <form id="delTecF" class="p-3 mx-3" [formGroup]="deleteTForm" (submit)="delSubmit()">
                 <div class="mb-3">
-                    <label for="setForm" class="form-label m-3"><b>Technologies and IDs</b></label>
+                    <label for="setTForm" class="form-label m-3"><b>Technologies and IDs</b></label>
                     <div class="grid-container p-2">
-                        <div id="deltechshownlist" *ngFor="let tech of techListAll; index as i">
+                        <div id="deltechshownlist{{tech.techId}}" *ngFor="let tech of techListAll; index as i">
                             <span id="deltechname{{tech.techId}}" class="ms-1">{{tech.techName}} (Id: {{tech.techId}})</span>
                         </div>
                         <hr>
@@ -20,20 +21,19 @@
                         </div>
                         <hr>
                         <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
-                        <form class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
                             <div class="text-center">
                                 <label for="deltechnotsownlist"><b>Id :</b></label>
-                                <input id="inputdeltec" value={{techToDelete.techId}} type="text" formControlName="techId" size="2" autofocus>
+                                <input name="deltechnotsownlist" id="deltechnotsownlist" type="text" formControlName="techId" size="2" autofocus>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button id="deltechbtnsubmit" class="btn btn-success m-2" type="submit" value="Submit">
                                     Confirm
                                 </button>
                             </div>
-                        </form>
                         </div>
+                    </div>
+                        </form>
                 </div>
-            </div>
         </div>
     </div>
 </div>

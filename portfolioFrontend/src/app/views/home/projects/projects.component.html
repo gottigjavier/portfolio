@@ -23,7 +23,7 @@
     <div class="proj" *ngFor="let proj of projListShown; index as i">
       <div id="projcc{{proj.projId}}">
         <div class="d-flex justify-content-end pe-3" *ngIf="editMode">
-          <button id="projcEbtn{{ proj.projId }}" title="Edit Project" type="button" class="btn" (click)="openEditOneProj(proj.projId)">
+          <button id="projcEbtn{{i}}" title="Edit Project" type="button" class="btn" (click)="openEditOneProj(proj.projId)">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-fill"
               viewBox="0 0 16 16">
               <path
@@ -34,23 +34,25 @@
         <div class="row">
           <div class="d-flex container">
             <div class="tech-cont col-4">
-              <p id="projcT{{proj.projId}}">
+              <p id="projcT{{i}}">
                 <b class="items-title">Project: </b>
                 <span class="proj-name">
                   {{ proj.projName }}
                 </span>
               </p>
-              <p id="projcD{{proj.projId}}">
+              <p id="projcD{{i}}">
                 <b class="items-title">Description: </b>
                 <span class="items-text">
                   {{ proj.projDescription }}
                 </span>
               </p>
-              <p id="projcR{{proj.projId}}">
+              <p id="projcR{{i}}">
                 <b class="items-title">Repository: </b>
                 <span>
-                  <a id="projcUrl{{proj.projId}}" href="{{ proj.projUrl }}" target="_blank">
-                    <img id="projIm{{proj.projId}}" src="https://i.imgur.com/ojCYaE8.jpeg" alt="GitHub Logo" class="repo-logo" />
+                  <a id="projcUrl{{i}}" href="{{ proj.projUrl }}" target="_blank">
+                    <img id="projIm{{i}}" 
+                      src="https://i.imgur.com/ojCYaE8.jpeg" alt="GitHub Logo" 
+                      class="repo-logo"/>
                   </a>
                   ..
                 </span>
@@ -63,9 +65,11 @@
                   <h4 class="tech-title">Technologies used</h4>
                 </div>
                 <div class="row grid-container mb-2">
-                  <div *ngFor="let tech of proj.techList">
+                  <div *ngFor="let tech of proj.techList; let j = index">
                     <div *ngIf="tech.techShow">
-                      <img id="projctech{{tech.techId}}" src="{{ tech.techIconUrl }}" title="{{ tech.techDescription }}" alt="Technology Logo"
+                      <img id="projctech{{j}}" 
+                        src="{{ tech.techIconUrl }}" title="{{ tech.techDescription }}" 
+                        alt="Technology Logo"
                         class="proj-logo" />
                     </div>
                   </div>

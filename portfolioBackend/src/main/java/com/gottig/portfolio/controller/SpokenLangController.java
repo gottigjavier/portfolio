@@ -35,22 +35,14 @@ public class SpokenLangController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        List<SpokenLangDTO> list = langMapper.toDtoAll(langService.getAll());
-        if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        SpokenLangDTO oneLang= langMapper.toDto(langService.getOne(id));
-        if(oneLang == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(oneLang, HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(id));
     }
     
     
@@ -61,7 +53,7 @@ public class SpokenLangController {
         if(!langService.create(langMapper.toEntity(langDTO))){
             return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @PutMapping("/update")
@@ -71,7 +63,7 @@ public class SpokenLangController {
         if(!langService.update(langMapper.toEntity(langDTO))){
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return new ResponseEntity<>(getOne(langDTO.getLanguageId()), HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(langDTO.getLanguageId()));
     }
     
     @PutMapping("/update/list")
@@ -81,7 +73,7 @@ public class SpokenLangController {
         for(SpokenLangDTO langDTO : langListDTO){
          langService.update(langMapper.toEntity(langDTO));   
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @DeleteMapping("/delete/{id}")
@@ -91,7 +83,25 @@ public class SpokenLangController {
         if(!langService.delete(id)){
             return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
+    }
+    
+    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
+    // sino solo devuelve el objeto o lista (body) en un 200
+    public ResponseEntity getList(){
+        List<SpokenLangDTO> list = langMapper.toDtoAll(langService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    public ResponseEntity singleGet(Long id){
+        SpokenLangDTO obj= langMapper.toDto(langService.getOne(id));
+        if(obj == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
     
 }

@@ -34,22 +34,14 @@ public class JobExperienceController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        List<JobExperienceDTO> list = jobMapper.toDtoAll(jobService.getAll());
-        if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        JobExperienceDTO oneJob= jobMapper.toDto(jobService.getOne(id));
-        if(oneJob == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(oneJob, HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(id));
     }
     
     @PostMapping("/create")
@@ -59,7 +51,7 @@ public class JobExperienceController {
         if(!jobService.create(jobMapper.toEntity(jobDTO))){
             return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @PutMapping("/update")
@@ -69,7 +61,7 @@ public class JobExperienceController {
         if(!jobService.update(jobMapper.toEntity(jobDTO))){
             return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return new ResponseEntity<>(getOne(jobDTO.getJobId()), HttpStatus.OK);
+        return ResponseEntity.ok(singleGet(jobDTO.getJobId()));
     }
     
     @PutMapping("/update/list")
@@ -79,7 +71,7 @@ public class JobExperienceController {
         for(JobExperienceDTO jobDTO : jobListDTO){
          jobService.update(jobMapper.toEntity(jobDTO));   
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
     }
     
     @DeleteMapping("/delete/{id}")
@@ -89,7 +81,26 @@ public class JobExperienceController {
         if(!jobService.delete(id)){
             return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(getAll(), HttpStatus.OK);
+        return ResponseEntity.ok(getList());
+    }
+    
+    
+    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
+    // sino solo devuelve el objeto o lista (body) en un 200
+    public ResponseEntity getList(){
+        List<JobExperienceDTO> list = jobMapper.toDtoAll(jobService.getAll());
+        if(list.size()<1){
+            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    public ResponseEntity singleGet(Long id){
+        JobExperienceDTO obj= jobMapper.toDto(jobService.getOne(id));
+        if(obj == null){
+            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
     
 }

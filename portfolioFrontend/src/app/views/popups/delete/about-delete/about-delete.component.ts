@@ -48,9 +48,9 @@ export class AboutDeleteComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.popupBindingService.dataEmitter.subscribe((data: Array<About>)=>{
-      this.aboutList= data;
-      this.list= Object.values(this.aboutList);
-      this.aboutListFalse= this.list.filter((elem: About)=> elem.aboutShown==false) || this.aboutListFalse;
+      let list= Object.values(data);
+      this.aboutList= list;
+      this.aboutListFalse= this.aboutList.filter((elem: About)=> elem.aboutShown==false) || [];
     })
   }
 
@@ -65,9 +65,13 @@ export class AboutDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.aboutToDelete.aboutId}`).subscribe(resp =>{
-            this.list= Object.values(resp.body);
-            this.aboutList= this.list;
-            this.aboutListBinding<Array<About>>(this.aboutList);
+            if(resp.statusCode == "OK"){
+              let list: Array<About>= Object.values(resp.body);
+              this.aboutList= list;
+              this.aboutListBinding<Array<About>>(this.aboutList);
+            }else{
+              window.alert(`Error: ${resp.statusCode}`);
+            }
           })
           this.closePopup();
         }

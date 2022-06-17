@@ -59,11 +59,11 @@ export class SkillEditComponent<T> {
     this.skill.skillLevel= this.popupForm.value.skillLevel || this.skill.skillLevel;
     this.skill.skillIndex= this.popupForm.value.skillIndex || this.skill.skillIndex;
     this.dataService.update(this.editEndPoint, this.skill).subscribe(resp =>{
-      if(!resp){
-        alert("Error: Not saved")
-      }else{
-        this.skill= resp.body;
+      if(resp.statusCode == "OK"){
+        this.skill = resp.body;
         this.skillBinding<Skill>(this.skill);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     })
     this.closePopup();

@@ -26,15 +26,15 @@
                         <label for="projEdIndex"><b>Order of Apperance :</b></label>
                         <input id="projEdIndex" class="proj-index-box" value={{proj.projIndex}} type="number" min="1" max="99" formControlName="projIndex">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" (change)="onCheckboxChange($event)">
                         <label for="prtechSelect" class="form-label">Select Technologies</label>
                         <div id="prtechSelect" class="grid-container">
                             <div class="row">
                                 <div class="tech">
                                     <label for="prtechshownlist"><b>Shown Techs</b></label>
-                                    <div name="prtechshownlist" *ngFor="let techTrue of techListTrue">
-                                        <input id="prEdtechTrue{{techTrue.techId}}" type="checkbox" [value]="techTrue.techId" checked
-                                        (change)="onCheckboxChange($event)"><span id="spanTR{{techTrue.techId}}" class="ms-1">{{techTrue.techName}}</span>
+                                    <div name="prtechshownlist" *ngFor="let techTrue of techListTrue; let i = index">
+                                        <input id="prEdtechTrue{{i}}" type="checkbox" [value]="techTrue.techId" checked>
+                                        <span id="spanTR{{i}}" class="ms-1">{{techTrue.techName}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -42,8 +42,9 @@
                             <div class="row">
                                 <div class="tech">
                                     <label for="prtechnotsownlist"><b>Not Shown Techs</b></label>
-                                    <div name="prtechnoshownlist" *ngFor="let techFalse of techListFalse">
-                                        <input id="prEdtechFalse{{techFalse.techId}}" type="checkbox" [value]="techFalse.techId" (change)="onCheckboxChange($event)" ><span id="spantech{{techFalse.techId}}" class="ms-1">{{techFalse.techName}}</span>
+                                    <div name="prtechnoshownlist" *ngFor="let techFalse of techListFalse; let j = index">
+                                        <input id="prEdtechFalse{{j}}" type="checkbox" [value]="techFalse.techId">
+                                        <span id="spantech{{j}}" class="ms-1">{{techFalse.techName}}</span>
                                     </div>
                                 </div>
                             </div>

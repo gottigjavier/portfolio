@@ -51,14 +51,14 @@ export class TechCreateComponent<T> {
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
-      if(!resp){
-        alert("Error: Not saved")
-      }else{
-        this.techList= Object.values(resp.body);
+      if(resp.statusCode == "OK"){
+        let list: Array<Technology>= Object.values(resp.body);
+        this.techList= list;
         this.techListBinding<Array<Technology>>(this.techList);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     })
-    this.closePopup();
     this.closePopup();
     //window.location.reload();
   }

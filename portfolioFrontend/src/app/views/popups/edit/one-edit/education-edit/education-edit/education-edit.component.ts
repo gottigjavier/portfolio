@@ -65,11 +65,11 @@ export class EducationEditComponent<T>{
     this.education.educationEnd= this.popupForm.value.educationEnd || this.education.educationEnd;
     this.education.approvedLevel= this.popupForm.value.approvedLevel || this.education.approvedLevel;
     this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
-      if(!resp){
-        alert("Error: Not saved")
-      }else{
-        this.education= resp.body;
+      if(resp.statusCode == "OK"){
+        this.education = resp.body;
         this.eduBinding<Education>(this.education);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     })
     this.closePopup();

@@ -52,23 +52,28 @@ export class ProjectsComponent<T> implements OnInit {
     
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) =>{
-      data.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-      this.techListShown= data.filter(elem => elem.techShow==true) || [];
+      let list= Object.values(data);
+      list.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+      this.techListShown= list.filter(elem => elem.techShow==true) || [];
       this.ngOnInit();
     })
   }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
-      this.list= Object.values(response);
-      if(Array.isArray(this.list)){
-        this.list.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
-        this.projList = this.list;
-        this.projListShown= this.list.filter((elem: MyProject) => elem.projShow==true) || [];
+    this.dataService.getAll<any>(this.endPoint).subscribe(response => {
+      if(response.statusCode == "OK"){
+      let list: Array<MyProject>= Object.values(response.body);
+      if(Array.isArray(list)){
+        list.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+        this.projList = list;
+        this.projListShown= list.filter((elem: MyProject) => elem.projShow==true) || [];
         this.projList.forEach(elem=>{
           elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
         })
       }
+    }else{
+      window.alert(`Error: ${response.statusCode}`);
+    }
       })
     this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
       if(data){
@@ -76,23 +81,29 @@ export class ProjectsComponent<T> implements OnInit {
             if (data.projId==proj.projId) {
               proj = data;
             }
-            this.dataService.getAll<Array<MyProject>>(this.endPoint).subscribe(response => {
-              this.list= Object.values(response);
-              if(Array.isArray(this.list)){
-                this.list.sort((a:MyProject, b:MyProject): number => a.projIndex - b.projIndex);
-                this.projList = this.list;
-                this.projListShown= this.list.filter((elem: MyProject) => elem.projShow==true) || [];
+            this.dataService.getAll<any>(this.endPoint).subscribe(response => {
+              if(response.statusCode == "OK"){
+              let list: Array<MyProject>= Object.values(response.body);
+              if(Array.isArray(list)){
+                list.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+                this.projList = list;
+                this.projListShown= list.filter((elem: MyProject) => elem.projShow==true) || [];
+                this.projList.forEach(elem=>{
+                  elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+                })
               }
-            })
+            }
+              })
             return this.projListShown;
           })
         }
     })
     this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
-      if(data){
-        this.projList= Object.values(data);
-        this.projList.sort((a: any, b: any) => a.projIndex - b.projIndex);
-        this.projListShown= this.projList.filter(elem => elem.projShow==true);
+      let list= Object.values(data);
+      if(Array.isArray(list)){
+        list.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+        this.projList= list;
+        this.projListShown= this.projList.filter((elem: MyProject) => elem.projShow==true) || [];
       }
     })
   };
@@ -101,6 +112,7 @@ export class ProjectsComponent<T> implements OnInit {
   openEditOneProj(i: number) {
     this.proj= this.projList.find(elem=> elem.projId== i) || this.proj;
     this.popupBinding<MyProject>(this.proj);
+    console.log("Projct comp, is techList array? ", Array.isArray(this.techListShown));
     this.techListBinding<Array<Technology>>(this.techListShown);
     $("#editProj").modal("show");
   }

@@ -6,9 +6,9 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Technology Edit</h4>
-                    <button id="tecEdbuttonx" type="button" class="close" (click)="closePopup()">&times;</button>
+                    <button id="tecEdbuttonx" type="button" class="close" (click)="closeTPopup()">&times;</button>
                 </div>
-                <form id="techedOneform" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                <form id="techedOneform" class="p-3" [formGroup]="popupForm" (ngSubmit)="onTSubmit()">
                     <br />
                     <div class="mb-3">
                         <label for="tEname" class="form-label">Tecnology Name</label>
@@ -39,7 +39,7 @@
                         <button id="techBntSend" class="btn btn-success m-2" type="submit">
                             Send
                         </button>
-                        <button id="techBtnCancel" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                        <button id="techBtnCancel" class="btn btn-secondary m-2" type="button" (click)="closeTPopup()">
                             Cancel
                         </button>
                     </div>

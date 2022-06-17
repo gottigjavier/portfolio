@@ -31,13 +31,18 @@ export class EducationComponent<T> implements OnInit {
     }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<Education>>(this.endPoint).subscribe(response => {
-      this.eduList = Object.values(response);
-      if(Array.isArray(this.eduList)){
-        this.eduList.sort((a,b) => a.eduIndex - b.eduIndex);
-        this.eduListShown= this.eduList.filter(elem => elem.eduShow==true);
+    this.dataService.getAll<any>(this.endPoint).subscribe(response => {
+      if(response.statusCode == "OK"){
+      let list: Array<Education>= Object.values(response.body);
+        this.eduList = list;
+        if(Array.isArray(this.eduList)){
+          this.eduList.sort((a: Education, b: Education): number => a.eduIndex - b.eduIndex);
+          this.eduListShown= this.eduList.filter((elem: Education) => elem.eduShow==true) || [];
+        }
+      }else{
+        window.alert(`Error: ${response.statusCode}`);
       }
-    })
+      })
   }
 
   openEditOne(i: number){

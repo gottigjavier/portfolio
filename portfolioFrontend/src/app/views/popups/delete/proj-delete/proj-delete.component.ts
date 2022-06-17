@@ -42,10 +42,15 @@ export class ProjDeleteComponent<T>{
       if(elem.projId ==this.deleteForm.value.projId){
         invalid=false;
         this.dataService.delete(`${this.deleteProjEndPoint}/${this.deleteForm.value.projId}`).subscribe(resp=>{
-          this.projList=Object.values(resp.body);
-          this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
-          this.projListBinding<Array<MyProject>>(this.projList);
-          this.closePopup();
+          if(resp.statusCode == "OK"){
+            let list: Array<MyProject>= Object.values(resp.body);
+            this.projList= list;
+            this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+            this.projListBinding<Array<MyProject>>(this.projList);
+            this.closePopup();
+          }else{
+            window.alert(`Error: ${resp.statusCode}`);
+          }
         })
       }
       })

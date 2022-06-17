@@ -49,19 +49,22 @@ export class AboutComponent<T> implements OnInit {
     
     
   ngOnInit(): void {
-    this.dataService.getAll<Array<About>>(this.endPoint).subscribe(response => {
-      if(response.length>0){
-        this.aboutList= Object.values(response);
-        this.about= response.find(elem => elem.aboutShown== true)|| this.about;
+    this.dataService.getAll<any>(this.endPoint).subscribe(response => {
+      console.log("about response ", response);
+      if(response.statusCode= "OK"){
+      let list: Array<About>= Object.values((response.body));
+        this.aboutList= list;
+        this.about= list.find(elem => elem.aboutShown== true)|| this.about;
         this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
-          if(data){
-            this.aboutList=data;
+          let list= Object.values(data);
+          if(Array.isArray(list)){
+            this.aboutList=list;
             this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
           }
         })
         console.log("about -> ", this.about);
       }else{
-        window.alert("Can not find an About of user")
+        window.alert(`Error: ${response.statusCode}`);
       }
     }) 
   };

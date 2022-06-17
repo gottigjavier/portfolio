@@ -47,11 +47,11 @@ export class ProjCreateComponent<T> {
     console.log("event in projects edit ", e.target.checked);
     this.tech = this.techListShown.find((elem) => elem.techId == e.target.value) || this.tech;
     if (e.target.checked){
-      this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId);
+      this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId) || [];
       this.techListTrue.push(this.tech);
     }
     if (!e.target.checked) {
-      this.techListTrue = this.techListTrue.filter(elem => elem.techId!=this.tech.techId);
+      this.techListTrue = this.techListTrue.filter(elem => elem.techId!=this.tech.techId) || [];
       this.techListFalse.push(this.tech);
     } 
   }
@@ -103,13 +103,13 @@ export class ProjCreateComponent<T> {
     this.proj.projIndex= this.popupForm.value.projIndex || this.proj.projIndex;
     this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
     this.proj.techList = this.techListTrue;
-    this.dataService.create<MyProject>(this.projCreateEndPoint, this.proj).subscribe((resp) => {
-      if (!resp) {
-        alert('Error: Not saved');
-      }else{
-        this.list= Object.values(resp.body);
-        this.projList= this.list;
+    this.dataService.create(this.projCreateEndPoint, this.proj).subscribe((resp) => {
+      if(resp.statusCode == "OK"){
+        let list: Array<MyProject>= Object.values(resp.body);
+        this.projList= list;
         this.projListBinding<Array<MyProject>>(this.projList);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     });
     this.projBinding<MyProject>(this.proj);

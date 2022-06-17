@@ -58,11 +58,11 @@ export class SpokenLangEditComponent<T>{
     this.lang.percentLevel= this.popupForm.value.percentLevel || this.lang.percentLevel;
     this.lang.languageIndex= this.popupForm.value.languageIndex || this.lang.languageIndex;
     this.dataService.update(this.editEndPoint, this.lang).subscribe(resp =>{
-      if(!resp){
-        alert("Error: Not saved")
-      }else{
-        this.lang= resp.body;
+      if(resp.statusCode == "OK"){
+        this.lang = resp.body;
         this.langBinding<SpokenLanguage>(this.lang);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     })
     this.closePopup();

@@ -45,11 +45,11 @@ export class ProjectEditComponent<T> {
     console.log("event in projects edit ", e.target.checked);
     this.tech = this.techListShown.find((elem) => elem.techId == e.target.value) || this.tech;
     if (e.target.checked){
-      this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId);
+      this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId) || [];
       this.techListTrue.push(this.tech);
     }
     if (!e.target.checked) {
-      this.techListTrue = this.techListTrue.filter(elem => elem.techId!=this.tech.techId);
+      this.techListTrue = this.techListTrue.filter(elem => elem.techId!=this.tech.techId) || [];
       this.techListFalse.push(this.tech);
     } 
   }
@@ -73,11 +73,11 @@ export class ProjectEditComponent<T> {
 
     this.popupForm = this.fb.group({ techFormArray: this.fb.array([]) });
     this.techFormArray = this.popupForm.get('setFormArray') as FormArray;
-
+/* 
     this.popupForm = this.fb.group({
       techList: this.fb.array([]),
     });
-
+ */
     this.popupForm = this.fb.group({
       projName: '',
       projDescription: '',
@@ -92,8 +92,10 @@ export class ProjectEditComponent<T> {
 
     // to create the grid with used and unused techs for the project
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-      this.techListShown = data || [];
-      this.techListTrue = this.proj.techList.filter((elem: Technology) => elem.techShow==true) || [];
+      this.techListShown = Object.values(data) || [];
+      if(this.proj.techList.length>0){
+        this.techListTrue = this.proj.techList.filter((elem: Technology) => elem.techShow==true) || [];
+      }
       this.techListFalse= this.techListShown || [];
       for(let techFalse of this.techListFalse){
         for(let techTrue of this.techListTrue){
@@ -114,12 +116,12 @@ export class ProjectEditComponent<T> {
     this.proj.projIndex= this.popupForm.value.projIndex || this.proj.projIndex;
     this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
     this.proj.techList = this.techListTrue;
-    this.dataService.update<MyProject>(this.projUpdateEndPoint, this.proj).subscribe((resp) => {
-      if (!resp) {
-        alert('Error: Not saved');
-      }else{
-        this.proj=resp.body;
+    this.dataService.update(this.projUpdateEndPoint, this.proj).subscribe((resp) => {
+      if(resp.statusCode == "OK"){
+        this.proj = resp.body;
         this.projBinding<MyProject>(this.proj);
+      }else{
+        window.alert(`Error: ${resp.statusCode}`);
       }
     });
     this.closePopup();

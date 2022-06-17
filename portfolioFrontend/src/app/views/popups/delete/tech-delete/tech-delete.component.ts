@@ -20,7 +20,7 @@ export class TechDeleteComponent<T> implements OnInit {
   public techToDelete: Technology;
   private emptyTech: Technology;
 
-  public deleteForm: FormGroup;
+  public deleteTForm: FormGroup;
 
   
   constructor(
@@ -28,7 +28,7 @@ export class TechDeleteComponent<T> implements OnInit {
     private dataService: DataService<T>,
     private techListBindingService: TechListBindingService<T>
   ) {
-    this.deleteForm = this.formBilder.group({
+    this.deleteTForm = this.formBilder.group({
       techId: ""
     });
 
@@ -46,14 +46,14 @@ export class TechDeleteComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataService.getAll<Array<Technology>>(this.listEndPoint).subscribe(response =>{
-      this.techListAll= response;
+    this.dataService.getAll(this.listEndPoint).subscribe((response: any) =>{
+      this.techListAll= response.body;
     })
   }
 
   delSubmit(){
     this.techListAll.forEach(elem => {
-        if(elem.techId == this.deleteForm.value.techId){
+        if(elem.techId == this.deleteTForm.value.techId){
           this.techToDelete=elem;
           return
         }
@@ -62,19 +62,22 @@ export class TechDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.techToDelete.techId}`).subscribe(resp =>{
-            this.techListAll= Object.values(resp.body);
-            this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-            this.techListBinding<Array<Technology>>(this.techListAll);
+            if(resp.statusCode == "OK"){
+              let list: Array<Technology>= Object.values(resp.body);
+              this.techListAll= list;
+              this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+              this.techListBinding<Array<Technology>>(this.techListAll);
+            }else{
+              window.alert(`Error: ${resp.statusCode}`);
+            }
           })
-          // Con dos closePopup se actualizan los componentes
           this.closePopup();
         }
   }
   
   closePopup(){
-    //this.techListBinding<Array<Technology>>(this.techListAll);
     this.techToDelete=this.emptyTech;
-    this.deleteForm.reset();
+    this.deleteTForm.reset();
     $("#deleteTech").modal("hide");
   }
 

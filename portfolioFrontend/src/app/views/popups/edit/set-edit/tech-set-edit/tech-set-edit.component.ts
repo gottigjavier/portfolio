@@ -14,7 +14,6 @@ declare var $ : any;
 })
 export class TechSetEditComponent<T> implements OnInit {
 
-  private techListEndPoint: string="technology/list";
   private techUpdateEndPoint: string="technology/update/list";
 
   private list: Array<Technology>=[];
@@ -42,11 +41,11 @@ export class TechSetEditComponent<T> implements OnInit {
     this.tech = this.techListAll.find(elem => elem.techId == e.target.value)|| this.tech;
     if(this.tech.techShow){
       this.tech.techShow= false;
-      this.techListTrue= this.techListTrue.filter(elem => elem.techId != this.tech.techId);
+      this.techListTrue= this.techListTrue.filter(elem => elem.techId != this.tech.techId) || [];
       this.techListFalse.push(this.tech); 
     }else{
       this.tech.techShow= true;
-      this.techListFalse= this.techListFalse.filter(elem => elem.techId != this.tech.techId);
+      this.techListFalse= this.techListFalse.filter(elem => elem.techId != this.tech.techId) || [];
       this.techListTrue.push(this.tech); 
     }
     console.log("techSetChanged ", this.techSetChanged);
@@ -68,14 +67,7 @@ export class TechSetEditComponent<T> implements OnInit {
     private service: DataService<T>,
     private techListBindingService: TechListBindingService<T>
   ) {
-    /* this.service.getAll<Array<Technology>>(this.techListEndPoint).subscribe(response =>{
-      this.list= Object.values(response);
-      this.list.sort((a, b) => a.techIndex - b.techIndex);
-      this.techListAll=this.list;
-      this.techListTrue= this.techListAll.filter(elm => elm.techShow);
-      this.techListFalse= this.techListAll.filter(elm => !elm.techShow);
-    }) */
-
+    
     this.setForm=this.fb.group({setFormArray: this.fb.array([])});
     this.setFormArray= this.setForm.get('setFormArray') as FormArray;
 
@@ -89,8 +81,8 @@ export class TechSetEditComponent<T> implements OnInit {
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
       this.techListAll= data;
       this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-      this.techListTrue= this.techListAll.filter(elm => elm.techShow);
-      this.techListFalse= this.techListAll.filter(elm => !elm.techShow);
+      this.techListTrue= this.techListAll.filter(elm => elm.techShow) || [];
+      this.techListFalse= this.techListAll.filter(elm => !elm.techShow) || [];
     })
   }
 
@@ -103,14 +95,14 @@ export class TechSetEditComponent<T> implements OnInit {
             this.techListToSend.push(sendTech);
           }
           this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
-            if(!resp){
-              alert("Error: Not saved");
+            if(resp.statusCode != "OK"){
+              alert("Error: Editing Failed");
             }else{
               this.list= Object.values(resp.body);
               this.list.sort((a:Technology, b: Technology): number => a.techIndex - b.techIndex);
               this.techListAll= this.list;
-              this.techListTrue= this.techListAll.filter(elm => elm.techShow);
-              this.techListFalse= this.techListAll.filter(elm => !elm.techShow);
+              this.techListTrue= this.techListAll.filter(elm => elm.techShow) || [];
+              this.techListFalse= this.techListAll.filter(elm => !elm.techShow) || [];
               this.techListBinding<Array<Technology>>(this.techListAll);
             }
           })
