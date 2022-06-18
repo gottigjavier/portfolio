@@ -33,7 +33,7 @@ export class EducationEditComponent<T>{
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<Education>,
-    private eduBindingService: EduBindingService<T>
+    private eduBindingService: EduBindingService<Education>
   ) {
     this.education={
       educationId: 0,
@@ -49,7 +49,7 @@ export class EducationEditComponent<T>{
       eduIndex: 0
     }
 
-    this.popupBindingService.dataEmitter.subscribe((data: Education) =>{
+    this.eduBindingService.dataEmitter.subscribe((data: Education) =>{
       this.education= data;
     })
 

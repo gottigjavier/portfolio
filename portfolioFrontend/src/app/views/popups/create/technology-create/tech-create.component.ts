@@ -16,10 +16,10 @@ export class TechCreateComponent<T> {
   private techList: Array<Technology>=[];
 
   private tech={
-    techName: "",
-    techType: "",
+    techName: "No Name",
+    techType: "No Type",
     techIconUrl: "",
-    techDescription: "",
+    techDescription: "No Description",
     techLevel: 1,
     techIndex: 99,
     techShow: true
@@ -39,11 +39,11 @@ export class TechCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private techListBindingService: TechListBindingService<Technology>
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) { }
 
   onSubmit(){
-    if(!this.popupForm.value.techIconUrl.startsWith("http")){
+    if(!this.popupForm.value.techIconUrl || !this.popupForm.value.techIconUrl.startsWith("http")){
       window.alert(`"${this.popupForm.value.techIconUrl}" is not valid url. Default url will be used.`);
       this.tech.techIconUrl= "https://i.imgur.com/FpQreWg.jpeg";
     }else{
@@ -57,14 +57,13 @@ export class TechCreateComponent<T> {
     this.tech.techShow= true;
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
       if(resp.statusCode == "OK"){
-        let list: Array<Technology>= Object.values(resp.body);
-        this.techList= list;
+        this.techList = Object.values(resp.body);
         this.techListBinding<Array<Technology>>(this.techList);
+        this.closePopup();
       }else{
         window.alert(`Error: ${resp.statusCode}`);
       }
     })
-    this.closePopup();
     //window.location.reload();
   }
 

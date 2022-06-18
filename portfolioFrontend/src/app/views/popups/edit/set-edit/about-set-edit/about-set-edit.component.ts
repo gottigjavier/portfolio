@@ -25,7 +25,7 @@ export class AboutSetEditComponent<T> implements OnInit {
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<About>,
-    private aboutListBindingService: AboutListBindingService<T>
+    private aboutListBindingService: AboutListBindingService<Array<About>>
   ) {
     this.popupBindingService.dataEmitter.subscribe((data: Array<About>)=>{
       this.aboutList= data || this.aboutList;

@@ -26,7 +26,7 @@ export class TechDeleteComponent<T> implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    private techListBindingService: TechListBindingService<T>
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
     this.deleteTForm = this.formBilder.group({
       techId: ""
@@ -43,41 +43,39 @@ export class TechDeleteComponent<T> implements OnInit {
       techShow:false
     };
     this.techToDelete=this.emptyTech;
-  }
 
+  }
+  
   ngOnInit(): void {
-    this.dataService.getAll(this.listEndPoint).subscribe((response: any) =>{
-      this.techListAll= response.body;
+    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
+      this.techListAll= data;
     })
   }
 
   delSubmit(){
-    this.techListAll.forEach(elem => {
-        if(elem.techId == this.deleteTForm.value.techId){
-          this.techToDelete=elem;
-          return
-        }
-      })
+        this.techToDelete= this.techListAll.find((elem: Technology)=> elem.techId == this.deleteTForm.value.techId) || this.techToDelete;
         if(this.techToDelete.techId<0){
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.techToDelete.techId}`).subscribe(resp =>{
-            if(resp.statusCode == "OK"){
-              let list: Array<Technology>= Object.values(resp.body);
-              this.techListAll= list;
-              this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-              this.techListBinding<Array<Technology>>(this.techListAll);
+            console.log("tech error ", resp.error)
+            if(resp.statusCodeValue != 200){
+              window.alert("error");
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              this.techListAll= Object.values(resp.body);
+              console.log("tech delete resp ", resp);
+              //this.techListBinding<Array<Technology>>(this.techListAll);
+              this.techListBinding<Array<Technology>>(this.techListAll);
+              this.closePopup();
             }
           })
-          this.closePopup();
         }
-  }
-  
+      }
+      
   closePopup(){
     this.techToDelete=this.emptyTech;
     this.deleteTForm.reset();
+    //this.techListAll.length=0;
     $("#deleteTech").modal("hide");
   }
 

@@ -25,13 +25,13 @@ export class ProjDeleteComponent<T>{
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<MyProject>,
-    private projListBindingService: ProjListBindingService<T>
+    private projListBindingService: ProjListBindingService<Array<MyProject>>
   ) {
     this.deleteForm = this.formBilder.group({
       projId: ""
     });
 
-    this.popupBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
+    this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
       this.projList= data;
     })
   }

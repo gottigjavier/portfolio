@@ -96,7 +96,9 @@ public class TechnologyController {
                 }
             }
         }
-        techService.delete(id);
+        if(!techService.delete(id)){
+         return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);   
+        }
         return ResponseEntity.ok(getList());  
     }
     

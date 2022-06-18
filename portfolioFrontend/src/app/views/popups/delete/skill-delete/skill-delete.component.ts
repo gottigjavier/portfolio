@@ -25,14 +25,14 @@ export class SkillDeleteComponent<T> implements OnInit {
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     //private popupBindingService: PopupBindingService<T>,
-    private skillListBindingService: SkillListBindingService<T>
+    private skillListBindingService: SkillListBindingService<Array<Skill>>
   ) {
     this.deleteForm = this.formBilder.group({
       skillId: ""
     });
 
     this.skillToDelete={
-      skillId: 0,
+      skillId: -1,
     skillName: "",
     skillType: "",
     skillDescription: "",
@@ -56,14 +56,9 @@ export class SkillDeleteComponent<T> implements OnInit {
   }
 
   delSubmit(){
-    this.skillList.forEach(elem => {
-        if(elem.skillId == this.deleteForm.value.skillId){
-          this.skillToDelete=elem;
-          return
-        }
-      })
+        this.skillToDelete= this.skillList.find((elem: Skill)=> elem.skillId == this.deleteForm.value.skillId) || this.skillToDelete;
         if(this.skillToDelete.skillId<0){
-          window.alert("Id miseDataServiceatch");
+          window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.skillToDelete.skillId}`).subscribe(resp =>{
             if(resp.statusCode== "OK"){

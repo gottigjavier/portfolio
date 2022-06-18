@@ -65,7 +65,7 @@ export class TechSetEditComponent<T> implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: DataService<T>,
-    private techListBindingService: TechListBindingService<T>
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
     
     this.setForm=this.fb.group({setFormArray: this.fb.array([])});
@@ -74,16 +74,18 @@ export class TechSetEditComponent<T> implements OnInit {
     this.setForm= this.fb.group({
       setList: this.fb.array([])
     })
+    
+    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
+      this.techListAll= Object.values(data);
+      this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+      this.techListTrue= this.techListAll.filter(elm => elm.techShow) || [];
+      this.techListFalse= this.techListAll.filter(elm => !elm.techShow) || [];
+      this.ngOnInit();
+    })
 
   }
 
   ngOnInit(): void {
-    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
-      this.techListAll= data;
-      this.techListAll.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-      this.techListTrue= this.techListAll.filter(elm => elm.techShow) || [];
-      this.techListFalse= this.techListAll.filter(elm => !elm.techShow) || [];
-    })
   }
 
   setSubmit(){
@@ -95,20 +97,20 @@ export class TechSetEditComponent<T> implements OnInit {
             this.techListToSend.push(sendTech);
           }
           this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
-            if(resp.statusCode != "OK"){
-              alert("Error: Editing Failed");
-            }else{
+            if(resp.statusCode == "OK"){
               this.list= Object.values(resp.body);
               this.list.sort((a:Technology, b: Technology): number => a.techIndex - b.techIndex);
               this.techListAll= this.list;
               this.techListTrue= this.techListAll.filter(elm => elm.techShow) || [];
               this.techListFalse= this.techListAll.filter(elm => !elm.techShow) || [];
               this.techListBinding<Array<Technology>>(this.techListAll);
+              this.closePopup();
+            }else{
+              window.alert(`Error: ${resp.statusCode}`);
             }
           })
         })
       }
-      this.closePopup();
     }
     
     

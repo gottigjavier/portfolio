@@ -25,7 +25,7 @@ export class LangDeleteComponent<T> implements OnInit {
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<T>,
-    private langListBindingService: LangListBindingService<T>
+    private langListBindingService: LangListBindingService<Array<SpokenLanguage>>
   ) {
     this.deleteForm = this.formBilder.group({
       langId: ""

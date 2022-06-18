@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JobExperience } from 'src/app/models/job-experience.model';
+import { JobBindingService } from 'src/app/services/binding-services/job-binding.service';
 import { JobListBindingService } from 'src/app/services/binding-services/job-list-binding.service';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -23,8 +23,8 @@ export class ExperienceComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
-    private popupBindingService: PopupBindingService<T>,
-    private jobListBindingService: JobListBindingService<T>
+    private jobBindingService: JobBindingService<JobExperience>,
+    private jobListBindingService: JobListBindingService<Array<JobExperience>>
     ) {
       this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
@@ -54,7 +54,7 @@ export class ExperienceComponent<T> implements OnInit {
   }
 
   openEditOne(i: number){
-    this.popupBinding<JobExperience>(this.jobList[i]);
+    this.jobBinding<JobExperience>(this.jobList[i]);
     $("#editJob").modal("show");
   }
 
@@ -70,8 +70,9 @@ export class ExperienceComponent<T> implements OnInit {
     this.jobListBinding<Array<JobExperience>>(this.jobList);
     $("#deleteJob").modal("show");
   }
-  popupBinding<T>(data: T){
-    this.popupBindingService.setData<T>(data);
+
+  jobBinding<T>(data: T){
+    this.jobBindingService.setData<T>(data);
   }
 
   jobListBinding<T>(data: T){

@@ -39,12 +39,12 @@ export class ProjectsComponent<T> implements OnInit {
 
   constructor(
     private dataService: DataService<T>,
-    private modeBindingService: ModeBindingService<T>,
-    private techBindingService: TechBindingService<T>,
-    private projBindingService: ProjBindingService<T>,
-    private popupBindingService: PopupBindingService<T>,
-    private techListBindingService: TechListBindingService<T>,
-    private projListBindingService: ProjListBindingService<T>
+    private modeBindingService: ModeBindingService<boolean>,
+    //private techBindingService: TechBindingService<T>,
+    private projBindingService: ProjBindingService<MyProject>,
+    //private popupBindingService: PopupBindingService<T>,
+    private techListBindingService: TechListBindingService<Array<Technology>>,
+    private projListBindingService: ProjListBindingService<Array<MyProject>>
   ) {
     this.modeBindingService.dataEmitter.subscribe((data: boolean) => {
       this.editMode = data;
@@ -111,7 +111,7 @@ export class ProjectsComponent<T> implements OnInit {
   
   openEditOneProj(i: number) {
     this.proj= this.projList.find(elem=> elem.projId== i) || this.proj;
-    this.popupBinding<MyProject>(this.proj);
+    this.projBinding<MyProject>(this.proj);
     console.log("Projct comp, is techList array? ", Array.isArray(this.techListShown));
     this.techListBinding<Array<Technology>>(this.techListShown);
     $("#editProj").modal("show");
@@ -123,17 +123,21 @@ export class ProjectsComponent<T> implements OnInit {
   }
   
   openEditProjSet(){
-    this.popupBinding<Array<MyProject>>(this.projList);
+    this.projListBinding<Array<MyProject>>(this.projList);
     $("#editProjSet").modal("show");
   }
 
   openDeleteProj(){
     $("#deleteProj").modal("show");
-    this.popupBinding<Array<MyProject>>(this.projList);
+    this.projListBinding<Array<MyProject>>(this.projList);
   }
 
-  popupBinding<T>(data: T) {
-    this.popupBindingService.setData<T>(data);
+  projBinding<T>(data: T) {
+    this.projBindingService.setData<T>(data);
+  }
+
+  projListBinding<T>(data: T) {
+    this.projListBindingService.setData<T>(data);
   }
 
   techListBinding<T>(data: T) {

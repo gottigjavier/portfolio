@@ -33,7 +33,7 @@ export class EduCreateComponent<T> implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private eduListBindingService: EduListBindingService<Education>
+    private eduListBindingService: EduListBindingService<Array<Education>>
   ) {
     this.edu={
       educationId: 0,

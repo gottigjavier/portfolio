@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { About } from 'src/app/models/about.model';
+import { AboutBindingService } from 'src/app/services/binding-services/about-binding.service';
 import { AboutListBindingService } from 'src/app/services/binding-services/about-list-binding.service';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
@@ -31,7 +32,8 @@ export class AboutComponent<T> implements OnInit {
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
     private popupBindingService: PopupBindingService<About>,
-    private aboutListBindingService: AboutListBindingService<About>
+    private aboutListBindingService: AboutListBindingService<Array<About>>,
+    private aboutBindingService: AboutBindingService<About>
     ) {
       this.about={
         aboutId: 0,
@@ -70,7 +72,7 @@ export class AboutComponent<T> implements OnInit {
   };
   
   openEditAbout(){
-    this.popupBinding<About>(this.about);
+    this.aboutBinding<About>(this.about);
     $("#editAbout").modal("show");
   }
 
@@ -79,17 +81,17 @@ export class AboutComponent<T> implements OnInit {
   }
   
   openDeleteAbout(){
-    this.popupBinding<Array<About>>(this.aboutList);
+    this.aboutListBinding<Array<About>>(this.aboutList);
     $("#deleteAbout").modal("show");
   }
 
   openShownAbout(){
-    this.popupBinding<Array<About>>(this.aboutList);
+    this.aboutListBinding<Array<About>>(this.aboutList);
     $("#shownAbout").modal("show");
   }
   
-  popupBinding<T>(data: T){
-    this.popupBindingService.setData<T>(data);
+  aboutBinding<T>(data: T){
+    this.aboutBindingService.setData<T>(data);
   }
 
   aboutListBinding<T>(data: T){

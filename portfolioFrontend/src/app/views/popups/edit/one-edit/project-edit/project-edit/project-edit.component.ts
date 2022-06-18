@@ -58,8 +58,8 @@ export class ProjectEditComponent<T> {
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private projBindingService: ProjBindingService<MyProject>,
-    private popupBindingService: PopupBindingService<MyProject>,
-    private techListBindingService: TechListBindingService<T>
+    //private popupBindingService: PopupBindingService<MyProject>,
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
     this.proj = {
       projId: 0,
@@ -86,7 +86,7 @@ export class ProjectEditComponent<T> {
       techList: this.fb.array([]),
     });
 
-    this.popupBindingService.dataEmitter.subscribe((data: MyProject) => {
+    this.projBindingService.dataEmitter.subscribe((data: MyProject) => {
       this.proj = data;
     });
 

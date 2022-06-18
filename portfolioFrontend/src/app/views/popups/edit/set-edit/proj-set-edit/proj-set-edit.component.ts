@@ -65,7 +65,7 @@ export class ProjSetEditComponent<T> implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: DataService<T>,
-    private projListBindingService: ProjListBindingService<T>
+    private projListBindingService: ProjListBindingService<Array<MyProject>>
   ) {
     this.setForm=this.fb.group({setFormArray: this.fb.array([])});
     this.setFormArray= this.setForm.get('setFormArray') as FormArray;
@@ -74,12 +74,15 @@ export class ProjSetEditComponent<T> implements OnInit {
       setList: this.fb.array([])
     })
 
-    this.service.getAll<Array<MyProject>>(this.projListEndPoint).subscribe(response =>{
-      this.list= Object.values(response);
-      this.list.sort((a, b) => a.projIndex - b.projIndex);
-      this.projListAll=this.list;
-      this.projListTrue= this.projListAll.filter(elm => elm.projShow);
-      this.projListFalse= this.projListAll.filter(elm => !elm.projShow);
+    this.service.getAll<any>(this.projListEndPoint).subscribe(response =>{
+      if(response.statusCode== "OK"){
+        this.projListAll= Object.values(response.body);
+        this.projListAll.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+        this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
+        this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
+      }else{
+        window.alert(`Error: ${response.statusCode}`);
+      }
     })
 
   } // End Constructor
@@ -96,26 +99,25 @@ export class ProjSetEditComponent<T> implements OnInit {
             this.projListToSend.push(sendProj);
           }
           this.service.update(this.projUpdateEndPoint, this.projListToSend).subscribe(resp=>{
-            if(!resp){
-              alert("Error: Not saved");
+            if(resp.statusCode== "OK"){
+              this.projListAll= Object.values(resp.body);
+              this.projListAll.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+              this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
+              this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
+              this.projListBinding<Array<MyProject>>(this.projListAll);
+              this.closePopup();
             }else{
-              this.list= Object.values(resp.body);
-              this.list.sort((a:any, b:any) => a.projIndex - b.projIndex);
-              this.projListAll= this.list;
-              this.projListTrue= this.projListAll.filter(elm => elm.projShow);
-              this.projListFalse= this.projListAll.filter(elm => !elm.projShow);
+              window.alert(`Error: ${resp.statusCode}`);
             }
           })
         })
       }
-      this.projListBinding<Array<MyProject>>(this.projListAll);
-      this.closePopup();
-      this.closePopup();
+      //this.closePopup();
     }
 
 
   closePopup(){
-    this.projListBinding<Array<MyProject>>(this.projListAll);
+    //this.projListBinding<Array<MyProject>>(this.projListAll);
     $("#editProjSet").modal("hide");
   }
 

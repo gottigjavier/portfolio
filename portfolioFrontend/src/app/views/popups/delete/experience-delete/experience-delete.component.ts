@@ -25,7 +25,7 @@ export class ExperienceDeleteComponent<T> implements OnInit {
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<T>,
-    private jobListBindingService: JobListBindingService<T>
+    private jobListBindingService: JobListBindingService<Array<JobExperience>>
   ) {
     this.deleteForm = this.formBilder.group({
       jobId: ""

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Education } from 'src/app/models/education.model';
+import { EduBindingService } from 'src/app/services/binding-services/edu-binding.service';
 import { EduListBindingService } from 'src/app/services/binding-services/edu-list-binding.service';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
 import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
@@ -25,7 +26,8 @@ export class EducationComponent<T> implements OnInit {
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
     private popupBindingService: PopupBindingService<T>,
-    private eduListBindingService: EduListBindingService<T>
+    private eduListBindingService: EduListBindingService<Array<Education>>,
+    private eduBindingService: EduBindingService<Education>
     ) {
       this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
@@ -60,7 +62,7 @@ export class EducationComponent<T> implements OnInit {
   }
 
   openEditOne(i: number){
-    this.popupBinding<Education>(this.eduList[i]);
+    this.eduBinding<Education>(this.eduList[i]);
     $("#editEdu").modal("show");
   }
 
@@ -77,8 +79,8 @@ export class EducationComponent<T> implements OnInit {
     
   }
   
-  popupBinding<T>(data: T){
-    this.popupBindingService.setData<T>(data);
+  eduBinding<T>(data: T){
+    this.eduBindingService.setData<T>(data);
   }
 
   eduListBinding<T>(data: T){

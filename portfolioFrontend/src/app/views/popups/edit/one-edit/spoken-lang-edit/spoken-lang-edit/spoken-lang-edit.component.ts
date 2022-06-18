@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { SpokenLanguage } from 'src/app/models/spoken-language.model';
 import { LangBindingService } from 'src/app/services/binding-services/lang-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -30,8 +29,7 @@ export class SpokenLangEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<SpokenLanguage>,
-    private langBindingService: LangBindingService<T>
+    private langBindingService: LangBindingService<SpokenLanguage>
   ) {
     this.lang={
     languageId: 0,
@@ -44,7 +42,7 @@ export class SpokenLangEditComponent<T>{
     languageIndex: 0
     }
 
-    this.popupBindingService.dataEmitter.subscribe((data: SpokenLanguage) =>{
+    this.langBindingService.dataEmitter.subscribe((data: SpokenLanguage) =>{
       this.lang= data;
     })
 

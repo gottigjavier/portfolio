@@ -25,7 +25,7 @@ export class EducationDeleteComponent<T> implements OnInit {
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     //private popupBindingService: PopupBindingService<T>,
-    private eduListBindingService: EduListBindingService<T>
+    private eduListBindingService: EduListBindingService<Array<Education>>
   ) {
     this.deleteForm = this.formBilder.group({
       eduId: ""

@@ -34,7 +34,7 @@ export class JobCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private jobListBindingService: JobListBindingService<JobExperience>
+    private jobListBindingService: JobListBindingService<Array<JobExperience>>
     ) {
     this.job={
       jobId: 0,

@@ -60,8 +60,8 @@ export class ProjCreateComponent<T> {
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private projBindingService: ProjBindingService<MyProject>,
-    private projListBindingService: ProjListBindingService<MyProject>,
-    private techListBindingService: TechListBindingService<T>
+    private projListBindingService: ProjListBindingService<Array<MyProject>>,
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
     this.proj = {
       projId: 0,

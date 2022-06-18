@@ -28,7 +28,7 @@ export class AboutDeleteComponent<T> implements OnInit {
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<T>,
-    private aboutListBindingService: AboutListBindingService<T>
+    private aboutListBindingService: AboutListBindingService<Array<About>>
   ) {
     this.deleteForm = this.formBilder.group({
       aboutId: ""
@@ -47,7 +47,7 @@ export class AboutDeleteComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.popupBindingService.dataEmitter.subscribe((data: Array<About>)=>{
+    this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
       let list= Object.values(data);
       this.aboutList= list;
       this.aboutListFalse= this.aboutList.filter((elem: About)=> elem.aboutShown==false) || [];

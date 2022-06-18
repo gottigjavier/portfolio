@@ -29,7 +29,7 @@ export class AboutCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private aboutListBindingService: AboutListBindingService<About>
+    private aboutListBindingService: AboutListBindingService<Array<About>>
     ) {
     this.about={
       aboutId: 0,

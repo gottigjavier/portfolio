@@ -29,7 +29,7 @@ export class LangCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private langListBindingService: LangListBindingService<T>
+    private langListBindingService: LangListBindingService<Array<SpokenLanguage>>
   ) {
     this.lang={
     languageId: 0,
@@ -45,13 +45,13 @@ export class LangCreateComponent<T> {
   } // end constructor
 
   onSubmit(){
-    if(!this.popupForm.value.langFlagUrl.startsWith("http")){
+    if(!this.popupForm.value.langFlagUrl || !this.popupForm.value.langFlagUrl.startsWith("http")){
       window.alert(`"${this.popupForm.value.langFlagUrl}" is not valid url. Default url will be used.`);
       this.lang.langFlagUrl= "https://i.imgur.com/FpQreWg.jpeg";
     }else{
       this.lang.langFlagUrl= this.popupForm.value.langFlagUrl || this.lang.langFlagUrl;
     }
-    if(!this.popupForm.value.certificationUrl.startsWith("http")){
+    if(!this.popupForm.value.certificationUrl || !this.popupForm.value.certificationUrl.startsWith("http")){
       window.alert(`"${this.popupForm.value.certificationUrl}" is not valid url. Default url will be used.`);
       this.lang.certificationUrl= "#";
     }else{

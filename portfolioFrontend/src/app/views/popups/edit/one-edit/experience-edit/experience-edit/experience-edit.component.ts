@@ -34,8 +34,8 @@ export class ExperienceEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<JobExperience>,
-    private jobBindingService: JobBindingService<T>
+    //private popupBindingService: PopupBindingService<JobExperience>,
+    private jobBindingService: JobBindingService<JobExperience>
   ) {
     this.job={
     jobId: 0,
@@ -52,7 +52,7 @@ export class ExperienceEditComponent<T> {
     jobIndex: 0
     }
 
-    this.popupBindingService.dataEmitter.subscribe((data: JobExperience) =>{
+    this.jobBindingService.dataEmitter.subscribe((data: JobExperience) =>{
       this.job= data;
     })
   

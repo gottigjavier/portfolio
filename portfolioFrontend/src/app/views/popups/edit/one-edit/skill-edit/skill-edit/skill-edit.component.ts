@@ -31,8 +31,8 @@ export class SkillEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Skill>,
-    private skillBindingService: SkillBindingService<T>
+    //private popupBindingService: PopupBindingService<Skill>,
+    private skillBindingService: SkillBindingService<Skill>
   ) {
     this.skill={
     skillId: 0,
@@ -45,7 +45,7 @@ export class SkillEditComponent<T> {
     skillIndex: 0
     }
 
-    this.popupBindingService.dataEmitter.subscribe((data: Skill) =>{
+    this.skillBindingService.dataEmitter.subscribe((data: Skill) =>{
       this.skill= data;
     })
 

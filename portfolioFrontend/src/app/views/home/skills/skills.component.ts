@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Skill } from 'src/app/models/skill.model';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
+import { SkillBindingService } from 'src/app/services/binding-services/skill-binding.service';
 import { SkillListBindingService } from 'src/app/services/binding-services/skill-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -23,8 +23,8 @@ export class SkillsComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
-    private popupBindingService: PopupBindingService<Skill>,
-    private skillListBindingService: SkillListBindingService<T>
+    private skillBindingService: SkillBindingService<Skill>,
+    private skillListBindingService: SkillListBindingService<Array<Skill>>
     ) {
       this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
@@ -55,7 +55,7 @@ export class SkillsComponent<T> implements OnInit {
 }
 
 openEditOne(i: number){
-  this.popupBinding<Skill>(this.skills[i]);
+  this.skillBinding<Skill>(this.skills[i]);
   $("#editSkill").modal("show");
 }
 
@@ -73,8 +73,8 @@ openEditSetSkills(){
   // binding list
 }
 
-popupBinding<T>(data: T){
-  this.popupBindingService.setData<T>(data);
+skillBinding<T>(data: T){
+  this.skillBindingService.setData<T>(data);
 }
 
 skillListBinding<T>(data: T){

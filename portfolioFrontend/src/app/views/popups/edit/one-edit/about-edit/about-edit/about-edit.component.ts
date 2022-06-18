@@ -41,7 +41,7 @@ export class AboutEditComponent<T>{
       aboutShown: false
     }
 
-    this.popupBindingService.dataEmitter.subscribe((data: About) =>{
+    this.aboutBindingService.dataEmitter.subscribe((data: About) =>{
       this.about= data || this.about;
     })
   }

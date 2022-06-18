@@ -30,7 +30,7 @@ export class SkillCreateComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private skillListBindingService: SkillListBindingService<T>
+    private skillListBindingService: SkillListBindingService<Array<Skill>>
   ) {
     this.skill={
     skillId: 0,

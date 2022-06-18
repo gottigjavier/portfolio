@@ -13,7 +13,7 @@ declare var $ : any;
   templateUrl: './technology-edit.component.html',
   styleUrls: ['./technology-edit.component.css']
 })
-export class TechnologyEditComponent<T>{
+export class TechnologyEditComponent<T> implements OnInit{
 
   public tech: Technology;
   private techList: Array<Technology>=[];
@@ -34,8 +34,8 @@ export class TechnologyEditComponent<T>{
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private popupBindingService: PopupBindingService<T>,
-    private techBindingService: TechBindingService<T>,
-    private techListBindingService: TechListBindingService<T>
+    private techBindingService: TechBindingService<Technology>,
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
     this.tech={
     techId: 0,
@@ -48,18 +48,22 @@ export class TechnologyEditComponent<T>{
     techShow: false
   }
 
-    this.popupBindingService.dataEmitter.subscribe((data: Technology) =>{
+  /*
+  this.dataService.getOne("technology/91").subscribe(data => {
+    console.log("tech edit get one data ", data);
+  }) */
+  
+}
+
+ngOnInit(): void {
+    this.techBindingService.dataEmitter.subscribe((data: Technology) =>{
       this.tech= data;
     })
-
+    
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
       this.techList= data;
     })
-
-    this.dataService.getOne("technology/91").subscribe(data => {
-      console.log("tech edit get one data ", data);
-    })
-
+    
   }
 
   onTSubmit(){
@@ -83,15 +87,15 @@ export class TechnologyEditComponent<T>{
           })
         }
         this.techListBinding<Array<Technology>>(this.techList);
+        this.closeTPopup();
       }else{
         window.alert(`Error: ${resp.statusCode}`);
       }
     })
-    this.closeTPopup();
   }
 
   closeTPopup(){
-    this.techListBinding<Array<Technology>>(this.techList);
+    //this.techListBinding<Array<Technology>>(this.techList);
     //this.popupForm.reset();
     $("#editTech").modal("hide");
   }
