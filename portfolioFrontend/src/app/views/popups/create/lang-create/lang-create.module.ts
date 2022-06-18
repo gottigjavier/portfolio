@@ -13,6 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    LangCreateComponent
   ]
 })
 export class LangCreateModule { }

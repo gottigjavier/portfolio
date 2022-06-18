@@ -1,1 +1,64 @@
-<p>edu-create works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newEdu">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Education</h4>
+                    <button id="eduNbtnclosex" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form id="eduNEform" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="eduNname" class="form-label">Institution Name</label>
+                        <input id="eduNname" class="form-control" formControlName="institutionName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eduNlink" class="form-label">Institution Link</label>
+                        <input id="eduNlikn" class="form-control" type="text" formControlName="institutionLink">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eduNlogo" class="form-label">Institution Logo</label>
+                        <input type="text" id="eduNlogo" class="form-control" formControlName="institutionLogo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eduNcareer" class="form-label">Career Name</label>
+                        <input id="eduNcareer" class="form-control" type="text" formControlName="educationCareer">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eduntype" class="form-label">Career Type</label>
+                        <input id="edutnype" class="form-control" type="text" formControlName="educationType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edunstart" class="form-label">Start Date</label>
+                        <input id="edunstart" class="form-control" type="date" formControlName="educationStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edunend" class="form-label">End Date</label>
+                        <input id="edunend" class="form-control" type="date" formControlName="educationEnd">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edunlevel" class="form-label">Aproved Level</label>
+                        <input id="edunlevel" class="form-control" formControlName="approvedLevel">
+                    </div>
+                    <div class="text-center">
+                        <label for="edunIndex"><b>Order of Apperance :</b></label>
+                        <input id="edunIndex" class="edu-index-box" type="number" min="1" max="99" formControlName="eduIndex">
+                    </div>
+                    <hr>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button id="eduNbtnsubmit" class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button id="eduNbtnclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

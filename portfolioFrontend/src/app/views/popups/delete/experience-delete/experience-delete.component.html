@@ -1,1 +1,39 @@
-<p>experience-delete works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteJob">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Delete Job Experience</b></h4>
+                    <button id="jbdelbttn" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form id="deljb" class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                <div class="mb-3">
+                    <label for="setTForm" class="form-label m-3"><b>Company Names and IDs</b></label>
+                    <div class="grid-container p-2">
+                        <div id="dltjb" *ngFor="let job of jobList; index as i">
+                            <span id="dltjb{{job.jobId}}" class="ms-1">{{job.companyName}} (Id: {{job.jobId}})</span>
+                        </div>
+                        <hr>
+                        <div class="text-center ps-4 pe-4 alert-message">
+                            <i>This action has no turning back. It might be convenient to just hide the element via "Edit Set"</i>
+                        </div>
+                        <hr>
+                        <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
+                            <div class="text-center">
+                                <label for="deljblist"><b>Id :</b></label>
+                                <input name="deljblist" id="deljblist" type="text" formControlName="jobId" size="2" autofocus>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button id="deljbbtnsubmit" class="btn btn-success m-2" type="submit" value="Submit">
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        </form>
+                </div>
+        </div>
+    </div>
+</div>

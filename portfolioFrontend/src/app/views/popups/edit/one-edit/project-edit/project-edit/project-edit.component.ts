@@ -42,7 +42,7 @@ export class ProjectEditComponent<T> {
 
   onCheckboxChange(e: any) {
     this.techSetChanged.add(e.target.value);
-    console.log("event in projects edit ", e.target.checked);
+    console.log("event in projects edit ", e.target);
     this.tech = this.techListShown.find((elem) => elem.techId == e.target.value) || this.tech;
     if (e.target.checked){
       this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId) || [];
@@ -106,7 +106,7 @@ export class ProjectEditComponent<T> {
         }
       }
     })
-    
+
   } //end constructor
 
   

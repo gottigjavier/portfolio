@@ -67,6 +67,7 @@ export class EducationEditComponent<T>{
     this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
       if(resp.statusCode == "OK"){
         this.education = resp.body;
+        console.log("educ edit edu ", this.education);
         this.eduBinding<Education>(this.education);
       }else{
         window.alert(`Error: ${resp.statusCode}`);

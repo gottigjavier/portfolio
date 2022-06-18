@@ -36,7 +36,8 @@
             <b class="items-title">Company: </b>
             <span class="company-name">{{job.companyName}} </span>
             <a id="jlink{{job.jobId}}" href="{{job.companyLink}}" target="_blank">
-              <img id="jlogo{{job.jobId}}" src="{{job.companyLogoUrl}}" alt="Company Logo" class="company-logo">
+              <img id="jlogo{{job.jobId}}" src="{{job.companyLogoUrl}}" alt="Company Logo" 
+              class="company-logo" title="click on the image to visit the site">
             </a>
           </p>
           <p id="jcom{{job.jobId}}">
@@ -63,7 +64,7 @@
           <p id="jinter{{job.jobId}}">
             <b class="items-title">Service Interval: </b>
             <span class="items-text">
-              {{job.jobStart}} to {{job.jobEnd}}
+              {{job.jobStart || "(Not Set)"}} to {{job.jobEnd || "(Not Set)"}}
             </span>
           </p>
           <hr>

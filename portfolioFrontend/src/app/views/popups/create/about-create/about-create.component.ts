@@ -43,10 +43,15 @@ export class AboutCreateComponent<T> {
   }
   
   onSubmit(){
+    if(!this.popupForm.value.photoUrl.startsWith("http")){
+      this.about.photoUrl= "https://i.imgur.com/FpQreWg.jpeg";
+      window.alert(`"${this.popupForm.value.photoUrl}" is not valid url. Default url will be used.`);
+    }else{
+      this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
+    }
     this.about.firstName= this.popupForm.value.firstName || this.about.firstName;
     this.about.lastName= this.popupForm.value.lastName || this.about.lastName;
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
-    this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
     this.dataService.create(this.createAboutEndPoint, this.about).subscribe(resp =>{
       if(resp.statusCode == "OK"){
         let list: Array<About>= Object.values(resp.body); // From ResponseEntity

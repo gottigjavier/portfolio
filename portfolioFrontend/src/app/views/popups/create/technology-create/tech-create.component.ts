@@ -43,10 +43,15 @@ export class TechCreateComponent<T> {
   ) { }
 
   onSubmit(){
+    if(!this.popupForm.value.techIconUrl.startsWith("http")){
+      window.alert(`"${this.popupForm.value.techIconUrl}" is not valid url. Default url will be used.`);
+      this.tech.techIconUrl= "https://i.imgur.com/FpQreWg.jpeg";
+    }else{
+      this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
+    }
     this.tech.techName= this.popupForm.value.techName || this.tech.techName;
     this.tech.techType= this.popupForm.value.techType || this.tech.techType;
     this.tech.techDescription= this.popupForm.value.techDescription || this.tech.techDescription;
-    this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;

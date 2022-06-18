@@ -13,6 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    JobCreateComponent
   ]
 })
 export class JobCreateModule { }

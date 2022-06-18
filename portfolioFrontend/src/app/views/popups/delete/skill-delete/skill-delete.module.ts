@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillDeleteComponent } from './skill-delete.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,11 @@ import { SkillDeleteComponent } from './skill-delete.component';
     SkillDeleteComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    SkillDeleteComponent
   ]
 })
 export class SkillDeleteModule { }

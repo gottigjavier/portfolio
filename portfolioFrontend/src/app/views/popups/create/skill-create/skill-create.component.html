@@ -1,1 +1,52 @@
-<p>skill-create works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newSkill">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Skill</h4>
+                    <button id="skillnbtnx" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form id="skillnForm" class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="sknname" class="form-label">Skill Name</label>
+                        <input id="sknname" class="form-control" formControlName="skillName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="skntype" class="form-label">Skill Type</label>
+                        <input id="skntype" class="form-control" type="text" formControlName="skillType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="skndesc" class="form-label">Skill Descritption</label>
+                        <input id="skndesc" class="form-control" formControlName="skillDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sknurl" class="form-label">Icon Url</label>
+                        <input id="sknurl" class="form-control" type="text" formControlName="skillUrlIcon">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sknlevel" class="form-label">Skill Level :</label>
+                        <input id="sknlevel" class="skill-index-box" type="number" min="1" max="100" formControlName="skillLevel">
+                    </div>
+                    <div class="text-center">
+                        <label for="sknIndex">Order of Apperance :</label>
+                        <input id="sknIndex" class="skill-index-box" type="number" min="1" max="99" formControlName="skillIndex">
+                    </div>
+                    <hr>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button id="sknbtnEdsend" class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button id="sknBtnEdclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -98,10 +98,15 @@ export class ProjCreateComponent<T> {
 
   
   onSubmit() {
+    if(!this.popupForm.value.projUrl.startsWith("http")){
+      window.alert(`"${this.popupForm.value.projUrl}" is not valid url. Default url will be used.`);
+      this.proj.projUrl= "#";
+    }else{
+      this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
+    }
     this.proj.projName= this.popupForm.value.projName || this.proj.projName;
     this.proj.projDescription= this.popupForm.value.projDescription || this.proj.projDescription;
     this.proj.projIndex= this.popupForm.value.projIndex || this.proj.projIndex;
-    this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
     this.proj.techList = this.techListTrue;
     this.dataService.create(this.projCreateEndPoint, this.proj).subscribe((resp) => {
       if(resp.statusCode == "OK"){

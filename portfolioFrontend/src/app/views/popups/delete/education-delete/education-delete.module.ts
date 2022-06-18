@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EducationDeleteComponent } from './education-delete.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,11 @@ import { EducationDeleteComponent } from './education-delete.component';
     EducationDeleteComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    EducationDeleteComponent
   ]
 })
 export class EducationDeleteModule { }

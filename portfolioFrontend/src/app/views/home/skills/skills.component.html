@@ -31,15 +31,11 @@
               </svg>
             </button>
           </div>
-        <p *ngIf="(skill.skillUrlIcon != null) else defaultskill">
+        <p>
           <b class="items-title">Skill: </b>
           <span id="sknam{{skill.skillId}}" class="skill-name">{{skill.skillName}}  </span>
           <img id="skLog{{skill.skillId}}" src="{{skill.skillUrlIcon}}" alt="Skill Logo" class="skill-logo">
         </p>
-        <ng-template #defaultskill >
-          <b class="items-title">Skill: </b>
-          <span id="sknonam{{skill.skillId}}" class="skill-name">{{skill.skillName}}  </span>
-        </ng-template>
         <p id="sktyp{{skill.skillId}}">
           <b class="items-title">Type: </b>
           <span class="skill-name">

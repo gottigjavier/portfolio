@@ -1,1 +1,51 @@
-<p>lang-create works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newLang">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Language</h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="langname" class="form-label">Language Name</label>
+                        <input id="langname" class="form-control" formControlName="languageName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langurl" class="form-label">Language Flag Url</label>
+                        <input id="langurl" class="form-control" formControlName="langFlagUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langcert" class="form-label">Language Certification</label>
+                        <input id="langcert" class="form-control" type="text" formControlName="certificationUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="langlevel" class="form-label">Language Level</label>
+                        <input id="langlevel" class="form-control" type="text" formControlName="langLevel">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pclevel" class="form-label">Language Percent Level :</label>
+                        <input id="pclevel" class="lang-index-box" type="number" min="1" max="100" formControlName="percentLevel">
+                    </div>
+                    <div class="text-center">
+                        <label for="langIndex">Order of Apperance :</label>
+                        <input class="lang-index-box" type="number" min="1" max="99" formControlName="languageIndex">
+                    </div>
+                    <hr>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

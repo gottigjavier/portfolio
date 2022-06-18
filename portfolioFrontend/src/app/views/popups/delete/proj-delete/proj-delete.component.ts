@@ -60,6 +60,7 @@ export class ProjDeleteComponent<T>{
   }
 
   closePopup(){
+    this.projList.length=0;
     this.deleteForm.reset();
     $("#deleteProj").modal("hide");
   }

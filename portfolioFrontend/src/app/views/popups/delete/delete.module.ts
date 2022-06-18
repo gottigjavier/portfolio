@@ -14,8 +14,7 @@ import { SkillDeleteModule } from './skill-delete/skill-delete.module';
 
 @NgModule({
   declarations: [
-    DeleteComponent,
-    LangDeleteComponent
+    DeleteComponent
   ],
   imports: [
     CommonModule,

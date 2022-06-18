@@ -1,1 +1,39 @@
-<p>lang-delete works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteLang">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Delete Spoken Language</b></h4>
+                    <button id="langdelbttn" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form id="dellang" class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
+                <div class="mb-3">
+                    <label for="setTForm" class="form-label m-3"><b>Languages and IDs</b></label>
+                    <div class="grid-container p-2">
+                        <div id="dltlang" *ngFor="let lang of langList; index as i">
+                            <span id="dltlang{{lang.languageId}}" class="ms-1">{{lang.languageName}} (Id: {{lang.languageId}})</span>
+                        </div>
+                        <hr>
+                        <div class="text-center ps-4 pe-4 alert-message">
+                            <i>This action has no turning back. It might be convenient to just hide the element via "Edit Set"</i>
+                        </div>
+                        <hr>
+                        <h3 class="mx-3 text-center"><b>You must type ID number to confirm deletion</b></h3>
+                            <div class="text-center">
+                                <label for="dellanglist"><b>Id :</b></label>
+                                <input name="dellanglist" id="dellanglist" type="text" formControlName="langId" size="2" autofocus>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button id="dellangbtnsubmit" class="btn btn-success m-2" type="submit" value="Submit">
+                                    Confirm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        </form>
+                </div>
+        </div>
+    </div>
+</div>

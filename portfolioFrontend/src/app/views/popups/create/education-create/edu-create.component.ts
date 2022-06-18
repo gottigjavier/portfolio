@@ -46,14 +46,24 @@ export class EduCreateComponent<T> implements OnInit {
       institutionLink: "",
       institutionLogo: "",
       eduShow: true,
-      eduIndex: 0
+      eduIndex: 99
     }
   }
 
   onSubmit(){
+    if(this.popupForm.value.institutionLink.startsWith('http')){
+      this.edu.institutionLink= this.popupForm.value.institutionLink || this.edu.institutionLink;
+    }else{
+      window.alert(`"${this.popupForm.value.institutionLink}" is not valid url. Default url will be used.`);
+      this.edu.institutionLink= "#";
+    }
+    if(this.popupForm.value.institutionLogo.startsWith('http')){
+      this.edu.institutionLogo= this.popupForm.value.institutionLogo || this.edu.institutionLogo;
+    }else{
+      window.alert(`"${this.popupForm.value.institutionLogo}" is not valid url. Default url will be used.`);
+      this.edu.institutionLogo= "https://i.imgur.com/FpQreWg.jpeg";
+    }
     this.edu.institutionName= this.popupForm.value.institutionName || this.edu.institutionName;
-    this.edu.institutionLink= this.popupForm.value.institutionLink || this.edu.institutionLink;
-    this.edu.institutionLogo= this.popupForm.value.institutionLogo || this.edu.institutionLogo;
     this.edu.educationCareer= this.popupForm.value.educationCareer || this.edu.educationCareer;
     this.edu.educationType= this.popupForm.value.educationType || this.edu.educationType;
     this.edu.educationStart= this.popupForm.value.educationStart || this.edu.educationStart;
@@ -64,6 +74,7 @@ export class EduCreateComponent<T> implements OnInit {
       let list: Array<Education>= Object.values(resp.body);
       this.eduList= list;
       this.eduListBinding<Array<Education>>(this.eduList);
+      this.closePopup();
     }else{
       window.alert(`Error: ${resp.statusCode}`);
     }
@@ -74,6 +85,7 @@ export class EduCreateComponent<T> implements OnInit {
   }
 
   closePopup(){
+    this.popupForm.reset();
     $("#newEdu").modal("hide");
   }
 

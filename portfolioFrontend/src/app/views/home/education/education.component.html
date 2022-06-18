@@ -30,7 +30,7 @@
               </svg>
             </button>
           </div>
-      <p *ngIf="(edu.institutionLogo != null) else defaultphoto">
+      <p>
         <b class="items-title">Institution: </b>
           <span id="eduInstN{{edu.educationId}}" class="inst-name">{{edu.institutionName}}  </span>
           <span>
@@ -39,16 +39,6 @@
             </a> .. </span>
           <small>  (*click on the image to visit the site)</small>
       </p>
-      <ng-template #defaultphoto>
-        <b class="items-title">Institution: </b>
-          <span class="inst-name">{{edu.institutionName}}  </span>
-          <span>
-          <a href="{{edu.institutionLink}}" target="_blank">
-            <img src="https://i.imgur.com/FpQreWg.jpeg" alt="Institution Logo" class="inst-logo">
-            </a> .. </span>
-          <small>  (*click on the image to visit the site)</small>
-      </ng-template>
-      
       <p id="edulev{{edu.educationId}}">
         <b class="items-title">Level: </b>
           <span class="inst-name">
@@ -70,7 +60,7 @@
       <p id="edudataR{{edu.educationId}}">
         <b class="items-title">Course Date Range: </b>
         <span class="items-text">
-          {{edu.educationStart}} to {{edu.educationEnd || "(Not Finished)"}}
+          {{edu.educationStart || "(Not Set)"}} to {{edu.educationEnd || "(Not Finished)"}}
         </span>
       </p>
       <p id="eduapp{{edu.educationId}}">

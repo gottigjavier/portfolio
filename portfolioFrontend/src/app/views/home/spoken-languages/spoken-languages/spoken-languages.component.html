@@ -31,16 +31,11 @@
             </button>
           </div>
         <b class="items-title">Language: </b>
-        <span *ngIf="(lang.certificationUrl != null) else defaultlang">
+        <span>
           <a id="langcert{{lang.languageId}}" href="{{lang.certificationUrl}}" target="_blank">
             <img id="langurl{{lang.languageId}}" src="{{lang.langFlagUrl}}" alt="Language Logo" class="lang-logo">
           </a> 
         </span>
-        <ng-template #defaultlang>
-          <a href="{{lang.certificationUrl}}" target="_blank">
-            <img src="{{lang.langFlagUrl}}" alt="Language Logo" class="lang-logo">
-          </a> 
-        </ng-template>
         <span class="lang-name">   {{lang.languageName}}  </span>
         <small>  (*click on the flag to see the certificate.)</small>
         <p id="langLev{{lang.languageId}}">

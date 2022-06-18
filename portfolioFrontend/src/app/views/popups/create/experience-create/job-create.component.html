@@ -1,1 +1,68 @@
-<p>job-create works!</p>
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newJob">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">New Job Experience</h4>
+                    <button id="jobeditbtnclosex" type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <form class="p-3" [formGroup]="popupForm" (ngSubmit)="onSubmit()">
+                    <br />
+                    <div class="mb-3">
+                        <label for="cname" class="form-label">Company Name</label>
+                        <input id="cname" class="form-control" formControlName="companyName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clink" class="form-label">Company Link</label>
+                        <input id="clikn" class="form-control" type="url" formControlName="companyLink">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clogo" class="form-label">Company Logo</label>
+                        <input id="clogo" type="url" class="form-control" formControlName="companyLogoUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cactivity" class="form-label">Company Activity</label>
+                        <input id="cactivity" class="form-control" type="text" formControlName="companyActivity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobpos" class="form-label">Job Position</label>
+                        <input id="jobpos" class="form-control" type="text" formControlName="jobPosition">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobdut" class="form-label">Job Duties</label>
+                        <input id="jobdut" class="form-control" type="text" formControlName="jobDuties">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobless" class="form-label">Lessons Learned</label>
+                        <textarea id="jobless" class="form-control" type="text" formControlName="lessonsLearned" rows="4"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jbstart" class="form-label">Start Date</label>
+                        <input id="jbstart" class="form-control" type="date" formControlName="jobStart">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jbend" class="form-label">End Date</label>
+                        <input id="jbend" class="form-control" type="date" formControlName="jobEnd">
+                    </div>
+                    <div class="text-center">
+                        <label for="jobNIndex">Order of Apperance :</label>
+                        <input id="jobNIndex" class="job-index-box" type="number" min="1" max="99" formControlName="jobIndex">
+                    </div>
+                    <hr>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button id="jobNbtnsubbmit" class="btn btn-success m-2" type="submit">
+                            Send
+                        </button>
+                        <button id="jobNbtnclose" class="btn btn-secondary m-2" type="button" (click)="closePopup()">
+                            Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

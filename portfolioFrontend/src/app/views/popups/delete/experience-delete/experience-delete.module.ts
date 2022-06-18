@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExperienceDeleteComponent } from './experience-delete.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,11 @@ import { ExperienceDeleteComponent } from './experience-delete.component';
     ExperienceDeleteComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
+  ],
+  exports: [
+    ExperienceDeleteComponent
   ]
 })
 export class ExperienceDeleteModule { }
