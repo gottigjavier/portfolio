@@ -1,3 +1,9 @@
 .tech-index{
     width: 3em;
 }
+
+.note-message{
+    padding: 0 1%;
+    color: blueviolet;
+    border: solid 1px blueviolet;
+}

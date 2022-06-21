@@ -62,10 +62,10 @@ export class TechDeleteComponent<T> implements OnInit {
             if(resp.statusCodeValue != 200){
               window.alert("error");
             }else{
-              this.techListAll= Object.values(resp.body);
-              console.log("tech delete resp ", resp);
-              //this.techListBinding<Array<Technology>>(this.techListAll);
+              this.techListAll= resp.body;
+              console.log("tech delete resp ", this.techListAll);
               this.techListBinding<Array<Technology>>(this.techListAll);
+              //this.techListBinding<Array<Technology>>(this.techListAll);
               this.closePopup();
             }
           })

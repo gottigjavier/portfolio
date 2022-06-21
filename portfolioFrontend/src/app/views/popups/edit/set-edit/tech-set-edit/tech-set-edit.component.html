@@ -11,6 +11,8 @@
                 <div class="mb-3">
                     <label for="setForm" class="form-label ps-3"><b><i>Select Technologies to Show and Order of Appearance</i></b></label>
                     <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
+                        <p class="note-message text-center"><small>Note: If you move a technology that is included in the list used by a project to the "Not Shown" sector, that technology will be removed from that list.</small>
+                        </p>
                         <div class="grid-container">
                             <label for="ttechshownlist"><b>Shown Techs</b></label>
                             <div id="ttechshownlist" *ngFor="let techTrue of techListTrue; index as i">

@@ -23,7 +23,7 @@
       <h2 class="job-experience">Job Experience</h2>
     </div>
     <div class="row">
-      <div class="items" *ngFor="let job of jobList; index as i">
+      <div class="items" *ngFor="let job of jobShownList; index as i">
         <div id='job{{job.jobId}}'>
           <div class="d-flex justify-content-end pe-3"  *ngIf='editMode'>
           <button id='jobbtn{{job.jobId}}' type="button" title="Edit Job Experience" class="btn" (click)="openEditOne(i)">

@@ -24,13 +24,9 @@ export class AboutSetEditComponent<T> implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<About>,
     private aboutListBindingService: AboutListBindingService<Array<About>>
   ) {
-    this.popupBindingService.dataEmitter.subscribe((data: Array<About>)=>{
-      this.aboutList= data || this.aboutList;
-    })
-
+    
     this.setForm=this.fb.group({setFormArray: this.fb.array([])});
     this.setFormArray= this.setForm.get('setFormArray') as FormArray;
 
@@ -39,6 +35,12 @@ export class AboutSetEditComponent<T> implements OnInit {
     })
 
   } // End constructor
+  
+    ngOnInit(): void {
+      this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
+        this.aboutList= data || this.aboutList;
+      })
+    }
 
   onCheckboxChange(e:any){
     this.aboutList.forEach(elem=>{
@@ -71,12 +73,5 @@ export class AboutSetEditComponent<T> implements OnInit {
     this.aboutListBindingService.setData<T>(data);
   }
 
-
-
-  ngOnInit(): void {
-    this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
-      this.aboutList= data || this.aboutList;
-    })
-  }
 
 }

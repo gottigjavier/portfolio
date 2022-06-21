@@ -56,7 +56,7 @@ export class TechCreateComponent<T> {
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
+      if(resp.statusCodeValue == 200){
         this.techList = Object.values(resp.body);
         this.techListBinding<Array<Technology>>(this.techList);
         this.closePopup();

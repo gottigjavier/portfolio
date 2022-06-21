@@ -39,13 +39,11 @@
                         <input id="eduend" class="form-control" type="date" value={{education.educationEnd}} formControlName="educationEnd">
                     </div>
                     <div class="mb-3">
-                        <label for="edulevel" class="form-label">Aproved Level</label>
-                        <input id="edulevel" class="form-control" value={{education.approvedLevel}} formControlName="approvedLevel">
+                        <label for="edulevel" class="form-label">Aproved Level :</label>
+                        <input id="edulevel" type="number" min="1" max="100" value={{education.approvedLevel}} formControlName="approvedLevel">
+                        % 
                     </div>
-                    <div class="text-center">
-                        <label for="eduIndex"><b>Order of Apperance :</b></label>
-                        <input id="eduIndex" class="edu-index-box" value={{education.eduIndex}} type="number" min="1" max="99" formControlName="eduIndex">
-                    </div>
+                    <p class="note-message"><small>To change Order of Apperance use "Set Edit"</small></p>
                     <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button id="eduEbtnsubmit" class="btn btn-success m-2" type="submit">

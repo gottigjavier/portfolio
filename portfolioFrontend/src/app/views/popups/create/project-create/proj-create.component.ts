@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MyProject } from 'src/app/models/my-project.model';
 import { Technology } from 'src/app/models/technology.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
 import { ProjListBindingService } from 'src/app/services/binding-services/proj-list-binding-service';
-import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
+import { ProjTechListBindingService } from 'src/app/services/binding-services/proj-tech-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $: any;
@@ -15,12 +14,11 @@ declare var $: any;
   templateUrl: './proj-create.component.html',
   styleUrls: ['./proj-create.component.css']
 })
-export class ProjCreateComponent<T> {
+export class ProjCreateComponent<T> implements OnInit{
 
   public proj: MyProject;
   private projList: Array<MyProject>=[];
-  private list: Array<MyProject>=[];
-
+  
   private techSetChanged: Set<number> = new Set();
   public techListAll: Array<Technology> = [];
   public techListTrue: Array<Technology> = [];
@@ -61,7 +59,7 @@ export class ProjCreateComponent<T> {
     private dataService: DataService<T>,
     private projBindingService: ProjBindingService<MyProject>,
     private projListBindingService: ProjListBindingService<Array<MyProject>>,
-    private techListBindingService: TechListBindingService<Array<Technology>>
+    private projTechListBindingService: ProjTechListBindingService<Array<Technology>>
   ) {
     this.proj = {
       projId: 0,
@@ -87,18 +85,19 @@ export class ProjCreateComponent<T> {
       projIndex: 99,
       techList: this.fb.array([]),
     });
-
+    
+  } //end constructor
+  
+  ngOnInit(): void {
     // to create the grid with used and unused techs for the project
-    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+    this.projTechListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
       this.techListShown = data;
       this.techListFalse= this.techListShown;
     })
-    
-  } //end constructor
-
+  }
   
   onSubmit() {
-    if(!this.popupForm.value.projUrl.startsWith("http")){
+    if(!this.popupForm.value.projUrl || !this.popupForm.value.projUrl.startsWith("http")){
       window.alert(`"${this.popupForm.value.projUrl}" is not valid url. Default url will be used.`);
       this.proj.projUrl= "#";
     }else{
@@ -110,8 +109,7 @@ export class ProjCreateComponent<T> {
     this.proj.techList = this.techListTrue;
     this.dataService.create(this.projCreateEndPoint, this.proj).subscribe((resp) => {
       if(resp.statusCode == "OK"){
-        let list: Array<MyProject>= Object.values(resp.body);
-        this.projList= list;
+        this.projList= Object.values(resp.body);
         this.projListBinding<Array<MyProject>>(this.projList);
       }else{
         window.alert(`Error: ${resp.statusCode}`);
@@ -119,11 +117,9 @@ export class ProjCreateComponent<T> {
     });
     this.projBinding<MyProject>(this.proj);
     this.closePopup();
-    this.closePopup();
   }
   
   closePopup() {
-    this.projBinding<MyProject>(this.proj);
     this.techListTrue.length=0;
     this.popupForm.reset();
     $('#newProj').modal('hide');

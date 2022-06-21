@@ -22,7 +22,7 @@
     <h2 class="skill-title">Skills</h2>
     <hr>
     <div class="row">
-      <div class="col" *ngFor="let skill of skills; index as i">
+      <div class="col" *ngFor="let skill of shownSkills; index as i">
         <div id='sk{{skill.skillId}}'>
           <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
             <button id='skbtn{{skill.skillId}}' title="Edit Skill" type="button" class="btn" (click)="openEditOne(i)">

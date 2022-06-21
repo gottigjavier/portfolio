@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Education } from 'src/app/models/education.model';
 import { EduBindingService } from 'src/app/services/binding-services/edu-binding.service';
@@ -11,7 +11,7 @@ declare var $ : any;
   templateUrl: './education-edit.component.html',
   styleUrls: ['./education-edit.component.css']
 })
-export class EducationEditComponent<T>{
+export class EducationEditComponent<T> implements OnInit{
 
   public education: Education;
   
@@ -32,7 +32,6 @@ export class EducationEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<Education>,
     private eduBindingService: EduBindingService<Education>
   ) {
     this.education={
@@ -49,10 +48,14 @@ export class EducationEditComponent<T>{
       eduIndex: 0
     }
 
+    
+  }
+  
+  
+  ngOnInit(): void {
     this.eduBindingService.dataEmitter.subscribe((data: Education) =>{
       this.education= data;
     })
-
   }
 
   onSubmit(){

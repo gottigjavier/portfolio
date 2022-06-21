@@ -12,7 +12,7 @@ declare var $ : any;
   templateUrl: './proj-delete.component.html',
   styleUrls: ['./proj-delete.component.css']
 })
-export class ProjDeleteComponent<T>{
+export class ProjDeleteComponent<T> implements OnInit{
 
 
   private deleteProjEndPoint: string= "my-project/delete";
@@ -31,11 +31,14 @@ export class ProjDeleteComponent<T>{
       projId: ""
     });
 
-    this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
-      this.projList= data;
-    })
   }
 
+  ngOnInit(): void {
+    this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=>{
+      this.projList= data;
+    })  
+  }
+  
   delSubmit(): void {
     let invalid: boolean=true;
     this.projList.forEach(elem=>{
@@ -43,8 +46,7 @@ export class ProjDeleteComponent<T>{
         invalid=false;
         this.dataService.delete(`${this.deleteProjEndPoint}/${this.deleteForm.value.projId}`).subscribe(resp=>{
           if(resp.statusCode == "OK"){
-            let list: Array<MyProject>= Object.values(resp.body);
-            this.projList= list;
+            this.projList= Object.values(resp.body);
             this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
             this.projListBinding<Array<MyProject>>(this.projList);
             this.closePopup();
@@ -60,7 +62,7 @@ export class ProjDeleteComponent<T>{
   }
 
   closePopup(){
-    this.projList.length=0;
+    //this.projList.length=0;
     this.deleteForm.reset();
     $("#deleteProj").modal("hide");
   }

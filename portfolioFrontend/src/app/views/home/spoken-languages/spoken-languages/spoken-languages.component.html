@@ -21,7 +21,7 @@
     </div>
     <h2 class="lang-title">Spoken Languages</h2>
     <div class="row">
-      <div *ngFor="let lang of langList; index as i">
+      <div *ngFor="let lang of langShownList; index as i">
         <div id='lang{{i}}'>
           <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
             <button id='lEbntn{{lang.languageId}}' title="Edit Language" type="button" class="btn" (click)="openEditOne(i)">

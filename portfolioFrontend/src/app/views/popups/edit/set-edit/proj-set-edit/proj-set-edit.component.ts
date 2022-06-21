@@ -73,21 +73,16 @@ export class ProjSetEditComponent<T> implements OnInit {
     this.setForm= this.fb.group({
       setList: this.fb.array([])
     })
-
-    this.service.getAll<any>(this.projListEndPoint).subscribe(response =>{
-      if(response.statusCode== "OK"){
-        this.projListAll= Object.values(response.body);
-        this.projListAll.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
-        this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
-        this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
-      }else{
-        window.alert(`Error: ${response.statusCode}`);
-      }
-    })
-
+  
   } // End Constructor
-
+  
   ngOnInit(): void {
+    this.projListBindingService.dataEmitter.subscribe((data: Array<MyProject>)=> {
+      this.projListAll = data;
+      this.projListAll.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
+      this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
+      this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
+    })
   }
 
   setSubmit(){

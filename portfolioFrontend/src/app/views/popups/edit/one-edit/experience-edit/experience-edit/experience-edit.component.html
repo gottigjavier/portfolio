@@ -46,10 +46,7 @@
                         <label for="jobend" class="form-label">End Date</label>
                         <input id="jobend" class="form-control" type="date" value={{job.jobEnd}} formControlName="jobEnd">
                     </div>
-                    <div class="text-center">
-                        <label for="jobEIndex">Order of Apperance :</label>
-                        <input id="jobEIndex" class="job-index-box" value={{job.jobIndex}} type="number" min="1" max="99" formControlName="jobIndex">
-                    </div>
+                    <p class="note-message"><small>To change Order of Apperance use "Set Edit"</small></p>
                     <hr>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button id="jobEbtnsubbmit" class="btn btn-success m-2" type="submit">

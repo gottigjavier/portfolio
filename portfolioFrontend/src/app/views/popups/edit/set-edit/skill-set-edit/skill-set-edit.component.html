@@ -1,0 +1,36 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editSkillSet">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Set Edit</b></h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label ps-3"><b><i>Select Skills to Show and Order of Appearance</i></b></label>
+                    <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
+                        <div class="grid-container">
+                            <label for="shownlist"><b>Shown Skills</b></label>
+                            <div id="shownlist" *ngFor="let skillTrue of skillListTrue; index as i">
+                                <input id="itemTrue{{skillTrue.skillId}}" type="checkbox" [value]="skillTrue.skillId" checked
+                                    (change)="onCheckboxChange($event)"><span class="ms-1">{{skillTrue.skillName}} </span>
+                                    <input class="item-index" type="number" id="{{skillTrue.skillId}}" [value]=skillTrue.skillIndex min="1" max="99" (change)="onIndexChange($event)">
+                            </div>
+                            <label for="shownlist"><b>Not Shown Skills</b></label>
+                            <div id="itemFlist" *ngFor="let skillFalse of skillListFalse; index as i">
+                                <input id="itemFalse{{skillFalse.skillId}}" type="checkbox" [value]="skillFalse.skillId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{skillFalse.skillName}}</span>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success m-2" type="submit" value="Submit">
+                    Confirm
+                </button>
+            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,7 @@ Una capa de servicio se diseñó en forma similar a la del backend, es decir, se
 Para mejor claridad se creó otra clase genérica para manejar la autenticacón de login.
 
 Dado que entre los componentes MyProject y Technology existe una estrecha relación, también se utiliza un service de binding para comunicar las modificaciones en uno u otro.
-En consecuencia de que ya se tiene en uso esta capa de servicio, se optó por no diseñar los componentes popup como hijos de los componentes a editar sino en módulos separados e hijos de PopupsModule. Esto permite prescindir de @Input y @Output.
+En consecuencia de que ya se tiene en uso esta capa de servicio, se optó por no diseñar los componentes popup como hijos de los componentes a editar sino en módulos separados e hijos de PopupsModule. Esto permite prescindir de @Input y @Output y en su lugar se utilizan servicion que implementan "EventEmitter".
 
 #### Modal Form y Bindin Service
 
@@ -23,7 +23,8 @@ También se bajaron los .svg en una carpeta para ser invocados o para ser guarda
 
 #### Tech. Tamaño de imágenes
 
-La idea es que el tamaño de la imagen o logo de las tecnologías que se manejan represente el nivel de habilidad respecto de cada una. Para ello, el tamaño pasado al html depende del atributo "techLevel". Dado que la vista es responsiva, las imágenes tienen que adaptarse al tamaño de la pantalla. Lo hacen, pero por el momento, el dato del tamaño de la pantalla se fija cuando el navegador hace la carga del sitio. Entonces, si se realiza una prueba desde la sección para desarrollador del navegador y se va "jugando" con el tamaño de la pantalla, los logos de las tecnologías mantendrán su tamaño a menos que se realice una recarga del sitio para que tome la nueva dimensión de la pantalla. 
+(No implementado por el momento)
+La idea es que el tamaño de la imagen o logo de las tecnologías que se manejan represente el nivel de habilidad respecto de cada una. Para ello, el tamaño pasado al html depende del atributo "techLevel". Dado que la vista es responsiva, las imágenes tienen que adaptarse al tamaño de la pantalla. Lo hacen, pero por el momento, el dato del tamaño de la pantalla se fija cuando el navegador hace la carga del sitio. Entonces, si se realiza una prueba desde la sección para desarrollador del navegador y se va "jugando" con el tamaño de la pantalla, los logos de las tecnologías mantendrán su tamaño a menos que se realice una recarga del sitio para que tome la nueva dimensión de la pantalla.
 
 
 

@@ -32,15 +32,6 @@ export class EducationComponent<T> implements OnInit {
       this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
         this.editMode= data;
       })
-
-      this.eduListBindingService.dataEmitter.subscribe((data: Array<Education>) =>{
-        this.eduList= data;
-        if(Array.isArray(this.eduList)){
-          this.eduList.sort((a: Education, b: Education): number => a.eduIndex - b.eduIndex);
-          this.eduListShown= this.eduList.filter((elem: Education) => elem.eduShow==true) || [];
-          console.log("EduList despues borrar ", this.eduList);
-        }
-      })
       
     }
 
@@ -57,6 +48,15 @@ export class EducationComponent<T> implements OnInit {
       }else{
         window.alert(`Error: ${response.statusCode}`);
       }
+      })
+
+      this.eduListBindingService.dataEmitter.subscribe((data: Array<Education>) =>{
+        this.eduList= data;
+        if(Array.isArray(this.eduList)){
+          this.eduList.sort((a: Education, b: Education): number => a.eduIndex - b.eduIndex);
+          this.eduListShown= this.eduList.filter((elem: Education) => elem.eduShow==true) || [];
+          console.log("EduList despues borrar ", this.eduList);
+        }
       })
       
   }
@@ -76,7 +76,8 @@ export class EducationComponent<T> implements OnInit {
   }
 
   openEditSetEdu(){
-    
+    this.eduListBinding<Array<Education>>(this.eduList);
+    $("#editEduSet").modal("show");
   }
   
   eduBinding<T>(data: T){

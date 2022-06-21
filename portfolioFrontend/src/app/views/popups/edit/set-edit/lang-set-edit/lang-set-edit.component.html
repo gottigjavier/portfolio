@@ -1,0 +1,36 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editLangSet">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Set Edit</b></h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label ps-3"><b><i>Select Spoken Languages to Show and Order of Appearance</i></b></label>
+                    <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
+                        <div class="grid-container">
+                            <label for="shownlist"><b>Shown Spoken Languages</b></label>
+                            <div id="shownlist" *ngFor="let langTrue of langListTrue; index as i">
+                                <input id="itemTrue{{langTrue.languageId}}" type="checkbox" [value]="langTrue.languageId" checked
+                                    (change)="onCheckboxChange($event)"><span class="ms-1">{{langTrue.languageName}} </span>
+                                    <input class="item-index" type="number" id="{{langTrue.languageId}}" [value]=langTrue.languageIndex min="1" max="99" (change)="onIndexChange($event)">
+                            </div>
+                            <label for="shownlist"><b>Not Shown Spoken Languajes</b></label>
+                            <div id="itemFlist" *ngFor="let langFalse of langListFalse; index as i">
+                                <input id="itemFalse{{langFalse.languageId}}" type="checkbox" [value]="langFalse.languageId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{langFalse.languageName}}</span>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success m-2" type="submit" value="Submit">
+                    Confirm
+                </button>
+            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

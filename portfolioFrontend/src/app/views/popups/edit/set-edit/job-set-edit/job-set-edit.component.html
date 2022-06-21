@@ -1,0 +1,36 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="editJobSet">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Set Edit</b></h4>
+                    <button type="button" class="close" (click)="closePopup()">&times;</button>
+                </div>
+                <div class="mb-3">
+                    <label for="setForm" class="form-label ps-3"><b><i>Select Job Experiences to Show and Order of Appearance</i></b></label>
+                    <form class="p-3" [formGroup]="setForm" (submit)="setSubmit()">
+                        <div class="grid-container">
+                            <label for="shownlist"><b>Shown Job Experiences</b></label>
+                            <div id="shownlist" *ngFor="let jobTrue of jobListTrue; index as i">
+                                <input id="itemTrue{{jobTrue.jobId}}" type="checkbox" [value]="jobTrue.jobId" checked
+                                    (change)="onCheckboxChange($event)"><span class="ms-1">{{jobTrue.jobPosition}} </span>
+                                    <input class="item-index" type="number" id="{{jobTrue.jobId}}" [value]=jobTrue.jobIndex min="1" max="99" (change)="onIndexChange($event)">
+                            </div>
+                            <label for="shownlist"><b>Not Shown Job Experiences</b></label>
+                            <div id="itemFlist" *ngFor="let jobFalse of jobListFalse; index as i">
+                                <input id="itemFalse{{jobFalse.jobId}}" type="checkbox" [value]="jobFalse.jobId" (change)="onCheckboxChange($event)" ><span class="ms-1">{{jobFalse.jobPosition}}</span>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success m-2" type="submit" value="Submit">
+                    Confirm
+                </button>
+            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
