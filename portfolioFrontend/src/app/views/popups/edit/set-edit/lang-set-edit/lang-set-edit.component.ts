@@ -90,12 +90,12 @@ export class LangSetEditComponent<T> implements OnInit {
             this.langListToSend.push(sendLang);
           }
           this.service.update(this.langUpdateListEndPoint, this.langListToSend).subscribe(resp=>{
-            if(resp.statusCodeValue == 200){
-              this.langListAll = Object.values(resp.body);
+            if(resp){
+              this.langListAll = Object.values(resp);
               this.langListBinding<Array<SpokenLanguage>>(this.langListAll);
               this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Edit Spoken Language Set says: ${resp}`);
             }
           })
         })

@@ -34,6 +34,8 @@ export class TechnologiesComponent<T> implements OnInit {
     console.log(this.scrWidth);
   }
 
+  public loaded: boolean= false;
+
   public editMode: boolean = false;
 
   private list: Array<Technology>=[];
@@ -67,9 +69,8 @@ export class TechnologiesComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.techListEndPoint).subscribe(response => {
-      console.log("tech -> ", response);
-      if(response.statusCode == "OK"){
-        this.techList = Object.values(response.body);
+      if(response){
+        this.techList = Object.values(response);
         this.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
         console.log("width  ", window.innerWidth)
         if(Array.isArray(this.techList)){
@@ -77,18 +78,11 @@ export class TechnologiesComponent<T> implements OnInit {
           this.techListBinding<Array<Technology>>(this.techList);
         }
         this.getScreenSize();
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Technologies Component says: ", response);
       }
     })
-
-    /* this.techBindingService.dataEmitter.subscribe((data: Technology) => {
-      this.techList.forEach(elem => {
-        if(elem.techId==data.techId){
-          elem= data;
-          }
-        })
-      }) */
 
     this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
       this.techList= data;

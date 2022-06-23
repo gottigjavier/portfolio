@@ -108,15 +108,15 @@ export class ProjCreateComponent<T> implements OnInit{
     this.proj.projIndex= this.popupForm.value.projIndex || this.proj.projIndex;
     this.proj.techList = this.techListTrue;
     this.dataService.create(this.projCreateEndPoint, this.proj).subscribe((resp) => {
-      if(resp.statusCode == "OK"){
-        this.projList= Object.values(resp.body);
+      if(resp){
+        this.projList= Object.values(resp);
         this.projListBinding<Array<MyProject>>(this.projList);
+        this.projBinding<MyProject>(this.proj);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create Project says: ${resp}`);
       }
     });
-    this.projBinding<MyProject>(this.proj);
-    this.closePopup();
   }
   
   closePopup() {

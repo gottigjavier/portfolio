@@ -118,14 +118,14 @@ export class ProjectEditComponent<T> implements OnInit{
     this.proj.projUrl= this.popupForm.value.projUrl || this.proj.projUrl;
     this.proj.techList = this.techListTrue;
     this.dataService.update(this.projUpdateEndPoint, this.proj).subscribe((resp) => {
-      if(resp.statusCode == "OK"){
-        this.proj = resp.body;
+      if(resp){
+        this.proj = resp;
         this.projBinding<MyProject>(this.proj);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Edit Project says: ${resp}`);
       }
     });
-    this.closePopup();
   }
   
   closePopup() {

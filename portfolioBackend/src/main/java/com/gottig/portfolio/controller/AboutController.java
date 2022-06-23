@@ -33,14 +33,14 @@ public class AboutController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        return ResponseEntity.ok(getList());
+            return getList();
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        return ResponseEntity.ok(singleGet(id));
+        return singleGet(id);
     }
     
     @PostMapping("/create")
@@ -48,9 +48,9 @@ public class AboutController {
     @ResponseBody
     public ResponseEntity create(@RequestBody AboutDTO aboutDTO){
         if(!aboutService.create(aboutMapper.toEntity(aboutDTO))){
-            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("About Not Created", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @PutMapping("/update")
@@ -58,9 +58,9 @@ public class AboutController {
     @ResponseBody
     public ResponseEntity update(@RequestBody AboutDTO aboutDTO){
         if(!aboutService.update(aboutMapper.toEntity(aboutDTO))){
-            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>("About Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return ResponseEntity.ok(singleGet(aboutDTO.getAboutId()));
+        return singleGet(aboutDTO.getAboutId());
     }
     
     @PutMapping("/update/list")
@@ -68,9 +68,11 @@ public class AboutController {
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<AboutDTO> aboutListDTO){
         for(AboutDTO aboutDTO : aboutListDTO){
-         aboutService.update(aboutMapper.toEntity(aboutDTO));   
+         if(!aboutService.update(aboutMapper.toEntity(aboutDTO))){
+             return new ResponseEntity<>("About id: (" + aboutDTO.getAboutId() +  ") Not Updated", HttpStatus.NOT_MODIFIED);
+         }   
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @DeleteMapping("/delete/{id}")
@@ -78,20 +80,16 @@ public class AboutController {
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  
         if(!aboutService.delete(id)){
-            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("About Not Deleted", HttpStatus.CONFLICT);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     
-    
-    
-    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
-    // sino solo devuelve el objeto o lista (body) en un 200
     public ResponseEntity getList(){
         List<AboutDTO> list = aboutMapper.toDtoAll(aboutService.getAll());
         if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("About List Empty", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -99,7 +97,7 @@ public class AboutController {
     public ResponseEntity singleGet(Long id){
         AboutDTO obj= aboutMapper.toDto(aboutService.getOne(id));
         if(obj == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("About Not Found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }

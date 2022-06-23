@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<ng-template #onLoad>
+    <div class="loader"></div>
+</ng-template>
+<div *ngIf="loaded; else onLoad">
+    <router-outlet></router-outlet>
+</div>

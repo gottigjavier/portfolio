@@ -53,14 +53,14 @@ export class AboutEditComponent<T>{
     this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
     this.about.aboutShown=true;
     this.dataService.update(this.endPoint, this.about).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        this.about = resp.body;
+      if(resp){
+        this.about = resp;
         this.aboutBinding<About>(this.about);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Edit About says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
       closePopup(){

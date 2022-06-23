@@ -19,6 +19,8 @@ export class SpokenLanguagesComponent<T> implements OnInit {
 
   private endPoint: string= "spoken-language/list";
 
+  public loaded: boolean= false;
+
   public editMode: boolean= false;
 
   constructor(
@@ -36,14 +38,15 @@ export class SpokenLanguagesComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
-      if(response.statusCode == "OK"){
-        this.langList = Object.values(response.body);
+      if(response){
+        this.langList = Object.values(response);
         if(Array.isArray(this.langList)){
           this.langShownList= this.langList.filter(elem => elem.langShow) || [];
           this.langShownList.sort((a: SpokenLanguage, b: SpokenLanguage): number => a.languageIndex - b.languageIndex);
         }
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Spoken Languages Component says: ", response);
       }
       })
 

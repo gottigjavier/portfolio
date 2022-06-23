@@ -74,20 +74,17 @@ ngOnInit(): void {
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.dataService.update(this.techUpdateEndPoint, this.tech).subscribe(resp =>{
-      console.log("tech edit one ", resp);
-      if(resp.statusCode == "OK"){
-        this.tech = resp.body;
+      if(resp){
+        this.tech = resp;
         this.techList.forEach(elem=>{
           if(elem.techId==this.tech.techId){
             elem= this.tech;
           }
         })
-        //this.techBinding<Technology>(this.tech);
         this.techListBinding<Array<Technology>>(this.techList);
-        console.log("tech edit techlist  ", this.techList);
         this.closeTPopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Edit Technology says: ${resp}`);
       }
     })
   }

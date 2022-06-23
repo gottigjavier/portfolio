@@ -93,12 +93,12 @@ export class EduSetEditComponent<T> implements OnInit {
             this.eduListToSend.push(sendEdu);
           }
           this.service.update(this.educUpdateListEndPoint, this.eduListToSend).subscribe(resp=>{
-            if(resp.statusCodeValue == 200){
-              this.eduListAll = Object.values(resp.body);
+            if(resp){
+              this.eduListAll = Object.values(resp);
               this.eduListBinding<Array<Education>>(this.eduListAll);
               this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Edit Education Set says: ${resp}`);
             }
           })
         })

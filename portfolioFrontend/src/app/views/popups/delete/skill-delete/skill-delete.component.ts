@@ -45,8 +45,6 @@ export class SkillDeleteComponent<T> implements OnInit {
   } // Edn constructor
   
   ngOnInit(): void {
-    // En algun momento, si creo, edito a mansalva, o no aparece alguna skill para borrar
-    // o al borrarla no desaparece de la lista de borrar (ver eso)
     this.deleteForm.reset();
     this.skillList.length=0;
     this.skillListBindingService.dataEmitter.subscribe((data: Array<Skill>)=>{
@@ -61,22 +59,20 @@ export class SkillDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.skillToDelete.skillId}`).subscribe(resp =>{
-            if(resp.statusCode== "OK"){
-              let list: Array<Skill>= Object.values(resp.body);
-              this.skillList= list;
+            if(resp){
+              this.skillList= Object.values(resp);
               this.skillListBinding<Array<Skill>>(this.skillList);
-              this.deleteForm.reset();
-              //this.skillList.length=0;
+              this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Delete Skill says: ${resp}`);
             }
           })
-          this.closePopup();
         }
   }
   
 
   closePopup(){
+    this.deleteForm.reset();
     $("#deleteSkill").modal("hide");
   }
 

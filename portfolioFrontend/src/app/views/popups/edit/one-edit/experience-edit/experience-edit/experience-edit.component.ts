@@ -70,14 +70,14 @@ export class ExperienceEditComponent<T> {
     this.job.jobStart= this.popupForm.value.jobStart || this.job.jobStart;
     this.job.jobEnd= this.popupForm.value.jobEnd || this.job.jobEnd;
     this.dataService.update(this.endPoint, this.job).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        this.job = resp.body;
+      if(resp){
+        this.job = resp;
         this.jobBinding<JobExperience>(this.job);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Edit Job Experience says: ${resp}`);
       }
     })
-    this.closePopup();
   }
 
   closePopup(){

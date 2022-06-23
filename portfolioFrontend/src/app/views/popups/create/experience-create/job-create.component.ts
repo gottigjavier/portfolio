@@ -76,14 +76,14 @@ export class JobCreateComponent<T> {
     this.job.jobIndex= this.popupForm.value.jobIndex || this.job.jobIndex;
     this.job.jobShow= this.popupForm.value.jobShow || this.job.jobShow;
     this.dataService.create(this.createJobEndPoint, this.job).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        let list: Array<JobExperience>= Object.values(resp.body); // From ResponseEntity
+      if(resp){
+        let list: Array<JobExperience>= Object.values(resp); // From ResponseEntity
         this.jobListBinding<Array<JobExperience>>(list);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create Job Experience says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
   closePopup(){

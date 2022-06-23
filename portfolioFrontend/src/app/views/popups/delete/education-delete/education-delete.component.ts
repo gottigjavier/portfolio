@@ -66,15 +66,14 @@ export class EducationDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.eduToDelete.educationId}`).subscribe(resp =>{
-            if(resp.statusCode == "OK"){
-              let list: Array<Education>= Object.values(resp.body);
-              this.eduList= list;
+            if(resp){
+              this.eduList= Object.values(resp.body);
               this.eduListBinding<Array<Education>>(this.eduList);
+              this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Delete Education says: ${resp}`);
             }
           })
-          this.closePopup();
         }
   }
   

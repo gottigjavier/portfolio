@@ -68,15 +68,14 @@ export class EducationEditComponent<T> implements OnInit{
     this.education.educationEnd= this.popupForm.value.educationEnd || this.education.educationEnd;
     this.education.approvedLevel= this.popupForm.value.approvedLevel || this.education.approvedLevel;
     this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        this.education = resp.body;
-        console.log("educ edit edu ", this.education);
+      if(resp){
+        this.education = resp;
         this.eduBinding<Education>(this.education);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Edit Education says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
       closePopup(){

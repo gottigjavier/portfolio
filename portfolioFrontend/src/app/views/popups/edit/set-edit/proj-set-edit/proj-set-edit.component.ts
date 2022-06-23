@@ -94,15 +94,15 @@ export class ProjSetEditComponent<T> implements OnInit {
             this.projListToSend.push(sendProj);
           }
           this.service.update(this.projUpdateEndPoint, this.projListToSend).subscribe(resp=>{
-            if(resp.statusCode== "OK"){
-              this.projListAll= Object.values(resp.body);
+            if(resp){
+              this.projListAll= Object.values(resp);
               this.projListAll.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
               this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
               this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
               this.projListBinding<Array<MyProject>>(this.projListAll);
               this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Edit Project Set says: ${resp}`);
             }
           })
         })

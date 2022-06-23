@@ -94,12 +94,12 @@ export class TechSetEditComponent<T> implements OnInit {
             this.techListToSend.push(sendTech);
           }
           this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
-            if(resp.statusCode == "OK"){
-              this.techListAll = Object.values(resp.body);
+            if(resp){
+              this.techListAll = Object.values(resp);
               this.techListBinding<Array<Technology>>(this.techListAll);
               this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Edit Technology Set says: ${resp}`);
             }
           })
         })

@@ -65,15 +65,14 @@ export class AboutDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.aboutToDelete.aboutId}`).subscribe(resp =>{
-            if(resp.statusCode == "OK"){
-              let list: Array<About>= Object.values(resp.body);
-              this.aboutList= list;
+            if(resp){
+              this.aboutList= Object.values(resp);
               this.aboutListBinding<Array<About>>(this.aboutList);
+              this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Delete About says: ${resp}`);
             }
           })
-          this.closePopup();
         }
   }
   

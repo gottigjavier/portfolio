@@ -19,6 +19,7 @@ export class AboutComponent<T> implements OnInit {
   private aboutList: Array<About>=[];
   private endPoint: string= "about/list";
 
+  public loaded: boolean= false;
 
   public editMode: boolean= false;
   
@@ -45,7 +46,6 @@ export class AboutComponent<T> implements OnInit {
         }
         this.modeBindingService.dataEmitter.subscribe((data: boolean) =>{
           this.editMode= data;
-          console.log("about mode ", this.editMode);
         })
     }
     
@@ -53,10 +53,9 @@ export class AboutComponent<T> implements OnInit {
   ngOnInit(): void {
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
       console.log("about response ", response);
-      if(response.statusCode= "OK"){
-      let list: Array<About>= Object.values((response.body));
-        this.aboutList= list;
-        this.about= list.find(elem => elem.aboutShown== true)|| this.about;
+      if(response){
+        this.aboutList= Object.values((response));
+        this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
         this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
           let list= Object.values(data);
           if(Array.isArray(list)){
@@ -64,9 +63,9 @@ export class AboutComponent<T> implements OnInit {
             this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
           }
         })
-        console.log("about -> ", this.about);
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("About Component says: ", response);
       }
     }) 
   };

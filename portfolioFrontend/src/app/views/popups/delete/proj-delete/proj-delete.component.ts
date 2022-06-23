@@ -45,13 +45,13 @@ export class ProjDeleteComponent<T> implements OnInit{
       if(elem.projId ==this.deleteForm.value.projId){
         invalid=false;
         this.dataService.delete(`${this.deleteProjEndPoint}/${this.deleteForm.value.projId}`).subscribe(resp=>{
-          if(resp.statusCode == "OK"){
-            this.projList= Object.values(resp.body);
+          if(resp){
+            this.projList= Object.values(resp);
             this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
             this.projListBinding<Array<MyProject>>(this.projList);
             this.closePopup();
           }else{
-            window.alert(`Error: ${resp.statusCode}`);
+            window.alert(`Delete Project says: ${resp}`);
           }
         })
       }

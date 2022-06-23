@@ -58,15 +58,12 @@ export class TechDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.techToDelete.techId}`).subscribe(resp =>{
-            console.log("tech error ", resp.error)
-            if(resp.statusCodeValue != 200){
-              window.alert("error");
-            }else{
-              this.techListAll= resp.body;
-              console.log("tech delete resp ", this.techListAll);
+            if(resp){
+              this.techListAll= resp;
               this.techListBinding<Array<Technology>>(this.techListAll);
-              //this.techListBinding<Array<Technology>>(this.techListAll);
               this.closePopup();
+            }else{
+              window.alert(`Delete Technology says: ${resp}`);
             }
           })
         }

@@ -34,14 +34,14 @@ public class SkillController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        return ResponseEntity.ok(singleGet(id));
+        return singleGet(id);
     }
     
     @PostMapping("/create")
@@ -49,9 +49,9 @@ public class SkillController {
     @ResponseBody
     public ResponseEntity create(@RequestBody SkillDTO skillDTO){
         if(!skillService.create(skillMapper.toEntity(skillDTO))){
-            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Skill Not Created", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @PutMapping("/update")
@@ -59,9 +59,9 @@ public class SkillController {
     @ResponseBody
     public ResponseEntity update(@RequestBody SkillDTO skillDTO){
         if(!skillService.update(skillMapper.toEntity(skillDTO))){
-            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>("Skill Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return ResponseEntity.ok(singleGet(skillDTO.getSkillId()));
+        return singleGet(skillDTO.getSkillId());
     }
     
     @PutMapping("/update/list")
@@ -69,9 +69,11 @@ public class SkillController {
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<SkillDTO> skillListDTO){
         for(SkillDTO skillDTO : skillListDTO){
-         skillService.update(skillMapper.toEntity(skillDTO));   
+            if(!skillService.update(skillMapper.toEntity(skillDTO))){
+                return new ResponseEntity<>("Skill Not Updated", HttpStatus.NOT_MODIFIED);
+            }
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @DeleteMapping("/delete/{id}")
@@ -79,18 +81,16 @@ public class SkillController {
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  
         if(!skillService.delete(id)){
-            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Skill Not Deleted", HttpStatus.CONFLICT);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     
-    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
-    // sino solo devuelve el objeto o lista (body) en un 200
     public ResponseEntity getList(){
         List<SkillDTO> list = skillMapper.toDtoAll(skillService.getAll());
         if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Skill List Empty", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -98,7 +98,7 @@ public class SkillController {
     public ResponseEntity singleGet(Long id){
         SkillDTO obj= skillMapper.toDto(skillService.getOne(id));
         if(obj == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Skill Not Found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }

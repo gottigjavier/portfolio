@@ -62,15 +62,14 @@ export class LangDeleteComponent<T> implements OnInit {
           window.alert("Id mismatch");
         }else{
           this.dataService.delete(`${this.deleteEndPoint}/${this.langToDelete.languageId}`).subscribe(resp =>{
-            if(resp.statusCode == "OK"){
-              let list: Array<SpokenLanguage>= Object.values(resp.body);
-              this.langList= list;
+            if(resp){
+              this.langList= Object.values(resp);
               this.langListBinding<Array<SpokenLanguage>>(this.langList);
+              this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Delete Spoken Language says: ${resp}`);
             }
           })
-          this.closePopup();
         }
   }
   

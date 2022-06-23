@@ -19,6 +19,8 @@ export class SkillsComponent<T> implements OnInit {
 
   private endPoint: string= "skill/list";
 
+  public loaded: boolean= false;
+
   public editMode: boolean= false;
 
   constructor(
@@ -35,15 +37,15 @@ export class SkillsComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
-      if(response.statusCode == "OK"){
-        let list: Array<Skill>= Object.values(response.body);
-        this.skills = list;
+      if(response){
+        this.skills= Object.values(response);
         if(Array.isArray(this.skills)){
           this.shownSkills= this.skills.filter(elem => elem.skillShow) || [];
-          this.shownSkills.sort((a: Skill,b: Skill): number => a.skillIndex - b.skillIndex);
+          this.skills.sort((a: Skill,b: Skill): number => a.skillIndex - b.skillIndex);
         }
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Skills Component says: ", response);
       }
     });
     this.skillListBindingService.dataEmitter.subscribe((data: Array<Skill>)=>{

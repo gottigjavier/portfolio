@@ -55,14 +55,14 @@ export class AboutSetEditComponent<T> implements OnInit {
 
   shownSubmit(){
     this.dataService.update(this.aboutUpdateListEndPoint, this.aboutList).subscribe(resp=>{
-      if(!resp){
-        alert("Error: Not saved");
-      }else{
-        this.aboutList=resp.body;
+      if(resp){
+        this.aboutList=resp;
         this.aboutListBinding<Array<About>>(this.aboutList);
+        this.closePopup();
+      }else{
+        window.alert(`Edit About Set says: ${resp}`);
       }
     })
-    this.closePopup();
   }
 
   closePopup(){

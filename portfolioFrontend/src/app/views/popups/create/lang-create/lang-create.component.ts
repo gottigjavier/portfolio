@@ -62,14 +62,14 @@ export class LangCreateComponent<T> {
     this.lang.percentLevel= this.popupForm.value.percentLevel || this.lang.percentLevel;
     this.lang.languageIndex= this.popupForm.value.languageIndex || this.lang.languageIndex;
     this.dataService.create(this.newLangEndPoint, this.lang).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        let list: Array<SpokenLanguage> = Object.values(resp.body);
+      if(resp){
+        let list: Array<SpokenLanguage> = Object.values(resp);
         this.langListBinding<Array<SpokenLanguage>>(list);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create Spoken Language says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
       closePopup(){

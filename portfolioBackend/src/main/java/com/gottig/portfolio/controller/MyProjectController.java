@@ -35,14 +35,14 @@ public class MyProjectController {
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getAll(){
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity getOne(@PathVariable Long id){
-        return ResponseEntity.ok(singleGet(id));
+        return singleGet(id);
     }
     
     @PostMapping("/create")
@@ -50,9 +50,9 @@ public class MyProjectController {
     @ResponseBody
     public ResponseEntity create(@RequestBody MyProjectDTO projDTO){
         if(!projService.create(projMapper.toEntity(projDTO))){
-            return new ResponseEntity<>("Error: Not Created", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Project Not Created", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @PutMapping("/update")
@@ -60,9 +60,9 @@ public class MyProjectController {
     @ResponseBody
     public ResponseEntity update(@RequestBody MyProjectDTO projDTO){
         if(!projService.update(projMapper.toEntity(projDTO))){
-            return new ResponseEntity<>("Error: Not Updated", HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>("Project Not Updated", HttpStatus.NOT_MODIFIED);
         }
-        return ResponseEntity.ok(singleGet(projDTO.getProjId()));
+        return singleGet(projDTO.getProjId());
     }
     
     @PutMapping("/update/list")
@@ -70,9 +70,11 @@ public class MyProjectController {
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<MyProjectDTO> projListDTO){
         for(MyProjectDTO projDTO : projListDTO){
-         projService.update(projMapper.toEntity(projDTO));   
+            if(!projService.update(projMapper.toEntity(projDTO))){
+                return new ResponseEntity<>("Project Not Updated", HttpStatus.NOT_MODIFIED);
+            }   
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     @DeleteMapping("/delete/{id}")
@@ -80,18 +82,16 @@ public class MyProjectController {
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  
         if(!projService.delete(id)){
-            return new ResponseEntity<>("Error: Not Deleted", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Project Not Deleted", HttpStatus.CONFLICT);
         }
-        return ResponseEntity.ok(getList());
+        return getList();
     }
     
     
-    // Truco para que sienpre devuelva statusCode y statusCodeValue en response
-    // sino solo devuelve el objeto o lista (body) en un 200
     public ResponseEntity getList(){
         List<MyProjectDTO> list = projMapper.toDtoAll(projService.getAll());
         if(list.size()<1){
-            return new ResponseEntity<>("Error: List Empty", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Project List Empty", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -99,7 +99,7 @@ public class MyProjectController {
     public ResponseEntity singleGet(Long id){
         MyProjectDTO obj= projMapper.toDto(projService.getOne(id));
         if(obj == null){
-            return new ResponseEntity<>("Error: Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Project Not Found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }

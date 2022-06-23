@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'portfolio';
+
+  public loaded: boolean= false;
+  constructor() { 
+    window.onload= () =>{
+      this.loaded= true;
+      console.log("Home component listener ", window.addEventListener )
+    }
+  }
 }

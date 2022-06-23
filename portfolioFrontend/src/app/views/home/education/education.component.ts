@@ -20,6 +20,8 @@ export class EducationComponent<T> implements OnInit {
 
   private endPoint: string= "education/list";
 
+  public loaded: boolean= false;
+
   public editMode: boolean= false;
 
   constructor(
@@ -37,16 +39,15 @@ export class EducationComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
-      if(response.statusCode == "OK"){
-      let list: Array<Education>= Object.values(response.body);
-        this.eduList = list;
-        console.log("educ component eduList ", this.eduList);
+      if(response){
+        this.eduList= Object.values(response);
         if(Array.isArray(this.eduList)){
           this.eduList.sort((a: Education, b: Education): number => a.eduIndex - b.eduIndex);
           this.eduListShown= this.eduList.filter((elem: Education) => elem.eduShow==true) || [];
         }
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Education Component says: ", response);
       }
       })
 
@@ -55,7 +56,6 @@ export class EducationComponent<T> implements OnInit {
         if(Array.isArray(this.eduList)){
           this.eduList.sort((a: Education, b: Education): number => a.eduIndex - b.eduIndex);
           this.eduListShown= this.eduList.filter((elem: Education) => elem.eduShow==true) || [];
-          console.log("EduList despues borrar ", this.eduList);
         }
       })
       

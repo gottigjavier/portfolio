@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../models/user.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ import { User } from '../../models/user.model';
 // Servicio genérico usa el parámetro T
 export class DataService<T> {
 
-  private DOMAIN: string = "http://localhost"; //Para incorporar variables de entorno
-  private PORT: string = "8080";
+  private DOMAIN: string = environment.apiUrl; //Para incorporar variables de entorno
+  private PORT: string = environment.apiPort;
 
   private url: string = `${this.DOMAIN}:${this.PORT}`;
   

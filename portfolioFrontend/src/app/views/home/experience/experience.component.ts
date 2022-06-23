@@ -19,6 +19,8 @@ export class ExperienceComponent<T> implements OnInit {
 
   private endPoint: string= "job-experience/list";
 
+  public loaded: boolean= false;
+
   public editMode: boolean= false;  
 
   constructor(
@@ -35,15 +37,15 @@ export class ExperienceComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
-      if(response.statusCode == "OK"){
-        let list: Array<JobExperience>= Object.values(response.body);
-        this.jobList = list;
+      if(response){
+        this.jobList= Object.values(response);
         if(Array.isArray(this.jobList)){
           this.jobShownList= this.jobList.filter(elem => elem.jobShow) || [];
           this.jobShownList.sort((a: JobExperience, b: JobExperience): number => a.jobIndex - b.jobIndex);
         }
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Job Experience Component says: ", response);
       }
       })
 

@@ -1,3 +1,4 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
@@ -85,18 +86,17 @@ export class SkillSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.skillSetChanged){
-        console.log("item set", item);
         this.skillListAll.forEach(sendSkill =>{
           if(sendSkill.skillId==item){
             this.skillListToSend.push(sendSkill);
           }
           this.service.update(this.skillUpdateListEndPoint, this.skillListToSend).subscribe(resp=>{
-            if(resp.statusCodeValue == 200){
-              this.skillListAll = Object.values(resp.body);
+            if(resp){
+              this.skillListAll = Object.values(resp);
               this.skillListBinding<Array<Skill>>(this.skillListAll);
               this.closePopup();
             }else{
-              window.alert(`Error: ${resp.statusCode}`);
+              window.alert(`Edit Skill Set says: ${resp}`);
             }
           })
         })

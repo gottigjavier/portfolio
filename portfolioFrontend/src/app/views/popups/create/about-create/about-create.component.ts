@@ -53,14 +53,14 @@ export class AboutCreateComponent<T> {
     this.about.lastName= this.popupForm.value.lastName || this.about.lastName;
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.dataService.create(this.createAboutEndPoint, this.about).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        let list: Array<About>= Object.values(resp.body); // From ResponseEntity
+      if(resp){
+        let list: Array<About>= Object.values(resp); // From ResponseEntity
         this.aboutListBinding<Array<About>>(list);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create About says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
   closePopup(){

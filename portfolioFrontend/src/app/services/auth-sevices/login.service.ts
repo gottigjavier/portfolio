@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,10 @@ import { map } from 'rxjs/operators';
 // Servicio genérico usa el parámetro T
 export class LoginService {
 
-  private urlAuth: string = "http://localhost:8080/auth/login";
+  private DOMAIN: string = environment.apiUrl; //Para incorporar variables de entorno
+  private PORT: string = environment.apiPort;
+
+  private urlAuth: string = `${this.DOMAIN}:${this.PORT}/auth/login`;
   
   currentUserSubject: BehaviorSubject<any>;
 

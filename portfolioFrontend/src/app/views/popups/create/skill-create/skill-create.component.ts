@@ -58,14 +58,14 @@ export class SkillCreateComponent<T> {
     this.skill.skillLevel= this.popupForm.value.skillLevel || this.skill.skillLevel;
     this.skill.skillIndex= this.popupForm.value.skillIndex || this.skill.skillIndex;
     this.dataService.create(this.newSkillEndPoint, this.skill).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-        let list: Array<Skill> = Object.values(resp.body);
+      if(resp){
+        let list: Array<Skill> = Object.values(resp);
         this.skillListBinding<Array<Skill>>(list);
+        this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create Skill says: ${resp}`);
       }
     })
-    this.closePopup();
   }
   
       closePopup(){

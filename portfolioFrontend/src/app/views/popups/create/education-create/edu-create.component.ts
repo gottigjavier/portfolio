@@ -70,13 +70,12 @@ export class EduCreateComponent<T> implements OnInit {
     this.edu.educationEnd= this.popupForm.value.educationEnd || this.edu.educationEnd;
     this.edu.approvedLevel= this.popupForm.value.approvedLevel || this.edu.approvedLevel;
     this.dataService.create(this.createEduEndPoint, this.edu).subscribe(resp =>{
-      if(resp.statusCode == "OK"){
-      let list: Array<Education>= Object.values(resp.body);
-      this.eduList= list;
+      if(resp){
+      this.eduList= Object.values(resp);
       this.eduListBinding<Array<Education>>(this.eduList);
       this.closePopup();
     }else{
-      window.alert(`Error: ${resp.statusCode}`);
+      window.alert(`Create Education says: ${resp}`);
     }
     })
   }

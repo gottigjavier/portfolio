@@ -33,10 +33,10 @@ export class ProjectsComponent<T> implements OnInit {
     techList:[]
   }
 
+  public loaded: boolean= false;
 
   public editMode: boolean = false;
-  list: any;
-
+  
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
@@ -54,15 +54,16 @@ export class ProjectsComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.dataService.getAll<any>(this.projEndPoint).subscribe(response => {
-      if(response.statusCode == "OK"){
-        this.projList= Object.values(response.body);
+      if(response){
+        this.projList= Object.values(response);
         this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
         this.projListShown= this.projList.filter((elem: MyProject) => elem.projShow==true) || [];
         this.projList.forEach(elem=>{
           elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
         })
+        this.loaded= true;
       }else{
-        window.alert(`Error: ${response.statusCode}`);
+        console.log("Error: ", response);
       }
     })
 
@@ -121,15 +122,15 @@ export class ProjectsComponent<T> implements OnInit {
         // Debo guardar los cambios en las listas tech de los proyectos
         // Tal vez sea optimo hacerlo en tech-set-edit
         this.dataService.update(this.projUpdateEndPoint, this.projList).subscribe(resp=>{
-          if(resp.statusCodeValue == 200){
-            this.projList= resp.body;
+          if(resp){
+            this.projList= resp;
             this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
             this.projList.forEach(elem=>{
               elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
             })
             this.projListBinding<Array<MyProject>>(this.projList);
           }else{
-            window.alert(`Error: ${resp.statusCode}`);
+            console.log("Project Component says: ", resp);
           }
         })
       }

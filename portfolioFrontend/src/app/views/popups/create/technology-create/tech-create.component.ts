@@ -56,12 +56,12 @@ export class TechCreateComponent<T> {
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
-      if(resp.statusCodeValue == 200){
-        this.techList = Object.values(resp.body);
+      if(resp){
+        this.techList = Object.values(resp);
         this.techListBinding<Array<Technology>>(this.techList);
         this.closePopup();
       }else{
-        window.alert(`Error: ${resp.statusCode}`);
+        window.alert(`Create Technology says: ${resp}`);
       }
     })
     //window.location.reload();
