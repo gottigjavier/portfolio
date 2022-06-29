@@ -64,11 +64,13 @@ export class ExperienceDeleteComponent<T> implements OnInit {
         if(this.jobToDelete.jobId<0){
           window.alert("Id mismatch");
         }else{
+          this.closePopup();
           this.dataService.delete(`${this.deleteEndPoint}/${this.jobToDelete.jobId}`).subscribe(resp =>{
             if(resp){
+              this.jobList.length=0;
               this.jobList= Object.values(resp);
               this.jobListBinding<Array<JobExperience>>(this.jobList);
-              this.closePopup();
+              this.deleteForm.reset();
             }else{
               window.alert(`Delete Job Experience says: ${resp}`);
             }
@@ -78,8 +80,6 @@ export class ExperienceDeleteComponent<T> implements OnInit {
   
 
   closePopup(){
-    this.jobList.length=0;
-    this.deleteForm.reset();
     $("#deleteJob").modal("hide");
   }
 

@@ -11,10 +11,10 @@ declare var $ : any;
   templateUrl: './about-create.component.html',
   styleUrls: ['./about-create.component.css']
 })
-export class AboutCreateComponent<T> {
+export class AboutCreateComponent<T> implements OnInit{
 
   public about: About;
-  private list: Array<About>=[];
+  private aboutList: Array<About>=[];
 
   private createAboutEndPoint: string="about/create";
 
@@ -41,6 +41,12 @@ export class AboutCreateComponent<T> {
     }
 
   }
+
+  ngOnInit(): void {
+    this.aboutListBindingService.dataEmitter.subscribe((data:Array<About>)=>{
+      this.aboutList= data;
+    })
+  }
   
   onSubmit(){
     if(!this.popupForm.value.photoUrl.startsWith("http")){
@@ -53,10 +59,13 @@ export class AboutCreateComponent<T> {
     this.about.lastName= this.popupForm.value.lastName || this.about.lastName;
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.dataService.create(this.createAboutEndPoint, this.about).subscribe(resp =>{
+    this.closePopup();
+    this.aboutList.push(this.about);
+    this.aboutListBinding<Array<About>>(this.aboutList); // Optimistic
       if(resp){
-        let list: Array<About>= Object.values(resp); // From ResponseEntity
-        this.aboutListBinding<Array<About>>(list);
-        this.closePopup();
+        this.aboutList= Object.values(resp); // From ResponseEntity
+        this.aboutListBinding<Array<About>>(this.aboutList); // from db
+        this.popupForm.reset();
       }else{
         window.alert(`Create About says: ${resp}`);
       }
@@ -64,7 +73,6 @@ export class AboutCreateComponent<T> {
   }
   
   closePopup(){
-    this.popupForm.reset();
     $("#newAbout").modal("hide");
   }
 

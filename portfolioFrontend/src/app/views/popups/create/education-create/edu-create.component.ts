@@ -69,11 +69,14 @@ export class EduCreateComponent<T> implements OnInit {
     this.edu.educationStart= this.popupForm.value.educationStart || this.edu.educationStart;
     this.edu.educationEnd= this.popupForm.value.educationEnd || this.edu.educationEnd;
     this.edu.approvedLevel= this.popupForm.value.approvedLevel || this.edu.approvedLevel;
+    this.eduList.push(this.edu);
+    this.eduListBinding<Array<Education>>(this.eduList); // Optimistic
+    this.closePopup();
     this.dataService.create(this.createEduEndPoint, this.edu).subscribe(resp =>{
       if(resp){
       this.eduList= Object.values(resp);
-      this.eduListBinding<Array<Education>>(this.eduList);
-      this.closePopup();
+      this.eduListBinding<Array<Education>>(this.eduList); // From db
+      this.popupForm.reset();
     }else{
       window.alert(`Create Education says: ${resp}`);
     }
@@ -81,10 +84,12 @@ export class EduCreateComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
+    this.eduListBindingService.dataEmitter.subscribe((data: Array<Education>)=>{
+      this.eduList= data;
+    })
   }
 
   closePopup(){
-    this.popupForm.reset();
     $("#newEdu").modal("hide");
   }
 

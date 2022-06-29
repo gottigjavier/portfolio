@@ -110,6 +110,10 @@ Los endpoints tienen la forma:
 http://localhost:8080/{endpoint-recurso}/{petición}
 ```
 
+**La buena práctica indica que {petición} es redundante ya que es le verbo quien
+llama al método que corresponde (GET, POST, etc), pero se dejó para seguir las
+formas dictadas en los videos de la teoría.** 
+
 **Recurso --> endpoint**
 - User --> user
 - About --> about
@@ -203,3 +207,19 @@ el contenido público del sitio (ver: "MainSecurity" del paquete "jwtconfig").
 
 Si bien la norma es usar @Data de lombok, algunas clases necesitan que su
 constructor esté presente explícitamente para funcionar correctamente.
+
+
+### Despliegue
+
+Para el despliegue se utiliza el sitio Heroku. La ulr de la app es:
+
+https://portfoliogottig.herokuapp.com
+
+que en los ejemplos reemplaza a http://localhost:8080
+
+
+La base de datos está alojada en Clever-cloud. El archivo application-prod-properties
+contiene las credenciales de conexión. Para el caso del despliegue de la app hay
+que tener en cuenta que este archivo está incuído en el .gitignore así que es probable
+que Heroku no encuentre las credenciales. Se lo puede borrar de .gitignore o se pueden
+copiar las credenciales temporalmente en application-dev-properties.

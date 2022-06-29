@@ -58,11 +58,11 @@ export class SkillEditComponent<T> {
     this.skill.skillUrlIcon= this.popupForm.value.skillUrlIcon || this.skill.skillUrlIcon;
     this.skill.skillLevel= this.popupForm.value.skillLevel || this.skill.skillLevel;
     this.skill.skillIndex= this.popupForm.value.skillIndex || this.skill.skillIndex;
+    this.closePopup();
     this.dataService.update(this.editEndPoint, this.skill).subscribe(resp =>{
       if(resp){
         this.skill = resp;
         this.skillBinding<Skill>(this.skill);
-        this.closePopup();
       }else{
         window.alert(`Edit Skill says: ${resp}`);
       }

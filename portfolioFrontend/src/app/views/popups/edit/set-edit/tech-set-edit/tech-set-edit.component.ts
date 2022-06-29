@@ -20,7 +20,7 @@ export class TechSetEditComponent<T> implements OnInit {
   public techListTrue: Array<Technology>=[];
   public techListFalse: Array<Technology>=[];
   private techListToSend: Array<Technology>=[];
-  private techSetChanged: Set<number>=new Set();
+  private idTechSetChanged: Set<number>=new Set();
   private tech: Technology={
     techId:0,
     techName:"",
@@ -36,7 +36,7 @@ export class TechSetEditComponent<T> implements OnInit {
   setFormArray: FormArray;
 
   onCheckboxChange(e: any) {
-    this.techSetChanged.add(e.target.value)
+    this.idTechSetChanged.add(e.target.value)
     this.tech = this.techListAll.find(elem => elem.techId == e.target.value)|| this.tech;
     if(this.tech.techShow){
       this.tech.techShow= false;
@@ -47,11 +47,11 @@ export class TechSetEditComponent<T> implements OnInit {
       this.techListFalse= this.techListFalse.filter(elem => elem.techId != this.tech.techId) || [];
       this.techListTrue.push(this.tech); 
     }
-    console.log("techSetChanged ", this.techSetChanged);
+    console.log("idTechSetChanged ", this.idTechSetChanged);
   }
 
   onIndexChange(e:any){
-    this.techSetChanged.add(e.target.id);
+    this.idTechSetChanged.add(e.target.id);
     this.techListTrue.forEach(elem=>{
       if(elem.techId==e.target.id){
         elem.techIndex=e.target.value;
@@ -87,24 +87,37 @@ export class TechSetEditComponent<T> implements OnInit {
 
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
-      for(let item of this.techSetChanged){
+      for(let item of this.idTechSetChanged){
         console.log("item set", item);
         this.techListAll.forEach(sendTech =>{
           if(sendTech.techId==item){
             this.techListToSend.push(sendTech);
           }
+        })
+      }
+      this.techListBinding<Array<Technology>>(this.techListAll); // Optimistic
+    for(let item of this.idTechSetChanged){
+    for(let item of this.idTechSetChanged){
+      console.log("item set", item);
+      this.techListAll.forEach(sendTech =>{
+        if(sendTech.techId==item){
+          this.techListToSend.push(sendTech);
+        }
+      })
+    }
+    this.techListBinding<Array<Technology>>(this.techListAll); //Optimistic UI update
+    this.closePopup();
           this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
             if(resp){
               this.techListAll = Object.values(resp);
-              this.techListBinding<Array<Technology>>(this.techListAll);
+              this.techListBinding<Array<Technology>>(this.techListAll); //from db
               this.closePopup();
             }else{
               window.alert(`Edit Technology Set says: ${resp}`);
             }
           })
-        })
-      }
     }
+  }
     
     
     closePopup(){

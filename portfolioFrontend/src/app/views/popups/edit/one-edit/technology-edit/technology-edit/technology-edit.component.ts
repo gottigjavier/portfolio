@@ -73,6 +73,7 @@ ngOnInit(): void {
     this.tech.techIconUrl= this.popupForm.value.techIconUrl || this.tech.techIconUrl;
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
+    this.closeTPopup();
     this.dataService.update(this.techUpdateEndPoint, this.tech).subscribe(resp =>{
       if(resp){
         this.tech = resp;
@@ -82,7 +83,7 @@ ngOnInit(): void {
           }
         })
         this.techListBinding<Array<Technology>>(this.techList);
-        this.closeTPopup();
+        //this.popupForm.reset();
       }else{
         window.alert(`Edit Technology says: ${resp}`);
       }
@@ -90,8 +91,6 @@ ngOnInit(): void {
   }
 
   closeTPopup(){
-    //this.techListBinding<Array<Technology>>(this.techList);
-    //this.popupForm.reset();
     $("#editTech").modal("hide");
   }
 

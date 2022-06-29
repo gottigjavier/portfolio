@@ -3,7 +3,7 @@
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
-    <div class="container-fluid job-container">
+    <div class="container-fluid job-container shdw">
       <div class="d-flex justify-content-end" *ngIf="editMode">
         <button id="btnAdd" type="button" class="btn" title="New Job Experience" (click)="openNewJob()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
@@ -26,9 +26,10 @@
       <div>
         <h2 class="job-experience">Job Experience</h2>
       </div>
+      <hr>
       <div class="row">
-        <div class="items" *ngFor="let job of jobShownList; index as i">
-          <div id='job{{job.jobId}}'>
+        <div class="" *ngFor="let job of jobShownList; index as i">
+          <div id='job{{job.jobId}}' class="shdw items">
             <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
               <button id='jobbtn{{job.jobId}}' type="button" title="Edit Job Experience" class="btn"
                 (click)="openEditOne(i)">

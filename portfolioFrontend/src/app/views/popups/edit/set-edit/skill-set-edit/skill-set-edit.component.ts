@@ -90,17 +90,17 @@ export class SkillSetEditComponent<T> implements OnInit {
           if(sendSkill.skillId==item){
             this.skillListToSend.push(sendSkill);
           }
+        })
+      }
+          this.closePopup();
           this.service.update(this.skillUpdateListEndPoint, this.skillListToSend).subscribe(resp=>{
             if(resp){
               this.skillListAll = Object.values(resp);
               this.skillListBinding<Array<Skill>>(this.skillListAll);
-              this.closePopup();
             }else{
               window.alert(`Edit Skill Set says: ${resp}`);
             }
           })
-        })
-      }
     }
     
     

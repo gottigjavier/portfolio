@@ -3,7 +3,7 @@
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
-    <div class="skill-container">
+    <div class="skill-container shdw">
       <div class="d-flex justify-content-end" *ngIf="editMode">
         <button id="btnAdd" type="button" class="btn" title="New Skill" (click)="openNewSkill()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
@@ -27,7 +27,7 @@
       <hr>
       <div class="row">
         <div class="col" *ngFor="let skill of shownSkills; index as i">
-          <div id='sk{{skill.skillId}}'>
+          <div id='sk{{skill.skillId}}' class="shdw items">
             <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
               <button id='skbtn{{skill.skillId}}' title="Edit Skill" type="button" class="btn" (click)="openEditOne(i)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
@@ -54,12 +54,12 @@
                 {{skill.skillDescription}}
               </span>
             </p>
-            <p id="sklevel{{skill.skillId}}">
+            <!-- <p id="sklevel{{skill.skillId}}">
               <b class="items-title">Level: </b>
               <span class="items-text">
                 {{skill.skillLevel}} %.
               </span>
-            </p>
+            </p> -->
           </div>
           <hr>
         </div>

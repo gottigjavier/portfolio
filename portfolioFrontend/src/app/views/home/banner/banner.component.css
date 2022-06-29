@@ -1,5 +1,21 @@
 .banner {
-    min-height: 400px;
+    width: 100%;
+    height: 30vw;
+    border: solid 2px rgba(0, 0, 0, 0.76);
+    border-radius: 0 0 2% 2%;
+}
+
+.contenedor{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.texto{
+    color: aliceblue;
+    font-size: 5vw;
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
 }
 
 .loader {
@@ -21,4 +37,12 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.shdw {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.shdw:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }

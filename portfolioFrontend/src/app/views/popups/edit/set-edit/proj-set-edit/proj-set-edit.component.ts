@@ -93,6 +93,9 @@ export class ProjSetEditComponent<T> implements OnInit {
           if(sendProj.projId==item){
             this.projListToSend.push(sendProj);
           }
+        })
+      }
+          this.closePopup();
           this.service.update(this.projUpdateEndPoint, this.projListToSend).subscribe(resp=>{
             if(resp){
               this.projListAll= Object.values(resp);
@@ -100,19 +103,14 @@ export class ProjSetEditComponent<T> implements OnInit {
               this.projListTrue= this.projListAll.filter((elm: MyProject) => elm.projShow) || [];
               this.projListFalse= this.projListAll.filter((elm: MyProject) => !elm.projShow) || [];
               this.projListBinding<Array<MyProject>>(this.projListAll);
-              this.closePopup();
             }else{
               window.alert(`Edit Project Set says: ${resp}`);
             }
           })
-        })
-      }
-      //this.closePopup();
     }
 
 
   closePopup(){
-    //this.projListBinding<Array<MyProject>>(this.projListAll);
     $("#editProjSet").modal("hide");
   }
 

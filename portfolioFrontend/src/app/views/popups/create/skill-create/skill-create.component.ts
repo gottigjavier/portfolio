@@ -11,9 +11,11 @@ declare var $ : any;
   templateUrl: './skill-create.component.html',
   styleUrls: ['./skill-create.component.css']
 })
-export class SkillCreateComponent<T> {
+export class SkillCreateComponent<T> implements OnInit{
 
   public skill: Skill;
+
+  private skillList: Array<Skill>=[];
   
   private newSkillEndPoint: string="skill/create";
 
@@ -45,6 +47,12 @@ export class SkillCreateComponent<T> {
 
   } // end constructor
 
+  ngOnInit(): void {
+    this.skillListBindingService.dataEmitter.subscribe((data: Array<Skill>)=>{
+      this.skillList= data;
+    })
+  }
+
   onSubmit(){
     if(!this.popupForm.value.skillUrlIcon || !this.popupForm.value.skillUrlIcon.startsWith("http")){
       window.alert(`"${this.popupForm.value.skillUrlIcon}" is not valid url. Default url will be used.`);
@@ -57,11 +65,14 @@ export class SkillCreateComponent<T> {
     this.skill.skillDescription= this.popupForm.value.skillDescription || this.skill.skillDescription;
     this.skill.skillLevel= this.popupForm.value.skillLevel || this.skill.skillLevel;
     this.skill.skillIndex= this.popupForm.value.skillIndex || this.skill.skillIndex;
+    this.closePopup();
+    this.skillList.push(this.skill);
+    this.skillListBinding<Array<Skill>>(this.skillList); // Optimistic
     this.dataService.create(this.newSkillEndPoint, this.skill).subscribe(resp =>{
       if(resp){
-        let list: Array<Skill> = Object.values(resp);
-        this.skillListBinding<Array<Skill>>(list);
-        this.closePopup();
+        this.skillList = Object.values(resp);
+        this.skillListBinding<Array<Skill>>(this.skillList); // from db
+        this.popupForm.reset();
       }else{
         window.alert(`Create Skill says: ${resp}`);
       }
@@ -69,7 +80,6 @@ export class SkillCreateComponent<T> {
   }
   
       closePopup(){
-        this.popupForm.reset();
     $("#newSkill").modal("hide");
   }
 

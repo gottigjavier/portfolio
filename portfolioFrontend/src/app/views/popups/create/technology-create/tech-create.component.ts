@@ -15,7 +15,8 @@ export class TechCreateComponent<T> {
 
   private techList: Array<Technology>=[];
 
-  private tech={
+  private tech: Technology={
+    techId:0,
     techName: "No Name",
     techType: "No Type",
     techIconUrl: "",
@@ -55,11 +56,14 @@ export class TechCreateComponent<T> {
     this.tech.techLevel= this.popupForm.value.techLevel || this.tech.techLevel;
     this.tech.techIndex= this.popupForm.value.techIndex || this.tech.techIndex;
     this.tech.techShow= true;
+    this.techList.push(this.tech);
+    this.techListBinding<Array<Technology>>(this.techList); // Optimistic
+    this.closePopup();
     this.dataService.create(this.endPoint, this.tech).subscribe(resp =>{
       if(resp){
         this.techList = Object.values(resp);
-        this.techListBinding<Array<Technology>>(this.techList);
-        this.closePopup();
+        this.techListBinding<Array<Technology>>(this.techList); // from db
+        this.popupForm.reset();
       }else{
         window.alert(`Create Technology says: ${resp}`);
       }
@@ -68,7 +72,6 @@ export class TechCreateComponent<T> {
   }
 
   closePopup(){
-    this.popupForm.reset();
     $("#newTech").modal("hide");
   }
 

@@ -51,7 +51,7 @@ public class Technology implements Serializable{
     @Column(name="tech_show", columnDefinition = "boolean default true")
     private boolean techShow;
     
-    @ManyToMany(fetch= FetchType.LAZY, mappedBy = "techList")
+    @ManyToMany(fetch= FetchType.EAGER, mappedBy = "techList")
     @JsonBackReference
     private List<MyProject> projectList= new ArrayList<>();
     

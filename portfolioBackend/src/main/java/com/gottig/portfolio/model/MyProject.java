@@ -46,7 +46,7 @@ public class MyProject implements Serializable {
     @Column(name="proj_index")// En caso de necesitar que persista el orden dado en el front
     private int projIndex;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "inter_proj_tech", 
       joinColumns = @JoinColumn(name = "inter_proj_id"), 
       inverseJoinColumns = @JoinColumn(name = "inter_tech_id"))

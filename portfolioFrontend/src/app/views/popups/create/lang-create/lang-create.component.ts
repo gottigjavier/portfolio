@@ -11,9 +11,11 @@ declare var $ : any;
   templateUrl: './lang-create.component.html',
   styleUrls: ['./lang-create.component.css']
 })
-export class LangCreateComponent<T> {
+export class LangCreateComponent<T> implements OnInit{
 
   public lang: SpokenLanguage;
+
+  private LangList: Array<SpokenLanguage>=[];
 
   private newLangEndPoint: string="spoken-language/create";
 
@@ -44,6 +46,12 @@ export class LangCreateComponent<T> {
 
   } // end constructor
 
+  ngOnInit(): void {
+    this.langListBindingService.dataEmitter.subscribe((data: Array<SpokenLanguage>)=>{
+      this.LangList= data;
+    })
+  }
+
   onSubmit(){
     if(!this.popupForm.value.langFlagUrl || !this.popupForm.value.langFlagUrl.startsWith("http")){
       window.alert(`"${this.popupForm.value.langFlagUrl}" is not valid url. Default url will be used.`);
@@ -61,11 +69,14 @@ export class LangCreateComponent<T> {
     this.lang.langLevel= this.popupForm.value.langLevel || this.lang.langLevel;
     this.lang.percentLevel= this.popupForm.value.percentLevel || this.lang.percentLevel;
     this.lang.languageIndex= this.popupForm.value.languageIndex || this.lang.languageIndex;
+    this.LangList.push(this.lang);
+    this.langListBinding<Array<SpokenLanguage>>(this.LangList); // Optimistic
+    this.closePopup();
     this.dataService.create(this.newLangEndPoint, this.lang).subscribe(resp =>{
       if(resp){
-        let list: Array<SpokenLanguage> = Object.values(resp);
-        this.langListBinding<Array<SpokenLanguage>>(list);
-        this.closePopup();
+        this.LangList = Object.values(resp);
+        this.langListBinding<Array<SpokenLanguage>>(this.LangList); // from db
+        this.popupForm.reset();
       }else{
         window.alert(`Create Spoken Language says: ${resp}`);
       }
@@ -73,7 +84,6 @@ export class LangCreateComponent<T> {
   }
   
       closePopup(){
-        this.popupForm.reset();
     $("#newLang").modal("hide");
   }
 

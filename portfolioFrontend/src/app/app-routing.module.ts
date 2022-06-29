@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)
   },
+  /* {
+    path: 'edition',
+    loadChildren: () => import('./views/popups/popups.module').then(m => m.PopupsModule)
+  }, */
   {
     path: '**',
     redirectTo: '/'

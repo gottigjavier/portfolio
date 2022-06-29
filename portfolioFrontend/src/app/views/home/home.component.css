@@ -7,4 +7,17 @@
   .example-full-width {
     width: 100%;
   }
-  
+    
+  .mybtn{
+    z-index: 100;
+    opacity: 0.4;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    font-size: 40px;
+    text-align: center;
+    border-radius: 5px;
+    outline: none;
+    width: 50px;
+    height: 40px;
+  }

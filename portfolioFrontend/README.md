@@ -2,6 +2,13 @@
 
 ### Self help
 
+### Detalles Generales
+
+El sitio está desplegado en https://portfolio-13547.web.app/
+
+En la medida de lo posible se implementa el patrón de diseño Optimistic UI. Esto trata de paliar la lentitud de las respuestas de los servidores, los cuales se utilizan en su versión gratuita.
+En muchos casos, las ediciones modifican el orden de la lista de objetos renderizados así que en la mayoría de las ediciones, el backend devuelve una lista de objetos, y aunque eso no sea visto como buena práctica, se utiliza para confirmar que los cambios persisten.
+
 #### DataService
 
 Una capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
@@ -12,7 +19,7 @@ En consecuencia de que ya se tiene en uso esta capa de servicio, se optó por no
 
 #### Modal Form y Bindin Service
 
-Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela al servicio (genérico) "PopupBinding" y así tanto el componente y la ventana comparten los datos.
+Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela a los servicios "binding-services" y así tanto el componente y la ventana comparten los datos.
  Además se creó una capa ModeBinding para alternar entre el modo edición y visualización para un usuario logueado.
 
 

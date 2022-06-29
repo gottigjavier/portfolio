@@ -23,7 +23,7 @@
                         <form id="projform" class="p-3 mx-3" [formGroup]="deleteForm" (submit)="delSubmit()">
                             <div class="text-center">
                                 <label for="dprojId"><b>Id :</b></label>
-                                <input id="dprojId" value="" type="text" formControlName="projId" size="2" autofocus>
+                                <input id="dprojId" type="number" formControlName="projId" size="4" autofocus>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button id="projdelbtnn" class="btn btn-success m-2" type="submit" value="Submit">

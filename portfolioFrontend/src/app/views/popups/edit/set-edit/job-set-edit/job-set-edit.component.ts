@@ -93,17 +93,17 @@ export class JobSetEditComponent<T> implements OnInit {
           if(sendJob.jobId==item){
             this.jobListToSend.push(sendJob);
           }
+        })
+      }
+          this.closePopup();
           this.service.update(this.jobUpdateListEndPoint, this.jobListToSend).subscribe(resp=>{
             if(resp){
               this.jobListAll = Object.values(resp);
               this.jobListBinding<Array<JobExperience>>(this.jobListAll);
-              this.closePopup();
             }else{
               window.alert(`Edit Job Experience Set says: ${resp}`);
             }
           })
-        })
-      }
     }
     
     

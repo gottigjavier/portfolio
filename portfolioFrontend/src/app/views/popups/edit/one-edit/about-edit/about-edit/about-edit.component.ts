@@ -52,11 +52,11 @@ export class AboutEditComponent<T>{
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
     this.about.aboutShown=true;
+    this.closePopup();
     this.dataService.update(this.endPoint, this.about).subscribe(resp =>{
       if(resp){
         this.about = resp;
         this.aboutBinding<About>(this.about);
-        this.closePopup();
       }else{
         window.alert(`Edit About says: ${resp}`);
       }

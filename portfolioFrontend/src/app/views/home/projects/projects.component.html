@@ -3,7 +3,7 @@
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
-    <div class="proj-container">
+    <div class="proj-container shdw">
       <div class="d-flex justify-content-end" *ngIf="editMode">
         <button id="prbtnAdd" type="button" class="btn" title="New Project" (click)="openNewProj()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
@@ -24,7 +24,8 @@
         </button>
       </div>
       <h2 class="proj-title">Projects</h2>
-      <div class="proj" *ngFor="let proj of projListShown; index as i">
+      <hr>
+      <div class="proj shdw mt-3 pt-3" *ngFor="let proj of projListShown; index as i">
         <div id="projcc{{ proj.projId }}">
           <div class="d-flex justify-content-end pe-3" *ngIf="editMode">
             <button id="projcEbtn{{ i }}" title="Edit Project" type="button" class="btn"
@@ -38,20 +39,20 @@
           </div>
           <div class="row">
             <div class="d-flex container">
-              <div class="tech-cont col-4">
-                <p id="projcT{{ i }}">
+              <div class="tech-cont col-4 shdw">
+                <p id="projcT{{ i }}" class="par-bold">
                   <b class="items-title">Project: </b>
                   <span class="proj-name">
-                    {{ proj.projName }}
+                    "{{ proj.projName }}"
                   </span>
                 </p>
-                <p id="projcD{{ i }}">
+                <p id="projcD{{ i }}"  class="par-blod">
                   <b class="items-title">Description: </b>
                   <span class="items-text">
-                    {{ proj.projDescription }}
+                    <i>{{ proj.projDescription }}</i>
                   </span>
                 </p>
-                <p id="projcR{{ i }}">
+                <p id="projcR{{ i }}" class="par-bold">
                   <b class="items-title">Repository: </b>
                   <span>
                     <a id="projcUrl{{ i }}" href="{{ proj.projUrl }}" target="_blank">
@@ -60,7 +61,7 @@
                     </a>
                     ..
                   </span>
-                  <small> (*click on the image to visit the site)</small>
+                  <small class="small"> (*click on the image to visit the site)</small>
                 </p>
               </div>
               <div class="col-8">
@@ -72,7 +73,7 @@
                     <div *ngFor="let tech of proj.techList; let j = index">
                       <div *ngIf="tech.techShow">
                         <img id="projctech{{ j }}" src="{{ tech.techIconUrl }}" title="{{ tech.techDescription }}"
-                          alt="Technology Logo" class="proj-logo" />
+                          alt="Technology Logo" class="proj-logo shdw" />
                       </div>
                     </div>
                   </div>
@@ -82,6 +83,7 @@
           </div>
         </div>
       </div>
+      <hr>
     </div>
   </div>
 </div>

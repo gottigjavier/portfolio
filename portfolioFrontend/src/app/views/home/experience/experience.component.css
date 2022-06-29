@@ -1,7 +1,7 @@
 .job-container{
-    background-color: aqua;
+    background-color: lavender;
     padding: 3ch;
-    border: solid 1px;
+    border-radius: 1%;
 }
 
 .job-experience{
@@ -11,7 +11,9 @@
 }
 
 .items{
-    padding-top: 2ch;
+    padding: 2vw;
+    border-radius: 1%;
+    background-color: rgb(168, 201, 190);
 }
 
 .items-title{
@@ -36,10 +38,11 @@
 }
 
 .loader {
-    background-color: blue;
+    background-color: gray;
+    opacity: 0.6;
     margin: 40px auto;
     border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid gray;
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -54,4 +57,12 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.shdw {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.shdw:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }

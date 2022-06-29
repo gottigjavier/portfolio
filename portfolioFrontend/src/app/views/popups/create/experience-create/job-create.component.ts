@@ -11,9 +11,11 @@ declare var $ : any;
   templateUrl: './job-create.component.html',
   styleUrls: ['./job-create.component.css']
 })
-export class JobCreateComponent<T> {
+export class JobCreateComponent<T> implements OnInit{
 
   public job: JobExperience;
+
+  private jobList: Array<JobExperience>=[];
   
   private createJobEndPoint: string="job-experience/create";
 
@@ -52,6 +54,12 @@ export class JobCreateComponent<T> {
     }
 
   }
+
+  ngOnInit(): void {
+    this.jobListBindingService.dataEmitter.subscribe((data: Array<JobExperience>)=>{
+      this.jobList= data;
+    })
+  }
   
   onSubmit(){
     if(!this.popupForm.value.companyLogoUrl.startsWith("http")){
@@ -75,11 +83,14 @@ export class JobCreateComponent<T> {
     this.job.jobEnd= this.popupForm.value.jobEnd || this.job.jobEnd;
     this.job.jobIndex= this.popupForm.value.jobIndex || this.job.jobIndex;
     this.job.jobShow= this.popupForm.value.jobShow || this.job.jobShow;
+    this.jobList.push(this.job);
+    this.jobListBinding<Array<JobExperience>>(this.jobList); // Optimistic
+    this.closePopup();
     this.dataService.create(this.createJobEndPoint, this.job).subscribe(resp =>{
       if(resp){
-        let list: Array<JobExperience>= Object.values(resp); // From ResponseEntity
-        this.jobListBinding<Array<JobExperience>>(list);
-        this.closePopup();
+        this.jobList= Object.values(resp); // From ResponseEntity
+        this.jobListBinding<Array<JobExperience>>(this.jobList); // From db
+        this.popupForm.reset();
       }else{
         window.alert(`Create Job Experience says: ${resp}`);
       }
@@ -87,7 +98,6 @@ export class JobCreateComponent<T> {
   }
   
   closePopup(){
-    this.popupForm.reset();
     $("#newJob").modal("hide");
   }
 

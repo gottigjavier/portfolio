@@ -121,7 +121,7 @@ export class ProjectsComponent<T> implements OnInit {
         this.projListShown = currentProjList;
         // Debo guardar los cambios en las listas tech de los proyectos
         // Tal vez sea optimo hacerlo en tech-set-edit
-        this.dataService.update(this.projUpdateEndPoint, this.projList).subscribe(resp=>{
+        /* this.dataService.update(this.projUpdateEndPoint, this.projList).subscribe(resp=>{
           if(resp){
             this.projList= resp;
             this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
@@ -132,7 +132,7 @@ export class ProjectsComponent<T> implements OnInit {
           }else{
             console.log("Project Component says: ", resp);
           }
-        })
+        }) */
       }
     })
   };

@@ -55,11 +55,11 @@ export class SpokenLangEditComponent<T>{
     this.lang.langLevel= this.popupForm.value.langLevel || this.lang.langLevel;
     this.lang.percentLevel= this.popupForm.value.percentLevel || this.lang.percentLevel;
     this.lang.languageIndex= this.popupForm.value.languageIndex || this.lang.languageIndex;
+    this.closePopup();
     this.dataService.update(this.editEndPoint, this.lang).subscribe(resp =>{
       if(resp){
         this.lang = resp;
         this.langBinding<SpokenLanguage>(this.lang);
-        this.closePopup();
       }else{
         window.alert(`Edit Spoken Language says: ${resp}`);
       }

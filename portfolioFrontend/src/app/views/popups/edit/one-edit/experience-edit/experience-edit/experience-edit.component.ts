@@ -69,11 +69,11 @@ export class ExperienceEditComponent<T> {
     this.job.lessonsLearned= this.popupForm.value.lessonsLearned || this.job.lessonsLearned;
     this.job.jobStart= this.popupForm.value.jobStart || this.job.jobStart;
     this.job.jobEnd= this.popupForm.value.jobEnd || this.job.jobEnd;
+    this.closePopup();
     this.dataService.update(this.endPoint, this.job).subscribe(resp =>{
       if(resp){
         this.job = resp;
         this.jobBinding<JobExperience>(this.job);
-        this.closePopup();
       }else{
         window.alert(`Edit Job Experience says: ${resp}`);
       }

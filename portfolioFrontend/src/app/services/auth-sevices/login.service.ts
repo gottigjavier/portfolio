@@ -15,7 +15,7 @@ export class LoginService {
   private DOMAIN: string = environment.apiUrl; //Para incorporar variables de entorno
   private PORT: string = environment.apiPort;
 
-  private urlAuth: string = `${this.DOMAIN}:${this.PORT}/auth/login`;
+  private urlAuth: string = `${this.DOMAIN}/auth/login`;
   
   currentUserSubject: BehaviorSubject<any>;
 

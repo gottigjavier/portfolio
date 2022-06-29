@@ -92,17 +92,17 @@ export class EduSetEditComponent<T> implements OnInit {
           if(sendEdu.educationId==item){
             this.eduListToSend.push(sendEdu);
           }
+        })
+      }
+          this.closePopup();
           this.service.update(this.educUpdateListEndPoint, this.eduListToSend).subscribe(resp=>{
             if(resp){
               this.eduListAll = Object.values(resp);
               this.eduListBinding<Array<Education>>(this.eduListAll);
-              this.closePopup();
             }else{
               window.alert(`Edit Education Set says: ${resp}`);
             }
           })
-        })
-      }
     }
     
     

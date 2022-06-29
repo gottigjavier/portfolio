@@ -89,17 +89,17 @@ export class LangSetEditComponent<T> implements OnInit {
           if(sendLang.languageId==item){
             this.langListToSend.push(sendLang);
           }
+        })
+      }
+          this.closePopup();
           this.service.update(this.langUpdateListEndPoint, this.langListToSend).subscribe(resp=>{
             if(resp){
               this.langListAll = Object.values(resp);
               this.langListBinding<Array<SpokenLanguage>>(this.langListAll);
-              this.closePopup();
             }else{
               window.alert(`Edit Spoken Language Set says: ${resp}`);
             }
           })
-        })
-      }
     }
     
     

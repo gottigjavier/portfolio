@@ -107,12 +107,16 @@ export class ProjCreateComponent<T> implements OnInit{
     this.proj.projDescription= this.popupForm.value.projDescription || this.proj.projDescription;
     this.proj.projIndex= this.popupForm.value.projIndex || this.proj.projIndex;
     this.proj.techList = this.techListTrue;
+    this.projList.push(this.proj);
+    this.projListBinding<Array<MyProject>>(this.projList); // optimistic
+    this.closePopup();
     this.dataService.create(this.projCreateEndPoint, this.proj).subscribe((resp) => {
       if(resp){
         this.projList= Object.values(resp);
-        this.projListBinding<Array<MyProject>>(this.projList);
+        this.projListBinding<Array<MyProject>>(this.projList); // from db
         this.projBinding<MyProject>(this.proj);
-        this.closePopup();
+        this.techListTrue.length=0;
+        this.popupForm.reset();
       }else{
         window.alert(`Create Project says: ${resp}`);
       }
@@ -120,8 +124,6 @@ export class ProjCreateComponent<T> implements OnInit{
   }
   
   closePopup() {
-    this.techListTrue.length=0;
-    this.popupForm.reset();
     $('#newProj').modal('hide');
   }
 

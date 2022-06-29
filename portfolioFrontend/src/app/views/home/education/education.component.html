@@ -3,7 +3,7 @@
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
-    <div class="container-fluid edu-container">
+    <div class="container-fluid edu-container shdw">
       <div class="d-flex justify-content-end" *ngIf="editMode">
         <button id="btnAdd" type="button" class="btn" title="New Education" (click)="openNewEdu()">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 448 512">
@@ -24,9 +24,10 @@
         </button>
       </div>
       <h2 class="edu-title">Education</h2>
+      <hr>
       <div class="row">
         <div *ngFor="let edu of eduListShown; index as i">
-          <div id='edu{{edu.educationId}}'>
+          <div id='edu{{edu.educationId}}' class="shdw items">
             <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
               <button id='eduEbtn{{edu.educationId}}' type="button" title="Edit Education" class="btn"
                 (click)="openEditOne(i)">
@@ -73,10 +74,15 @@
             </p>
             <p id="eduapp{{edu.educationId}}">
               <b class="items-title">Approved Percentage: </b>
-              <span class="inst-name">
-                {{edu.approvedLevel}} %;
-              </span>
             </p>
+            <div class="row">
+              <div class="col-6">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-prinary" role="progressbar" [style.width]="edu.approvedLevel + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{edu.approvedLevel}}%</div>
+                </div>
+              </div>
+              <div class="col-6"></div>
+            </div>
             <hr>
           </div>
         </div>

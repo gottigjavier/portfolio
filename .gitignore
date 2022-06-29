@@ -84,4 +84,4 @@ build/
 *.log
 # My ignore
 *.log
-
+portfolioFrontend/src/environments/environment.prod.ts

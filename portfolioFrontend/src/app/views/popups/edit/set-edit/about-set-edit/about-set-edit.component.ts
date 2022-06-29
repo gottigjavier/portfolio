@@ -54,11 +54,11 @@ export class AboutSetEditComponent<T> implements OnInit {
   }
 
   shownSubmit(){
+    this.closePopup();
     this.dataService.update(this.aboutUpdateListEndPoint, this.aboutList).subscribe(resp=>{
       if(resp){
         this.aboutList=resp;
         this.aboutListBinding<Array<About>>(this.aboutList);
-        this.closePopup();
       }else{
         window.alert(`Edit About Set says: ${resp}`);
       }
