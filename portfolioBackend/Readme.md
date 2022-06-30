@@ -49,12 +49,10 @@ en phpMyAdmin y además hay que otorgarle los privilegios para esa base de datos
 
 ### Persistencia
 
-El proyecto consiste en un sitio que tendrá los datos de un solo usuario, el cual
-es el único con acceso y permisos para modificarlo.
-Teniendo esto en cuenta se deduce que la mejor forma de establecer la persistencia
+Para este pryecto, la mejor forma de establecer la persistencia
 es a través la reducción al mínimo del uso de tablas no relacionadas 
 (one to one, one to many, etc) y así lograr consultas más rápidas a la base de
-datos ya que solo se devolverá el recurso solicitado, sobre todo en modificaciones.
+datos.
 
 
 #### User y About

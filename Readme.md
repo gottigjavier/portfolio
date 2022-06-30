@@ -1,20 +1,43 @@
 # Portfolio
 
+
+## Detalles generales
+
+El sitio está desplegado en https://gottigportfolio.firebaseapp.com/
+
+
 ## FrontEnd
 
-#### Service
+#### Edición
 
-La capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
-Por el momento se creó otra clase genérica para manejar la autenticacón de login pero en el futuro se podrá optar por dejar solo DataService.
+En muchos casos, las ediciones modifican el orden de la lista de objetos renderizados así que en la mayoría de las ediciones, se programó para que el backend devuelva la lista de objetos aunque eso no sea buena práctica.
+En el ámbito del localhost esto funciona bien. 
+Al desplegar a app se encontró que la respuesta de los servidores era demasiado lenta ya que se utilizan en su versión gratuita, por lo que se implementó el patrón de diseño Optimistic UI. Si bien ahora la devolución de la lista de objetos mencionada se vuelve redundante, se decidió conservarla por el momento.
+
+#### DataService
+
+Una capa de servicio se diseñó en forma similar a la del backend, es decir, se creó una clase DataService genérica y cada componente le pasa los ednpoints y tipos de datos esperados: Estos tipos de dato se modelaron a través de interfaces en la capa model.
+Para mejor claridad se creó otra clase genérica para manejar la autenticacón de login.
+
+Dado que entre los componentes MyProject y Technology existe una estrecha relación, también se utiliza un service de binding para comunicar las modificaciones en uno u otro.
+En consecuencia de que ya se tiene en uso esta capa de servicio, se optó por no diseñar los componentes popup como hijos de los componentes a editar sino en módulos separados e hijos de PopupsModule. Esto permite prescindir de @Input y @Output y en su lugar se utilizan servicion que implementan "EventEmitter".
 
 #### Modal Form y Bindin Service
 
-Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela al servicio (genérico) "binding" y así tanto el componente y la ventana comparten los datos.
+Para el caso de editar componentes es importante que en los campos del formulario de la ventana emergente se reflejen los datos actuales de dicho componente. Para eso se apela a los servicios "binding-services" y así tanto el componente y la ventana comparten los datos.
+ Además se creó una capa ModeBinding para alternar entre el modo edición y visualización para un usuario logueado.
+
 
 #### Iconos
 
 Por el momento los íconos para edición se cargan desde [Getbootstrap](https://icons.getbootstrap.com/)
 También se bajaron los .svg en una carpeta para ser invocados o para ser guardados en un repositorio en línea y ser cargados desde allí como se hace con los logos de tecnologías.
+
+#### Tech. Tamaño de imágenes
+
+(No implementado por el momento)
+La idea es que el tamaño de la imagen o logo de las tecnologías que se manejan represente el nivel de habilidad respecto de cada una. Para ello, el tamaño pasado al html depende del atributo "techLevel". Dado que la vista es responsiva, las imágenes tienen que adaptarse al tamaño de la pantalla. Lo hacen, pero por el momento, el dato del tamaño de la pantalla se fija cuando el navegador hace la carga del sitio. Entonces, si se realiza una prueba desde la sección para desarrollador del navegador y se va "jugando" con el tamaño de la pantalla, los logos de las tecnologías mantendrán su tamaño a menos que se realice una recarga del sitio para que tome la nueva dimensión de la pantalla.
+
 
 
 
@@ -22,6 +45,7 @@ También se bajaron los .svg en una carpeta para ser invocados o para ser guarda
 
 
 ### PUT y DELETE
+
 #### Recibir valores en el body
 
 Por defecto, los Controllers pueden recibir datos en el body de la petición http
@@ -72,12 +96,10 @@ en phpMyAdmin y además hay que otorgarle los privilegios para esa base de datos
 
 ### Persistencia
 
-El proyecto consiste en un sitio que tendrá los datos de un solo usuario, el cual
-es el único con acceso y permisos para modificarlo.
-Teniendo esto en cuenta se deduce que la mejor forma de establecer la persistencia
+Para este pryecto, la mejor forma de establecer la persistencia
 es a través la reducción al mínimo del uso de tablas no relacionadas 
 (one to one, one to many, etc) y así lograr consultas más rápidas a la base de
-datos ya que solo se devolverá el recurso solicitado, sobre todo en modificaciones.
+datos.
 
 
 #### User y About
@@ -133,6 +155,10 @@ Los endpoints tienen la forma:
 http://localhost:8080/{endpoint-recurso}/{petición}
 ```
 
+**La buena práctica indica que {petición} es redundante ya que es le verbo quien
+llama al método que corresponde (GET, POST, etc), pero se dejó para seguir las
+formas dictadas en los videos de la teoría.** 
+
 **Recurso --> endpoint**
 - User --> user
 - About --> about
@@ -185,3 +211,60 @@ Ejemplo: http://localhost:8080/user/delete/1
 \----------------------------------------
 
 
+### JWT Security
+
+##### Importante
+
+La clase "CreateRoles" del paquete "jwtutil" sólo se utiliza para generar la tabla 
+de roles con dos registros: "ROLE_USER" y "ROLE_ADMIN".
+
+Después de esto hay que comentar su código o borrarla para que no siga creando campos 
+de roles repetidos y lance error.
+
+Tener en cuenta que sólo puede crear nuevos usuarios un administrador (ver AuthController: newUser())
+que obviamente tiene que estar logueado y adjuntar el token.
+
+Para crear usuarios, el json debe tener la forma:
+
+```
+{
+    "userName": "username",
+    "email": "username@gmail.com",
+    "password": "password"
+}
+```
+
+Para crear un administrador, el json debe tener la forma:
+
+```
+{
+    "userName": "username",
+    "email": "username@gmail.com",
+    "password": "password",
+    "roles": ["admin"]
+}
+```
+
+El administrador tiene ambos roles: "ROLE_USER" y "ROLE_ADMIN".
+
+Todas las rutas terminadas en "/list" están exentas de autenticación ya que muestran
+el contenido público del sitio (ver: "MainSecurity" del paquete "jwtconfig").
+
+Si bien la norma es usar @Data de lombok, algunas clases necesitan que su
+constructor esté presente explícitamente para funcionar correctamente.
+
+
+### Despliegue
+
+Para el despliegue se utiliza el sitio Heroku. La ulr de la app es:
+
+https://portfoliogottig.herokuapp.com
+
+que en los ejemplos reemplaza a http://localhost:8080
+
+
+La base de datos está alojada en Clever-cloud. El archivo application-prod-properties
+contiene las credenciales de conexión. Para el caso del despliegue de la app hay
+que tener en cuenta que este archivo está incuído en el .gitignore así que es probable
+que Heroku no encuentre las credenciales. Se lo puede borrar de .gitignore o se pueden
+copiar las credenciales temporalmente en application-dev-properties.
