@@ -57,7 +57,7 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 15%);
-    grid-template-rows: repeat(auto-fill, 40%);
+    grid-template-rows: repeat(auto-fill, 45%);
     gap: 1ch 0.5ch;
     padding: 0;
 }
@@ -71,6 +71,15 @@
 
 .small{
     font-size: 1.5ch;
+}
+
+.wait{
+    padding-bottom: 3vw;
+    font-family: monospace;
+    font-size: 3ch;
+    color: greenyellow;
+    text-align: center;
+    opacity: 0.5;
 }
 /* 
 .grid-container>div>img {

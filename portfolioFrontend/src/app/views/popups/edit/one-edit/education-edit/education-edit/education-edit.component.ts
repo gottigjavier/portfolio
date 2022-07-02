@@ -13,7 +13,19 @@ declare var $ : any;
 })
 export class EducationEditComponent<T> implements OnInit{
 
-  public education: Education;
+  public education: Education={
+    educationId: 0,
+    educationCareer: "",
+    educationType: "",
+    educationStart: "",
+    educationEnd: "",
+    approvedLevel: 100,
+    institutionName: "",
+    institutionLink: "",
+    institutionLogo: "",
+    eduShow: true,
+    eduIndex: 0
+  };
   
   private endPoint: string="education/update";
 
@@ -25,7 +37,7 @@ export class EducationEditComponent<T> implements OnInit{
       educationType: "",
       educationStart: "",
       educationEnd: "",
-      approvedLevel: 30,
+      approvedLevel: 0,
       eduIndex: 0
   });
 
@@ -33,23 +45,7 @@ export class EducationEditComponent<T> implements OnInit{
     private fb: FormBuilder,
     private dataService: DataService<T>,
     private eduBindingService: EduBindingService<Education>
-  ) {
-    this.education={
-      educationId: 0,
-      educationCareer: "",
-      educationType: "",
-      educationStart: "",
-      educationEnd: "",
-      approvedLevel: 30,
-      institutionName: "",
-      institutionLink: "",
-      institutionLogo: "",
-      eduShow: true,
-      eduIndex: 0
-    }
-
-    
-  }
+  ) { }
   
   
   ngOnInit(): void {
@@ -68,6 +64,7 @@ export class EducationEditComponent<T> implements OnInit{
     this.education.educationEnd= this.popupForm.value.educationEnd || this.education.educationEnd;
     this.education.approvedLevel= this.popupForm.value.approvedLevel || this.education.approvedLevel;
     this.closePopup();
+    this.eduBinding<Education>(this.education);
     this.dataService.update(this.endPoint, this.education).subscribe(resp =>{
       if(resp){
         this.education = resp;

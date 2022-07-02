@@ -59,17 +59,20 @@ export class EducationDeleteComponent<T> implements OnInit {
     this.eduList.forEach(elem => {
         if(elem.educationId == this.deleteForm.value.eduId){
           this.eduToDelete=elem;
+          this.eduList = this.eduList.filter(elem => elem.educationId != this.eduToDelete.educationId);
           return
         }
       })
         if(this.eduToDelete.educationId<0){
           window.alert("Id mismatch");
         }else{
+          this.eduListBinding<Array<Education>>(this.eduList);
           this.closePopup();
           this.dataService.delete(`${this.deleteEndPoint}/${this.eduToDelete.educationId}`).subscribe(resp =>{
             if(resp){
               this.eduList.length=0;
-              this.eduList= Object.values(resp.body);
+              console.log("edu delete resp.body ", resp)
+              this.eduList= Object.values(resp);
               this.eduListBinding<Array<Education>>(this.eduList);
               this.deleteForm.reset();
             }else{

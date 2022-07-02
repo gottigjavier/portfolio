@@ -15,6 +15,8 @@ declare var $ : any;
 })
 export class AboutComponent<T> implements OnInit {
 
+  public waiting: string = "  This_may_take_some_time<<<<<Thanks for waiting>>>>>This_may_take_some_time  ";
+
   public about: About;
   private aboutList: Array<About>=[];
   private endPoint: string= "about/list";
@@ -51,6 +53,7 @@ export class AboutComponent<T> implements OnInit {
     
     
   ngOnInit(): void {
+    this.onWaiting();
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
       console.log("about response ", response);
       if(response){
@@ -69,6 +72,19 @@ export class AboutComponent<T> implements OnInit {
       }
     }) 
   };
+
+  onWaiting(){
+    if(!this.loaded){
+      let ini=0;
+      setInterval(() => {
+          if(this.waiting.length>18){
+            this.waiting= this.waiting.substring(ini, this.waiting.length-1);
+          }
+          }, 1000);
+          ini++;
+        }
+    return
+  }
   
   openEditAbout(){
     this.aboutBinding<About>(this.about);

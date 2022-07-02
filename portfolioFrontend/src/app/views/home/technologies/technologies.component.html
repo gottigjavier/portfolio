@@ -1,5 +1,6 @@
 <ng-template #onLoad>
   <div class="loader"></div>
+  <p class="wait">{{waiting}}</p>
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">

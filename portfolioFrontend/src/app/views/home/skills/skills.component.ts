@@ -14,6 +14,8 @@ declare var $ : any;
 })
 export class SkillsComponent<T> implements OnInit {
 
+  public waiting: string = "  This_may_take_some_time<<<<<Thanks for waiting>>>>>This_may_take_some_time  ";
+
   public skills: Array<Skill>=[];
   public shownSkills: Array<Skill>=[];
 
@@ -36,6 +38,7 @@ export class SkillsComponent<T> implements OnInit {
     }
 
   ngOnInit(): void {
+    this.onWaiting();
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
       if(response){
         this.skills= Object.values(response);
@@ -57,8 +60,21 @@ export class SkillsComponent<T> implements OnInit {
     this.shownSkills= this.skills.filter(elem => elem.skillShow) || [];
 }
 
+onWaiting(){
+  if(!this.loaded){
+    let ini=0;
+    setInterval(() => {
+        if(this.waiting.length>18){
+          this.waiting= this.waiting.substring(ini, this.waiting.length-1);
+        }
+        }, 1000);
+        ini++;
+      }
+  return
+}
+
 openEditOne(i: number){
-  this.skillBinding<Skill>(this.skills[i]);
+  this.skillBinding<Skill>(this.shownSkills[i]);
   $("#editSkill").modal("show");
 }
 

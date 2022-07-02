@@ -1,5 +1,6 @@
 <ng-template #onLoad>
   <div class="loader"></div>
+  <p class="wait">{{waiting}}</p>
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
@@ -38,26 +39,23 @@
                 </svg>
               </button>
             </div>
+            <p id="educarr{{edu.educationId}}" class="edu-name">
+              <b><i class="edu-name-text">"{{edu.educationCareer}}"</i></b>
+            </p>
             <p>
               <b class="items-title">Institution: </b>
               <span id="eduInstN{{edu.educationId}}" class="inst-name">{{edu.institutionName}} </span>
               <span>
                 <a id="eduinsL{{edu.educationId}}" href="{{edu.institutionLink}}" target="_blank">
                   <img id="eduinsLog{{edu.educationId}}" src="{{edu.institutionLogo}}" alt="Institution Logo"
-                    class="inst-logo">
+                    class="inst-logo" title="click for more info">
                 </a> .. </span>
-              <small> (*click on the image to visit the site)</small>
+              <small> (*click on the image for more info)</small>
             </p>
             <p id="edulev{{edu.educationId}}">
               <b class="items-title">Level: </b>
               <span class="inst-name">
                 {{edu.educationType}}
-              </span>
-            </p>
-            <p id="educarr{{edu.educationId}}">
-              <b class="items-title">Career: </b>
-              <span class="inst-name">
-                {{edu.educationCareer}}
               </span>
             </p>
             <p>
@@ -83,7 +81,6 @@
               </div>
               <div class="col-6"></div>
             </div>
-            <hr>
           </div>
         </div>
       </div>

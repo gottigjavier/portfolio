@@ -14,6 +14,9 @@ declare var $ : any;
 })
 export class SpokenLanguagesComponent<T> implements OnInit {
 
+  public waiting: string = "  This_may_take_some_time<<<<<Thanks for waiting>>>>>This_may_take_some_time  ";
+
+
   public langList: Array<SpokenLanguage>=[];
   public langShownList: Array<SpokenLanguage>=[];
 
@@ -37,6 +40,7 @@ export class SpokenLanguagesComponent<T> implements OnInit {
     }
 
   ngOnInit(): void {
+    this.onWaiting();
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
       if(response){
         this.langList = Object.values(response);
@@ -57,8 +61,21 @@ export class SpokenLanguagesComponent<T> implements OnInit {
       })
   }
 
+  onWaiting(){
+    if(!this.loaded){
+      let ini=0;
+      setInterval(() => {
+          if(this.waiting.length>18){
+            this.waiting= this.waiting.substring(ini, this.waiting.length-1);
+          }
+          }, 1000);
+          ini++;
+        }
+    return
+  }
+
 openEditOne(i: number){
-  this.langBinding<SpokenLanguage>(this.langList[i]);
+  this.langBinding<SpokenLanguage>(this.langShownList[i]);
   $("#editLang").modal("show");
 }
 

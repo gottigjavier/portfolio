@@ -11,6 +11,7 @@
 }
 
 .items{
+    margin-bottom: 0.5vw;
     padding: 2vw;
     border-radius: 1%;
     background-color: rgb(168, 201, 190);
@@ -36,6 +37,16 @@
 .items-text{
     font-size: 2ch;
 }
+
+.wait{
+    padding-bottom: 3vw;
+    font-family: monospace;
+    font-size: 3ch;
+    color: greenyellow;
+    text-align: center;
+    opacity: 0.5;
+}
+
 
 .loader {
     background-color: gray;

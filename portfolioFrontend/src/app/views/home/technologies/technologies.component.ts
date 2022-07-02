@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class TechnologiesComponent<T> implements OnInit {
 
+  public waiting: string = "  This_may_take_some_time<<<<<Thanks for waiting>>>>>This_may_take_some_time  ";
 
   public techList: Array<Technology> = [];
   public techListShown: Array<Technology> = [];
@@ -68,6 +69,7 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onWaiting();
     this.dataService.getAll<any>(this.techListEndPoint).subscribe(response => {
       if(response){
         this.techList = Object.values(response);
@@ -91,6 +93,18 @@ export class TechnologiesComponent<T> implements OnInit {
     })
   };
 
+  onWaiting(){
+    if(!this.loaded){
+      let ini=0;
+      setInterval(() => {
+          if(this.waiting.length>18){
+            this.waiting= this.waiting.substring(ini, this.waiting.length-1);
+          }
+          }, 1000);
+          ini++;
+        }
+    return
+  }
 
   openTechSet() {
     this.techListBinding<Array<Technology>>(this.techList);
@@ -98,6 +112,7 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   openNewTech() {
+    this.techListBinding<Array<Technology>>(this.techList);
     $("#newTech").modal("show");
   }
 

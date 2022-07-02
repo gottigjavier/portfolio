@@ -51,17 +51,17 @@ export class EduCreateComponent<T> implements OnInit {
   }
 
   onSubmit(){
-    if(this.popupForm.value.institutionLink.startsWith('http')){
-      this.edu.institutionLink= this.popupForm.value.institutionLink || this.edu.institutionLink;
-    }else{
+    if(!this.popupForm.value.institutionLink || !this.popupForm.value.institutionLink.startsWith('http')){
       window.alert(`"${this.popupForm.value.institutionLink}" is not valid url. Default url will be used.`);
       this.edu.institutionLink= "#";
-    }
-    if(this.popupForm.value.institutionLogo.startsWith('http')){
-      this.edu.institutionLogo= this.popupForm.value.institutionLogo || this.edu.institutionLogo;
     }else{
+      this.edu.institutionLink= this.popupForm.value.institutionLink;
+    }
+    if(!this.popupForm.value.institutionLogo || !this.popupForm.value.institutionLogo.startsWith('http')){
       window.alert(`"${this.popupForm.value.institutionLogo}" is not valid url. Default url will be used.`);
       this.edu.institutionLogo= "https://i.imgur.com/FpQreWg.jpeg";
+    }else{
+      this.edu.institutionLogo= this.popupForm.value.institutionLogo;
     }
     this.edu.institutionName= this.popupForm.value.institutionName || this.edu.institutionName;
     this.edu.educationCareer= this.popupForm.value.educationCareer || this.edu.educationCareer;
@@ -69,6 +69,7 @@ export class EduCreateComponent<T> implements OnInit {
     this.edu.educationStart= this.popupForm.value.educationStart || this.edu.educationStart;
     this.edu.educationEnd= this.popupForm.value.educationEnd || this.edu.educationEnd;
     this.edu.approvedLevel= this.popupForm.value.approvedLevel || this.edu.approvedLevel;
+    this.edu.eduIndex= this.popupForm.value.eduIndex || this.edu.eduIndex;
     this.eduList.push(this.edu);
     this.eduListBinding<Array<Education>>(this.eduList); // Optimistic
     this.closePopup();

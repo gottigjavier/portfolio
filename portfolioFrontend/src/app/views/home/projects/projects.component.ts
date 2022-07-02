@@ -17,6 +17,8 @@ declare var $: any;
 })
 export class ProjectsComponent<T> implements OnInit {
 
+  public waiting: string = "  This_may_take_some_time<<<<<Thanks for waiting>>>>>This_may_take_some_time  ";
+
   public projList: Array<MyProject> = [];
   public projListShown: Array<MyProject> = [];
   public projListTechShown: Array<MyProject> = [];
@@ -53,6 +55,7 @@ export class ProjectsComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onWaiting();
     this.dataService.getAll<any>(this.projEndPoint).subscribe(response => {
       if(response){
         this.projList= Object.values(response);
@@ -136,6 +139,19 @@ export class ProjectsComponent<T> implements OnInit {
       }
     })
   };
+
+  onWaiting(){
+    if(!this.loaded){
+      let ini=0;
+      setInterval(() => {
+          if(this.waiting.length>18){
+            this.waiting= this.waiting.substring(ini, this.waiting.length-1);
+          }
+          }, 1000);
+          ini++;
+        }
+    return
+  }
 
   
   openEditOneProj(i: number) {

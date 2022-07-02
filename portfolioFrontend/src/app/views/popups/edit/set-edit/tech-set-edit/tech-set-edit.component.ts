@@ -95,28 +95,16 @@ export class TechSetEditComponent<T> implements OnInit {
           }
         })
       }
-      this.techListBinding<Array<Technology>>(this.techListAll); // Optimistic
-    for(let item of this.idTechSetChanged){
-    for(let item of this.idTechSetChanged){
-      console.log("item set", item);
-      this.techListAll.forEach(sendTech =>{
-        if(sendTech.techId==item){
-          this.techListToSend.push(sendTech);
-        }
-      })
-    }
     this.techListBinding<Array<Technology>>(this.techListAll); //Optimistic UI update
     this.closePopup();
-          this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
-            if(resp){
-              this.techListAll = Object.values(resp);
-              this.techListBinding<Array<Technology>>(this.techListAll); //from db
-              this.closePopup();
-            }else{
-              window.alert(`Edit Technology Set says: ${resp}`);
-            }
-          })
-    }
+    this.service.update(this.techUpdateEndPoint, this.techListToSend).subscribe(resp=>{
+      if(resp){
+        this.techListAll = Object.values(resp);
+        this.techListBinding<Array<Technology>>(this.techListAll); //from db
+      }else{
+        window.alert(`Edit Technology Set says: ${resp}`);
+      }
+    })
   }
     
     

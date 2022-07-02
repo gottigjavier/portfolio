@@ -39,6 +39,15 @@
     font-size: 2ch;
 }
 
+.wait{
+    padding-bottom: 3vw;
+    font-family: monospace;
+    font-size: 3ch;
+    color: greenyellow;
+    text-align: center;
+    opacity: 0.5;
+}
+
 .loader {
     background-color: gray;
     opacity: 0.6;

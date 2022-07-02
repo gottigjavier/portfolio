@@ -15,6 +15,15 @@
     padding: 3vw 6vw 0 0;
 }
 
+.wait{
+    padding-bottom: 3vw;
+    font-family: monospace;
+    font-size: 3ch;
+    color: greenyellow;
+    text-align: center;
+    opacity: 0.5;
+}
+
 /* .items{
     padding-top: 2ch;
 } */

@@ -11,7 +11,7 @@ declare var $ : any;
   templateUrl: './tech-create.component.html',
   styleUrls: ['./tech-create.component.css']
 })
-export class TechCreateComponent<T> {
+export class TechCreateComponent<T> implements OnInit{
 
   private techList: Array<Technology>=[];
 
@@ -42,6 +42,12 @@ export class TechCreateComponent<T> {
     private dataService: DataService<T>,
     private techListBindingService: TechListBindingService<Array<Technology>>
   ) { }
+
+  ngOnInit(): void {
+    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>)=>{
+      this.techList = data;
+    })
+  }
 
   onSubmit(){
     if(!this.popupForm.value.techIconUrl || !this.popupForm.value.techIconUrl.startsWith("http")){

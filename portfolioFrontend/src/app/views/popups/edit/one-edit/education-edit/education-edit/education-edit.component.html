@@ -40,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="edulevel" class="form-label">Aproved Level :</label>
-                        <input id="edulevel" type="number" min="1" max="100" value={{education.approvedLevel}} formControlName="approvedLevel">
+                        <input id="edulevel" type="number" min="1" max="100" [value]=education.approvedLevel formControlName="approvedLevel">
                         % 
                     </div>
                     <p class="note-message"><small>To change Order of Apperance use "Set Edit"</small></p>

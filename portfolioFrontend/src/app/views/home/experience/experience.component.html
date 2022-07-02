@@ -1,5 +1,6 @@
 <ng-template #onLoad>
   <div class="loader"></div>
+  <p class="wait">{{waiting}}</p>
 </ng-template>
 <div *ngIf="loaded; else onLoad">
   <div class="header container-fluid">
@@ -24,7 +25,7 @@
         </button>
       </div>
       <div>
-        <h2 class="job-experience">Job Experience</h2>
+        <h2 class="job-experience">Work Experience</h2>
       </div>
       <hr>
       <div class="row">
