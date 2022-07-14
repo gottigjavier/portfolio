@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class EducationDeleteComponent<T> implements OnInit {
 
-  private deleteEndPoint: string = "education/delete";
+  private deleteEndPoint: string = "education";
 
   public deleteForm: FormGroup;
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { About } from 'src/app/models/about.model';
 import { AboutListBindingService } from 'src/app/services/binding-services/about-list-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -14,7 +13,7 @@ declare var $ : any;
 })
 export class AboutSetEditComponent<T> implements OnInit {
 
-  private aboutUpdateListEndPoint: string="about/update/list";
+  private aboutUpdateListEndPoint: string="about/list";
 
   public aboutList: Array<About>=[];
 
@@ -54,6 +53,7 @@ export class AboutSetEditComponent<T> implements OnInit {
   }
 
   shownSubmit(){
+    this.aboutListBinding<Array<About>>(this.aboutList);
     this.closePopup();
     this.dataService.update(this.aboutUpdateListEndPoint, this.aboutList).subscribe(resp=>{
       if(resp){

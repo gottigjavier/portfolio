@@ -1,0 +1,60 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="deleteUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="myform align-middle">
+                    <form [formGroup]="deleteForm" novalidate (ngSubmit)="delSubmit($event)">
+                        <mat-card class="shipping-card">
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-2">
+                                    <button title="close" type="button" class="close" (click)="onClose()">&times;</button>
+                                </div>
+                            </div>
+                            <mat-card-header class="header">
+                                <mat-card-title>
+                                    Delete User 
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-card-subtitle>
+                                    User List
+                                </mat-card-subtitle>
+                                <ul *ngFor="let user of userList">
+                                    <li>
+                                        {{user.userName}}
+                                    </li>
+                                </ul>
+                                <br />
+                                <p class="enter"><i>Enter username to delete, twice</i></p>
+                                <br />
+                                <mat-form-field class="full-width">
+                                    <input type="userName" matInput placeholder="User Name" formControlName="userName">
+                                    <mat-error *ngIf="deleteForm.controls['userName'].validator">
+                                        Both UserNames <strong>must be equal!</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <mat-form-field class="full-width">
+                                    <input type="repUserName" matInput placeholder="Repeat User Name"
+                                        formControlName="repUserName">
+                                    <mat-error *ngIf="deleteForm.controls['repUserName'].validator">
+                                        Both UserNames <strong>must be equal!</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <br />
+                            <p class="warning"><i>Attention: you are about to delete a user. There is no turning back.</i></p>
+                            <br />
+                            <mat-card-actions>
+                                <button mat-raised-button color="primary" [disabled]="deleteForm.invalid"
+                                    type="submit">Submit</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

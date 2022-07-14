@@ -26,7 +26,7 @@ export class TechCreateComponent<T> implements OnInit{
     techShow: true
   };
 
-  private endPoint: string="technology/create";
+  private endPoint: string="technology";
 
   popupForm= this.fb.group({
     techName: "",

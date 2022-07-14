@@ -1,0 +1,52 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="changePass">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="myform align-middle">
+                    <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit($event)">
+                        <mat-card class="shipping-card">
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-2">
+                                    <button title="close" type="button" class="close" (click)="onClose()">&times;</button>
+                                </div>
+                            </div>
+                            <mat-card-header class="header">
+                                <mat-card-title>
+                                    Change Password
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-form-field class="full-width">
+                                    <input type="password" matInput placeholder="New Password" formControlName="password">
+                                    <mat-error
+                                        *ngIf="loginForm.controls['password'].hasError('minLength()') || 
+                                        !loginForm.controls['password'].hasError('required')">
+                                        min 6 char password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <mat-form-field class="full-width">
+                                    <input type="password" matInput placeholder="Repeat Password"
+                                        formControlName="rePassword">
+                                    <mat-error *ngIf="loginForm.controls['rePassword'].validator">
+                                        New and Repeat Password <strong>must be equal!</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <br />
+                            <p class="warning"><i>Attention: You are about to change the password 
+                                of the current user. No other type of confirmation will be requested.</i></p>
+                            <br />
+                            <mat-card-actions>
+                                <button mat-raised-button color="primary" [disabled]="loginForm.invalid"
+                                    type="submit">Submit</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

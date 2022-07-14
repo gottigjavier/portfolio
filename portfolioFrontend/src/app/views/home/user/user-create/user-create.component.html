@@ -1,0 +1,65 @@
+<div class="container">
+    <!-- The Modal-->
+    <div class="modal" id="newUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="myform align-middle">
+                    <form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit($event)">
+                        <mat-card class="shipping-card">
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-2">
+                                    <button title="close" type="button" class="close" (click)="onClose()">&times;</button>
+                                </div>
+                            </div>
+                            <mat-card-header class="header">
+                                <mat-card-title>
+                                    New User
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Username" formControlName="userName" autofocus>
+                                    <mat-error
+                                        *ngIf="loginForm.controls['userName'].hasError('minLength()') || !loginForm.controls['userName'].hasError('required')">
+                                        min 6 char userName is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Email" formControlName="email" required>
+                                    <mat-error
+                                        *ngIf="loginForm.controls['email'].hasError('email') || !loginForm.controls['email'].hasError('required')">
+                                        valid email is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <mat-form-field class="full-width">
+                                    <input type="password" matInput placeholder="Password" formControlName="password">
+                                    <mat-error
+                                        *ngIf="loginForm.controls['password'].hasError('minLength()') || !loginForm.controls['password'].hasError('required')">
+                                        min 6 char password is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <mat-form-field class="full-width">
+                                    <input type="password" matInput placeholder="Repeat Password"
+                                        formControlName="rePassword">
+                                    <mat-error *ngIf="loginForm.controls['rePassword'].validator">
+                                        Both passwords <strong>must be equal!</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <br /><br />
+                                <input type="checkbox" formControlName="admin"> Role ADMIN
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-raised-button color="primary" [disabled]="loginForm.invalid"
+                                    type="submit">Submit</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

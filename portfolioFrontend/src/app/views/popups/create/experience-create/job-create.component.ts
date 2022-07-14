@@ -17,7 +17,7 @@ export class JobCreateComponent<T> implements OnInit{
 
   private jobList: Array<JobExperience>=[];
   
-  private createJobEndPoint: string="job-experience/create";
+  private createJobEndPoint: string="job-experience";
 
   popupForm= this.fb.group({
     companyName:"",

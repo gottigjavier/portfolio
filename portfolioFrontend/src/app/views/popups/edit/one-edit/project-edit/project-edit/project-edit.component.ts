@@ -34,7 +34,7 @@ export class ProjectEditComponent<T> implements OnInit{
     techShow: false,
   };
 
-  private projUpdateEndPoint: string = 'my-project/update';
+  private projUpdateEndPoint: string = 'my-project';
   
   popupForm: FormGroup;
   techFormArray: FormArray;

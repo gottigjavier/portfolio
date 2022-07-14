@@ -32,7 +32,7 @@ y agregarle parseBodyMethods="POST,PUT,DELETE" para que quede:
 />
 
 
-### Mysql Uso de XAMPP, o no
+### Ámbito Dev. Mysql Uso de XAMPP, o no
 
 En el caso de levantar el servidor mysql desde el terminal a través de
 
@@ -53,6 +53,8 @@ Para este pryecto, la mejor forma de establecer la persistencia
 es a través la reducción al mínimo del uso de tablas no relacionadas 
 (one to one, one to many, etc) y así lograr consultas más rápidas a la base de
 datos.
+Las únicas tablas relacionadas son las correspondientes a las entidades 
+Technology-MyProject y las JwtUser-JwtRole
 
 
 #### User y About
@@ -105,12 +107,10 @@ hay que agregar dentro de la clase que tiene el main:
 Los endpoints tienen la forma:
 
 ```
-http://localhost:8080/{endpoint-recurso}/{petición}
+http://localhost:8080/{endpoint-recurso}/{id}
 ```
 
-**La buena práctica indica que {petición} es redundante ya que es le verbo quien
-llama al método que corresponde (GET, POST, etc), pero se dejó para seguir las
-formas dictadas en los videos de la teoría.** 
+** {petición} es opcional ** 
 
 **Recurso --> endpoint**
 - User --> user
@@ -124,15 +124,20 @@ formas dictadas en los videos de la teoría.**
 
 **Peticiones:**
 
+Tratando de imitar las buenas prácticas, en los endpoints se prescinde de los 
+sustantivos (create, delete, etc) dejando la elección del método pertinente 
+al verbo de la petición.
+
+
 GET
 
 Listar todos: ***list***
 ```
-Ejemplo: http://localhost:8080/user/list
+Ejemplo: http://localhost:8080/about/list
 ```
 Traer uno: ***1*** (el id del recurso)
 ```
-Ejemplo: http://localhost:8080/user/1
+Ejemplo: http://localhost:8080/about/1
 ```
 \----------------------------------------
 
@@ -141,7 +146,7 @@ POST
 
 Crear un recurso: ***create*** (el id del recurso se genera automáticamente en la tabla de la DB)
 ```
-Ejemplo: http://localhost:8080/user/create
+Ejemplo: http://localhost:8080/user
 ```
 \----------------------------------------
  
@@ -150,16 +155,16 @@ PUT
 
 Editar recurso: ***update*** (el id del recurso debe estar incluída en el body (JSON) de la petición)
 ```
-Ejemplo: http://localhost:8080/user/update
+Ejemplo: http://localhost:8080/user
 ```
 \----------------------------------------
 
 
 DELETE
 
-Borrar recurso: ***delete/1*** (el id del recurso)
+Borrar recurso: ***delete*** (el id del recurso)
 ```
-Ejemplo: http://localhost:8080/user/delete/1
+Ejemplo: http://localhost:8080/user/1
 ```
 \----------------------------------------
 
@@ -174,10 +179,11 @@ de roles con dos registros: "ROLE_USER" y "ROLE_ADMIN".
 Después de esto hay que comentar su código o borrarla para que no siga creando campos 
 de roles repetidos y lance error.
 
-Tener en cuenta que sólo puede crear nuevos usuarios un administrador (ver AuthController: newUser())
+Tener en cuenta que sólo puede crear nuevos usuarios un administrador "ROLE_ADMIN"
+(ver AuthController: newUser())
 que obviamente tiene que estar logueado y adjuntar el token.
 
-Para crear usuarios, el json debe tener la forma:
+Para crear usuarios sin privilegios de administrador, el json debe tener la forma:
 
 ```
 {
@@ -187,7 +193,7 @@ Para crear usuarios, el json debe tener la forma:
 }
 ```
 
-Para crear un administrador, el json debe tener la forma:
+Para crear un usuario con privilegios de administrador, el json debe tener la forma:
 
 ```
 {
@@ -200,8 +206,11 @@ Para crear un administrador, el json debe tener la forma:
 
 El administrador tiene ambos roles: "ROLE_USER" y "ROLE_ADMIN".
 
-Todas las rutas terminadas en "/list" están exentas de autenticación ya que muestran
-el contenido público del sitio (ver: "MainSecurity" del paquete "jwtconfig").
+Todas las peticiones GET con endpoints terminados en "/list" están exentas de 
+autenticación ya que muestran el contenido público del sitio 
+(ver: "MainSecurity" del paquete "jwtconfig").
+También, por razones obvias, está exenta de autenticación la petición
+POST del endpoint "/auth/login"
 
 Si bien la norma es usar @Data de lombok, algunas clases necesitan que su
 constructor esté presente explícitamente para funcionar correctamente.
@@ -221,3 +230,26 @@ contiene las credenciales de conexión. Para el caso del despliegue de la app ha
 que tener en cuenta que este archivo está incuído en el .gitignore así que es probable
 que Heroku no encuentre las credenciales. Se lo puede borrar de .gitignore o se pueden
 copiar las credenciales temporalmente en application-dev-properties.
+
+
+### Swagger
+
+En el hámbito dev, puede ver la definición de la API en la ruta no protegida:
+
+http://localhost:8080/swagger-ui/index.html
+
+En producción:
+
+https://portfoliogottig.herokuapp.com/swagger-ui/index.html
+
+(En el footer se agregó el enlace)
+
+El propósito del backend es el de funcionar como API para un frontend específico y no 
+como API pública. La implementación de Swagger es meramente con fines
+informativos aunque se trató de aplicar las buenas prácticas y presentarla de la
+forma más completa posible.
+
+Para realizar peticiones a endpoints protegidos debe loguearse a través del endpoint
+"auth/login" y enviar el JSON con username y password.
+
+Al recibir el token podrá copiarlo y pegarlo en la ventana "Available authorizations".

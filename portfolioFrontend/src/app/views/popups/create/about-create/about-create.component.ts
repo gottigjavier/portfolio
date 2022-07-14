@@ -16,7 +16,7 @@ export class AboutCreateComponent<T> implements OnInit{
   public about: About;
   private aboutList: Array<About>=[];
 
-  private createAboutEndPoint: string="about/create";
+  private createAboutEndPoint: string="about";
 
   popupForm= this.fb.group({
     firstName: "",

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { JobExperience } from 'src/app/models/job-experience.model';
 import { JobBindingService } from 'src/app/services/binding-services/job-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -16,7 +15,7 @@ export class ExperienceEditComponent<T> {
 
   public job: JobExperience;
   
-  private endPoint: string="job-experience/update";
+  private endPoint: string="job-experience";
 
   popupForm= this.fb.group({
     companyName: "",
@@ -34,7 +33,6 @@ export class ExperienceEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    //private popupBindingService: PopupBindingService<JobExperience>,
     private jobBindingService: JobBindingService<JobExperience>
   ) {
     this.job={

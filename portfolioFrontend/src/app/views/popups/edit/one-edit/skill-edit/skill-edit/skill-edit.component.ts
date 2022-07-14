@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { SkillBindingService } from 'src/app/services/binding-services/skill-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -16,7 +15,7 @@ export class SkillEditComponent<T> {
 
   public skill: Skill;
 
-  private editEndPoint: string="skill/update";
+  private editEndPoint: string="skill";
 
   popupForm= this.fb.group({
     skillName: "",
@@ -31,7 +30,6 @@ export class SkillEditComponent<T> {
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    //private popupBindingService: PopupBindingService<Skill>,
     private skillBindingService: SkillBindingService<Skill>
   ) {
     this.skill={

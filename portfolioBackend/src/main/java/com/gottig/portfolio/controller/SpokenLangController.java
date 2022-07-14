@@ -4,6 +4,11 @@ import com.gottig.portfolio.dto.dtomodel.SpokenLangDTO;
 import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.SpokenLang;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +36,16 @@ public class SpokenLangController {
     @Autowired
     private CommonMapper<SpokenLangDTO, SpokenLang> langMapper;
     
+    
+    @Operation(summary = "List of all Spoken Languages")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "List of Spoken Languages", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content), 
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -38,6 +53,16 @@ public class SpokenLangController {
         return getList();
     }
     
+    
+    @Operation(summary = "Get a Spoken Languages by its id")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Get Spoken Languages", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content), 
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content) })
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -46,7 +71,19 @@ public class SpokenLangController {
     }
     
     
-    @PostMapping("/create")
+    
+    @Operation(summary = "Create Spoken Languages")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Create Spoken Languages", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PostMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity create(@RequestBody SpokenLangDTO langDTO){
@@ -56,7 +93,21 @@ public class SpokenLangController {
         return getList();
     }
     
-    @PutMapping("/update")
+    
+    @Operation(summary = "Update Spoken Language")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update Spoken Language", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity update(@RequestBody SpokenLangDTO langDTO){
@@ -66,7 +117,19 @@ public class SpokenLangController {
         return singleGet(langDTO.getLanguageId());
     }
     
-    @PutMapping("/update/list")
+    
+    @Operation(summary = "Update List of Spoken Languages")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update List of Spoken Languages", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<SpokenLangDTO> langListDTO){
@@ -78,7 +141,21 @@ public class SpokenLangController {
         return getList();
     }
     
-    @DeleteMapping("/delete/{id}")
+    
+    @Operation(summary = "Delete Spoken Language")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Delete Spoken Language", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = SpokenLangDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @DeleteMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  

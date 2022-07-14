@@ -13,7 +13,7 @@ declare var $ : any;
 })
 export class LangSetEditComponent<T> implements OnInit {
 
-  private langUpdateListEndPoint: string="spoken-language/update/list";
+  private langUpdateListEndPoint: string="spoken-language/list";
 
   public langListAll: Array<SpokenLanguage>=[];
   public langListTrue: Array<SpokenLanguage>=[];

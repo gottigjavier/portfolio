@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Technology } from 'src/app/models/technology.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
@@ -18,7 +17,7 @@ export class TechnologyEditComponent<T> implements OnInit{
   public tech: Technology;
   private techList: Array<Technology>=[];
   
-  private techUpdateEndPoint: string="technology/update";
+  private techUpdateEndPoint: string="technology";
 
   popupForm= this.fb.group({
     techName: "",
@@ -33,7 +32,6 @@ export class TechnologyEditComponent<T> implements OnInit{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<T>,
     private techBindingService: TechBindingService<Technology>,
     private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
@@ -48,11 +46,6 @@ export class TechnologyEditComponent<T> implements OnInit{
     techShow: false
   }
 
-  /*
-  this.dataService.getOne("technology/91").subscribe(data => {
-    console.log("tech edit get one data ", data);
-  }) */
-  
 }
 
 ngOnInit(): void {

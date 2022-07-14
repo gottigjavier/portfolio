@@ -15,7 +15,7 @@ export class LoginService {
   private DOMAIN: string = environment.apiUrl; //Para incorporar variables de entorno
   private PORT: string = environment.apiPort;
 
-  private urlAuth: string = `${this.DOMAIN}/auth/login`;
+  private urlAuth: string = `${this.DOMAIN}${this.PORT}/auth`;
   
   currentUserSubject: BehaviorSubject<any>;
 
@@ -26,8 +26,8 @@ export class LoginService {
     this.currentUserSubject= new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('currentUser')|| '{}'))
   }
 
-  public login(data: any): Observable<any>{
-    return this.http.post(`${this.urlAuth}`, data).pipe(map(resp =>{
+  public login(data: any, endPoint: string): Observable<any>{
+    return this.http.post(`${this.urlAuth}/${endPoint}`, data).pipe(map(resp =>{
       sessionStorage.setItem('currentUser', JSON.stringify(resp));
       this.currentUserSubject.next(resp);
       return resp;
@@ -36,6 +36,22 @@ export class LoginService {
 
   get authenticatedUser(){
     return this.currentUserSubject.value;
+  }
+
+  public newUser(data: any, endPoint: string): Observable<any>{
+    return this.http.post(`${this.urlAuth}/${endPoint}`, data)
+  }
+
+  public changePass(data: any, endPoint: string): Observable<any>{
+    return this.http.put(`${this.urlAuth}/${endPoint}`, data)
+  }
+
+  public getAll(endPoint: string): Observable<any>{
+    return this.http.get(`${this.urlAuth}/${endPoint}`)
+  }
+
+  public delUser(data: any, endPoint: string): Observable<any>{
+    return this.http.post(`${this.urlAuth}/${endPoint}`, data)
   }
 
   public logout() {

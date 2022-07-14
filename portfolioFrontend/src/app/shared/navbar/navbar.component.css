@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
+.go-to-user{
+    background-color: aliceblue !important;
+    width: 2vmax;
+}
 
 .color-white{
     color: white !important;

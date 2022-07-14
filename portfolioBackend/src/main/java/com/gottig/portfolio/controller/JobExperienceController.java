@@ -4,6 +4,11 @@ import com.gottig.portfolio.dto.dtomodel.JobExperienceDTO;
 import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.JobExperience;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +35,16 @@ public class JobExperienceController {
     @Autowired
     private CommonMapper<JobExperienceDTO, JobExperience> jobMapper;
     
+    
+    @Operation(summary = "List of all Job Experience")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "List of Job Experience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content), 
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -37,6 +52,16 @@ public class JobExperienceController {
         return getList();
     }
     
+    
+    @Operation(summary = "Get a Job Experience by its id")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Get Job Experience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content), 
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content) })
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -44,7 +69,19 @@ public class JobExperienceController {
         return singleGet(id);
     }
     
-    @PostMapping("/create")
+    
+    @Operation(summary = "Create JobExperience")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Create JobExperience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PostMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity create(@RequestBody JobExperienceDTO jobDTO){
@@ -54,7 +91,21 @@ public class JobExperienceController {
         return getList();
     }
     
-    @PutMapping("/update")
+    
+    @Operation(summary = "Update JobExperience")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update JobExperience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity update(@RequestBody JobExperienceDTO jobDTO){
@@ -64,7 +115,19 @@ public class JobExperienceController {
         return singleGet(jobDTO.getJobId());
     }
     
-    @PutMapping("/update/list")
+    
+    @Operation(summary = "Update List of JobExperience")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update List of JobExperience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<JobExperienceDTO> jobListDTO){
@@ -76,7 +139,21 @@ public class JobExperienceController {
         return getList();
     }
     
-    @DeleteMapping("/delete/{id}")
+    
+    @Operation(summary = "Delete JobExperience")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Delete JobExperience", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = JobExperienceDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @DeleteMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  

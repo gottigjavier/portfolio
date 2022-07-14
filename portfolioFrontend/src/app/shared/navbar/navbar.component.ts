@@ -10,6 +10,8 @@ import { ModeBindingService } from 'src/app/services/binding-services/mode-bindi
 export class NavbarComponent implements OnInit {
   
   public currentUser: string="";
+
+  public roleUser: string="";
   
   public logged: boolean= false;
 
@@ -24,6 +26,12 @@ export class NavbarComponent implements OnInit {
     if (sessionStorage.getItem('currentUser')){
       this.logged= true;
       this.currentUser= this.loginService.currentUserSubject.value.userName;
+      if(this.loginService.currentUserSubject.value.authorities.length>1){
+        this.roleUser= this.loginService.authenticatedUser.authorities[1].authority;
+      }else{
+        this.roleUser= "ROLE_USER"
+      }
+      console.log("role admin in navbar ", this.roleUser);
       this.mode=true;
     }
     this.modeBinding<boolean>(this.mode);

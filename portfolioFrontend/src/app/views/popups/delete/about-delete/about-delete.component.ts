@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class AboutDeleteComponent<T> implements OnInit {
 
-  private deleteEndPoint: string = "about/delete";
+  private deleteEndPoint: string = "about";
 
   public deleteForm: FormGroup;
 
@@ -64,6 +64,8 @@ export class AboutDeleteComponent<T> implements OnInit {
         if(this.aboutToDelete.aboutId<0){
           window.alert("Id mismatch");
         }else{
+          this.aboutList.filter(elem => elem.aboutId != this.aboutToDelete.aboutId);
+          this.aboutListBinding<Array<About>>(this.aboutList);
           this.closePopup();
           this.dataService.delete(`${this.deleteEndPoint}/${this.aboutToDelete.aboutId}`).subscribe(resp =>{
             if(resp){

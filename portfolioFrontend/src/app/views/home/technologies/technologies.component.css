@@ -6,8 +6,8 @@
 }
 
 .tech-title{
-    padding: 1.5ch 0ch 0ch 0ch;
-    font-size: 4ch;
+    padding: 1.5vw 0 0 0;
+    font-size: 3vmax;
     text-align: center;
 }
 .pen{
@@ -18,15 +18,16 @@
 .wait{
     padding-bottom: 3vw;
     font-family: monospace;
-    font-size: 3ch;
+    font-size: 1.5vmax;
     color: greenyellow;
     text-align: center;
     opacity: 0.5;
 }
 
-/* .items{
-    padding-top: 2ch;
-} */
+.items{
+    width: 30vw;
+    height: 25vh;
+}
 /* 
 .items-title{
     font-family:'Times New Roman', Times, serif;
@@ -41,7 +42,7 @@
 
 .tech-logo{
     width: 6vw;
-    margin: 0 1ch 4vw 3ch;
+    margin: 0 1vh 7vh 3vh;
     padding: 0;
 /*     border: 1px solid rgb(255, 60, 0);
  */
@@ -60,13 +61,13 @@
     grid-template-columns: repeat(auto-fill, 15%);
     grid-template-rows: repeat(auto-fill, 10%);
     justify-content: center;
-    grid-gap: 2ch 0;
-    padding: 1ch;
+    grid-gap: 4vh 0;
+    padding: 2vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
 .icons { 
-    padding: 1ch; 
+    padding: 2vh; 
 }
 
 .loader {

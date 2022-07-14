@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class SkillSetEditComponent<T> implements OnInit {
 
-  private skillUpdateListEndPoint: string="skill/update/list";
+  private skillUpdateListEndPoint: string="skill/list";
 
   public skillListAll: Array<Skill>=[];
   public skillListTrue: Array<Skill>=[];

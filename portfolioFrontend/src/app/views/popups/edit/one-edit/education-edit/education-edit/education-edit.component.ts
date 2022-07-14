@@ -27,7 +27,7 @@ export class EducationEditComponent<T> implements OnInit{
     eduIndex: 0
   };
   
-  private endPoint: string="education/update";
+  private endPoint: string="education";
 
   popupForm= this.fb.group({
       institutionName: "",

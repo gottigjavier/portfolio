@@ -54,18 +54,18 @@ export class AboutComponent<T> implements OnInit {
     
   ngOnInit(): void {
     this.onWaiting();
+    this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
+      let list= Object.values(data);
+      if(Array.isArray(list)){
+        this.aboutList=list;
+        this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
+      }
+    })
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
       console.log("about response ", response);
       if(response){
         this.aboutList= Object.values((response));
         this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
-        this.aboutListBindingService.dataEmitter.subscribe((data: Array<About>)=>{
-          let list= Object.values(data);
-          if(Array.isArray(list)){
-            this.aboutList=list;
-            this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
-          }
-        })
         this.loaded= true;
       }else{
         console.log("About Component says: ", response);
@@ -80,7 +80,7 @@ export class AboutComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 1000);
+          }, 2500);
           ini++;
         }
     return

@@ -1,6 +1,6 @@
 .proj-container {
     background-color: lavender;
-    padding: 3ch;
+    padding: 3vmax;
     border-radius: 1%;
     margin-bottom: 2vw;
 }
@@ -10,29 +10,30 @@
 }
 
 .proj-title {
-    padding: 2.5ch 0ch 0ch 0ch;
-    font-size: 4ch;
+    padding: 2.5vh 0 0 0;
+    font-size: 3vmax;
     text-align: center;
 }
 
 .items {
-    padding-top: 2ch;
-    padding-inline: 1ch;
+    padding-top: 3vmax;
+    padding-inline: 2vh;
 }
 
 .items-title {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 3ch;
+    font-size: 1.6vmax;
     font-weight: 800;
 }
 
 .par-bold{
-    padding: 4vw 0;
+    padding: 4vh 0;
 }
 
 .proj-name {
-    padding: 3ch 0ch;
-    font-size: 2.5ch;
+    padding: 4vh 0;
+    font-size: 2vmax;
+    text-align: center;
 }
 
 .proj-logo {
@@ -50,7 +51,7 @@
 }
 
 .items-text {
-    font-size: 2ch;
+    font-size: 1.3vmax;
 }
 
 .grid-container {
@@ -58,36 +59,28 @@
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 15%);
     grid-template-rows: repeat(auto-fill, 45%);
-    gap: 1ch 0.5ch;
-    padding: 0;
+    gap: 1vh 0.5vh;
+    padding: 2.5vw 2.5vw 5.5vw 2.5vw;
 }
 
 .tech-title{
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 3ch;
+    font-size: 2vmax;
     font-weight: 800;
 }
 
 .small{
-    font-size: 1.5ch;
+    font-size: 0.9vmax;
 }
 
-.wait{
-    padding-bottom: 3vw;
-    font-family: monospace;
-    font-size: 3ch;
-    color: greenyellow;
-    text-align: center;
-    opacity: 0.5;
-}
 /* 
 .grid-container>div>img {
     text-align: center;
     padding: 2px 0;
 }
  */
-/* .item1 {
+ /* .item1 {
     grid-column: 1 / 2;
 }
  */
@@ -101,56 +94,48 @@
     margin: 1ch 0;
     padding: 0.5ch 0;
     border: 1px solid rgb(255, 60, 0);
-
+    
 }
  */
-
-/*  .tech-logo-cont{
-    min-width: 45%;
- }
- */
-.tech-cont {
-    margin: 1ch 0 1ch 2ch;
-    padding: 2ch 0 2ch 2ch;
-    border-radius: 1%;
-    background-color: rgb(168, 201, 190);
-}
-
-
-@media screen and (max-width: 600px) {
-    .proj-title {
-        padding: 1.5ch 0ch 0ch 0ch;
-        font-size: 2ch;
-        text-align: center;
+ 
+ /*  .tech-logo-cont{
+     min-width: 45%;
+    }
+    */
+    .tech-cont {
+        margin: 1vmax 0 1vmax 2vmax;
+        padding: 2vmax 0.5vmax;
+        border-radius: 1%;
+        background-color: rgb(168, 201, 190);
     }
     
+    
+    @media screen and (max-width: 720px) {
+        
     .items {
         padding-top: 2ch;
         padding-inline: 1ch;
     }
     
     .items-title {
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 1.5ch;
-        font-weight: 800;
+        font-size: 1.5vmax;
     }
     
     .proj-name {
-        padding: 2ch 0ch;
-        font-size: 1.5ch;
+        font-size: 1.5vmax;
     }
     .items-text {
-        font-size: 1.5ch;
+        font-size: 1.5vmax;
     }
-    .tech-title{
-        text-align: center;
-        font-family: 'Times New Roman', Times, serif;
-        font-size: 1.5ch;
-        font-weight: 800;
-    }
-    .small{
-        font-size: 1.2ch;
-    }
+}
+
+.wait{
+    padding-bottom: 3vw;
+    font-family: monospace;
+    font-size: 1.5vmax;
+    color: greenyellow;
+    text-align: center;
+    opacity: 0.5;
 }
 
 .loader {

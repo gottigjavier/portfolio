@@ -14,6 +14,8 @@ export class MatFormComponent <T>{
 
   private user: User;
 
+  private endPoint: string= "login";
+
   private loginUser={
     "userName": "",
     "password": ""
@@ -42,8 +44,9 @@ export class MatFormComponent <T>{
       this.user = {
         userId: 0,
         userName : '',
-        userMail : '',
-        userPassword : ''
+        email : '',
+        password : '',
+        authorities:[]
       }
     }
     // levantar servidor backend o mock-db
@@ -56,7 +59,7 @@ export class MatFormComponent <T>{
     this.loginUser.userName= this.loginForm.value.userName;
     this.loginUser.password= this.loginForm.value.password;
     console.log("loginUsr  -> ", this.loginUser);
-    this.loginService.login(this.loginForm.value).subscribe(resp =>{
+    this.loginService.login(this.loginForm.value, this.endPoint).subscribe(resp =>{
       console.log("Usr  -> ", resp); //Viene el token con un 200, o un 401
       this.onClose();
     });

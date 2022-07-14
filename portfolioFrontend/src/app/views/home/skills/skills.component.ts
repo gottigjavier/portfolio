@@ -67,7 +67,7 @@ onWaiting(){
         if(this.waiting.length>18){
           this.waiting= this.waiting.substring(ini, this.waiting.length-1);
         }
-        }, 1000);
+        }, 2500);
         ini++;
       }
   return

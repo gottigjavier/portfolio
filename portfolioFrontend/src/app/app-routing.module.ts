@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/guard-services/auth-guard.service';
 import { HomeComponent } from './views/home/home.component';
+import { UserComponent } from './views/home/user/user.component';
 import { LoginComponent } from './views/login/login.component';
 
 const routes: Routes = [
@@ -14,10 +16,12 @@ const routes: Routes = [
     component: LoginComponent,
     loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)
   },
-  /* {
-    path: 'edition',
-    loadChildren: () => import('./views/popups/popups.module').then(m => m.PopupsModule)
-  }, */
+  {
+    path: 'user',
+    component: UserComponent,
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./views/home/user/user.module').then(m => m.UserModule)
+  },
   {
     path: '**',
     redirectTo: '/'

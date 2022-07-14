@@ -1,25 +1,26 @@
 /* @import '~bootstrap/dist/css/bootstrap.min.css'; */
 
 .header {
-    margin: 0ch;
-    padding-top: 4ch;
+    margin: 0;
+    padding-top: 5vh;
 }
   
   .header-image {
     vertical-align: middle;
-    padding-left: 6ch;  
+    padding-left: 6vw;  
   }
   
   .image{
-    width: 150px;
+    width: 12vmax;
+    min-width: 80px;
     border-radius: 50%;
-    margin-left: 8ch;
+    margin-left: 8vw;
     background-color: rgb(54, 54, 54);
   }
 
   .title{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 5ch;
+    font-size: 3vmax;
     text-align: center;
     padding: 0 5%;
     color: aliceblue;
@@ -27,7 +28,7 @@
   
   .explanation{
     color:beige;
-    font-size: 4ch;
+    font-size: 3vmax;
     text-align: right;
     padding: 0 10%;
     vertical-align:bottom;
@@ -39,15 +40,11 @@
     background-color: rgb(54, 54, 54);
   }
 
-  .button{
-    margin-right: 5%;
-    margin-left: 70%;
-  }
 
   .wait{
     padding-bottom: 3vw;
     font-family: monospace;
-    font-size: 3ch;
+    font-size: 1.5vmax;
     color: greenyellow;
     text-align: center;
     opacity: 0.5;

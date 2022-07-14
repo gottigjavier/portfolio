@@ -13,7 +13,7 @@ declare var $ : any;
 })
 export class EduSetEditComponent<T> implements OnInit {
 
-  private educUpdateListEndPoint: string="education/update/list";
+  private educUpdateListEndPoint: string="education/list";
 
   public eduListAll: Array<Education>=[];
   public eduListTrue: Array<Education>=[];

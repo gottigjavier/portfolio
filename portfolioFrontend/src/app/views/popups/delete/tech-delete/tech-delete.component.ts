@@ -13,8 +13,7 @@ declare var $ : any;
 })
 export class TechDeleteComponent<T> implements OnInit {
 
-  private listEndPoint: string = "technology/list";
-  private deleteEndPoint: string = "technology/delete";
+  private deleteEndPoint: string = "technology";
 
   public techListAll: Array<Technology>=[];
   public techToDelete: Technology;

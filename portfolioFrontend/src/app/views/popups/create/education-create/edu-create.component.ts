@@ -16,7 +16,7 @@ export class EduCreateComponent<T> implements OnInit {
   public edu: Education;
   private eduList: Array<Education>=[];
 
-  private createEduEndPoint: string="education/create";
+  private createEduEndPoint: string="education";
 
   popupForm= this.fb.group({
     institutionName: "",

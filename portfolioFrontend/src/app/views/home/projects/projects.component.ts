@@ -23,7 +23,6 @@ export class ProjectsComponent<T> implements OnInit {
   public projListShown: Array<MyProject> = [];
   public projListTechShown: Array<MyProject> = [];
   private projEndPoint: string = "my-project/list";
-  private projUpdateEndPoint: string="my-project/update/list";
   public techListShown: Array<Technology> = [];
   private proj: MyProject={
     projId:0,
@@ -122,20 +121,6 @@ export class ProjectsComponent<T> implements OnInit {
           return proj.techList;
         })
         this.projListShown = currentProjList;
-        // Debo guardar los cambios en las listas tech de los proyectos
-        // Tal vez sea optimo hacerlo en tech-set-edit
-        /* this.dataService.update(this.projUpdateEndPoint, this.projList).subscribe(resp=>{
-          if(resp){
-            this.projList= resp;
-            this.projList.sort((a: MyProject, b: MyProject): number => a.projIndex - b.projIndex);
-            this.projList.forEach(elem=>{
-              elem.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-            })
-            this.projListBinding<Array<MyProject>>(this.projList);
-          }else{
-            console.log("Project Component says: ", resp);
-          }
-        }) */
       }
     })
   };
@@ -147,7 +132,7 @@ export class ProjectsComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 1000);
+          }, 2500);
           ini++;
         }
     return

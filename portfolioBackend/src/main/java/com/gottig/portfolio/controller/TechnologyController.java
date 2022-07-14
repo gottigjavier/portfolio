@@ -2,9 +2,15 @@ package com.gottig.portfolio.controller;
 
 import com.gottig.portfolio.dto.dtomodel.TechnologyDTO;
 import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
+import com.gottig.portfolio.model.About;
 import com.gottig.portfolio.model.MyProject;
 import com.gottig.portfolio.model.Technology;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +42,15 @@ public class TechnologyController {
     private CRUDServiceInterface<MyProject> projService;
     
     
+    @Operation(summary = "List of all Technology")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "List of Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content), 
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -43,6 +58,16 @@ public class TechnologyController {
         return getList();
     }
     
+    
+    @Operation(summary = "Get a Technology by its id")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Get Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content), 
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content) })
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -50,7 +75,19 @@ public class TechnologyController {
         return singleGet(id);
     }
     
-    @PostMapping("/create")
+    
+    @Operation(summary = "Create Technology")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Create Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PostMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity create(@RequestBody TechnologyDTO techDTO){
@@ -60,7 +97,21 @@ public class TechnologyController {
         return getList();
     }
     
-    @PutMapping("/update")
+    
+    @Operation(summary = "Update Technology")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity update(@RequestBody TechnologyDTO techDTO){  
@@ -70,7 +121,19 @@ public class TechnologyController {
         return singleGet(techDTO.getTechId());
     }
     
-    @PutMapping("/update/list")
+    
+    @Operation(summary = "Update List of Technology")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update List of Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<TechnologyDTO> techListDTO){
@@ -82,7 +145,21 @@ public class TechnologyController {
         return getList();
     }
     
-    @DeleteMapping("/delete/{id}")
+    
+    @Operation(summary = "Delete Technology")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Delete Technology", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = TechnologyDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @DeleteMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  

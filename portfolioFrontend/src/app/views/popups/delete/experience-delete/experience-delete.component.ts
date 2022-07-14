@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class ExperienceDeleteComponent<T> implements OnInit {
 
-  private deleteEndPoint: string = "job-experience/delete";
+  private deleteEndPoint: string = "job-experience";
 
   public deleteForm: FormGroup;
 

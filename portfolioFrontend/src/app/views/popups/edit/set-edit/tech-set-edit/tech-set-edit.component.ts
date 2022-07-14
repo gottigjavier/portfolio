@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Technology } from 'src/app/models/technology.model';
-import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -14,7 +13,7 @@ declare var $ : any;
 })
 export class TechSetEditComponent<T> implements OnInit {
 
-  private techUpdateEndPoint: string="technology/update/list";
+  private techUpdateEndPoint: string="technology/list";
 
   public techListAll: Array<Technology>=[];
   public techListTrue: Array<Technology>=[];

@@ -7,7 +7,6 @@ import { ModeBindingService } from 'src/app/services/binding-services/mode-bindi
 import { TechBindingService } from 'src/app/services/binding-services/tech-binding.service';
 import { ProjBindingService } from 'src/app/services/binding-services/proj-binding.service';
 import { TechListBindingService } from 'src/app/services/binding-services/tech-list-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 
 declare var $: any;
 
@@ -46,8 +45,7 @@ export class TechnologiesComponent<T> implements OnInit {
     private modeBindingService: ModeBindingService<boolean>,
     private techBindingService: TechBindingService<Technology>,
     private projBindingService: ProjBindingService<MyProject>,
-    private techListBindingService: TechListBindingService<Array<Technology>>,
-    private popupBindingService: PopupBindingService<T>
+    private techListBindingService: TechListBindingService<Array<Technology>>
   ) {
 
     this.tech = {
@@ -70,6 +68,11 @@ export class TechnologiesComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.onWaiting();
+    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
+      this.techList= data;
+      this.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
+        this.techListShown = this.techList.filter((elem: Technology) => elem.techShow==true) || [];
+    })
     this.dataService.getAll<any>(this.techListEndPoint).subscribe(response => {
       if(response){
         this.techList = Object.values(response);
@@ -86,11 +89,6 @@ export class TechnologiesComponent<T> implements OnInit {
       }
     })
 
-    this.techListBindingService.dataEmitter.subscribe((data: Array<Technology>) => {
-      this.techList= data;
-      this.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-        this.techListShown = this.techList.filter((elem: Technology) => elem.techShow==true) || [];
-    })
   };
 
   onWaiting(){
@@ -100,7 +98,7 @@ export class TechnologiesComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 1000);
+          }, 2500);
           ini++;
         }
     return
@@ -132,10 +130,6 @@ export class TechnologiesComponent<T> implements OnInit {
     this.modeBindingService.setData<T>(data);
   }
 
-  /* popupBinding<T>(data: T) {
-    this.popupBindingService.setData<T>(data);
-  }
- */
   techBinding<T>(data: T) {
     this.techBindingService.setData<T>(data);
   }

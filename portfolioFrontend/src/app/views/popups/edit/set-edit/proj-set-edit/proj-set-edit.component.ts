@@ -13,8 +13,7 @@ declare var $ : any;
 })
 export class ProjSetEditComponent<T> implements OnInit {
 
-  private projListEndPoint: string="my-project/list";
-  private projUpdateEndPoint: string="my-project/update/list";
+  private projUpdateEndPoint: string="my-project/list";
 
   private list: Array<MyProject>=[];
   public projListAll: Array<MyProject>=[];

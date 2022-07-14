@@ -7,45 +7,77 @@
 
 .lang-title{
     padding: 1ch 0ch;
-    font-size: 4ch;
+    font-size: 3vmax;
     text-align: center;
 }
 
-.items{
+/* .items{
+    align-self: center !important;
+}
+ */
+.item{
     padding-top: 2ch;
     background-color: rgb(168, 201, 190);
     margin-bottom: 1vw;
+    width: 30vw;
+    align-self: center !important;
 }
 
 .lang-items{
-    padding: 2vw;
+    padding: 1vmax;
 }
 
-.items-title{
+.level{
+    margin: 4vh 0 1vh 0;
+}
+
+.level-title{
     font-family:'Times New Roman', Times, serif;
-    font-size: 3ch;
+    font-size: 1.5vmax;
     font-weight: 800;
 }
 
-.lang-name{
-    font-size: 2.5ch;
+.level-text{
+    font-size: 1.2vmax;
 }
+
+.lang-name{
+    font-size: 2vmax;
+    margin-bottom: 10vh;
+}
+
+.click-flag{
+    font-size: 0.9vmax;
+}
+
 
 .lang-logo{
     width:"auto";
-    max-height:30px;
+    max-height:35px;
     border-radius: 10%;
     /* border: 2px solid blue; */
 }
 
-.items-text{
-    font-size: 2ch;
+@media only screen and (max-width: 650px) {
+    .level-title{
+        font-size: 2vmax;
+    }
+    
+    .level-text{
+        font-size: 2vmax;
+    }
+    
+    .lang-name{
+        font-size: 3vmax;
+        margin-bottom: 10vh;
+    }
+
 }
 
 .wait{
     padding-bottom: 3vw;
     font-family: monospace;
-    font-size: 3ch;
+    font-size: 1.5vmax;
     color: greenyellow;
     text-align: center;
     opacity: 0.5;

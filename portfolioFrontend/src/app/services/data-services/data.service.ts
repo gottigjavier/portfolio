@@ -13,7 +13,7 @@ export class DataService<T> {
   private DOMAIN: string = environment.apiUrl; //Para incorporar variables de entorno
   private PORT: string = environment.apiPort;
 
-  private url: string = `${this.DOMAIN}`;
+  private url: string = `${this.DOMAIN}${this.PORT}`;
   
   constructor(private http: HttpClient) { }
 

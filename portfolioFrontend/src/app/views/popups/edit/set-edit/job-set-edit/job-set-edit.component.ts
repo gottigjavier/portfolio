@@ -13,7 +13,7 @@ declare var $ : any;
 })
 export class JobSetEditComponent<T> implements OnInit {
 
-  private jobUpdateListEndPoint: string="job-experience/update/list";
+  private jobUpdateListEndPoint: string="job-experience/list";
 
   public jobListAll: Array<JobExperience>=[];
   public jobListTrue: Array<JobExperience>=[];

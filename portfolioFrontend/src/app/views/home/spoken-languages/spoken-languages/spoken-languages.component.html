@@ -27,8 +27,8 @@
       <h2 class="lang-title">Languages</h2>
       <hr>
       <div class="row">
-        <div *ngFor="let lang of langShownList; index as i">
-          <div id='lang{{i}}' class="shdw items">
+        <div *ngFor="let lang of langShownList; index as i" class="col">
+          <div id='lang{{i}}' class="shdw item">
             <div class="d-flex justify-content-end pe-3" *ngIf='editMode'>
               <button id='lEbntn{{lang.languageId}}' title="Edit Language" type="button" class="btn"
                 (click)="openEditOne(i)">
@@ -40,29 +40,25 @@
               </button>
             </div>
             <div class="lang-items">
-              <b class="items-title">Language: </b>
               <span>
               <a id="langcert{{lang.languageId}}" href="{{lang.certificationUrl}}" target="_blank">
-                <img id="langurl{{lang.languageId}}" src="{{lang.langFlagUrl}}" alt="Language Logo" class="lang-logo">
+                <img id="langurl{{lang.languageId}}" src="{{lang.langFlagUrl}}" title="{{lang.languageName}}" alt="Language Logo" class="lang-logo">
               </a>
             </span>
-            <span class="lang-name"> {{lang.languageName}} </span>
-              <small *ngIf="lang.certificationUrl != '#'"> 
+              <small *ngIf="lang.certificationUrl != '#'" class="click-flag"> 
                 (*click on the flag to see the certificate.)
               </small>
-            <p id="langLev{{lang.languageId}}">
-              <b class="items-title">Level: </b>
-              <span class="items-text">
+            <p id="langLev{{lang.languageId}}" class="level">
+              <span class="level-text">
                 <b>{{lang.langLevel}}</b>.
               </span>
             </p>
             <div class="row">
-              <div class="col-6">
+              <div class="col">
                 <div class="progress">
                   <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="lang.percentLevel + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{lang.percentLevel}}%</div>
                 </div>
               </div>
-              <div class="col-6"></div>
             </div>
             </div>
           </div>

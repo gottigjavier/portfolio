@@ -15,7 +15,7 @@ export class SpokenLangEditComponent<T>{
 
   public lang: SpokenLanguage;
 
-  private editEndPoint: string="spoken-language/update";
+  private editEndPoint: string="spoken-language";
 
   popupForm= this.fb.group({
     languageName: "",

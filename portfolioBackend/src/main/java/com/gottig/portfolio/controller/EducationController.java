@@ -4,6 +4,11 @@ import com.gottig.portfolio.dto.dtomodel.EducationDTO;
 import com.gottig.portfolio.dto.mapperinteface.CommonMapper;
 import com.gottig.portfolio.model.Education;
 import com.gottig.portfolio.service.crudinterface.CRUDServiceInterface;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +36,16 @@ public class EducationController {
     @Autowired
     private CommonMapper<EducationDTO, Education> eduMapper;
     
+    
+    @Operation(summary = "List of all Education")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "List of Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content), 
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
     @GetMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -38,6 +53,16 @@ public class EducationController {
         return getList();
     }
     
+    
+    @Operation(summary = "Get a Education by its id")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Get Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content), 
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content) })
     @GetMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
@@ -45,7 +70,19 @@ public class EducationController {
         return singleGet(id);
     }
     
-    @PostMapping("/create")
+    
+    @Operation(summary = "Create Education")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Create Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PostMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity create(@RequestBody EducationDTO eduDTO){
@@ -55,7 +92,21 @@ public class EducationController {
         return getList();
     }
     
-    @PutMapping("/update")
+    
+    @Operation(summary = "Update Education")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity update(@RequestBody EducationDTO eduDTO){
@@ -65,7 +116,19 @@ public class EducationController {
         return singleGet(eduDTO.getEducationId());
     }
     
-    @PutMapping("/update/list")
+    
+    @Operation(summary = "Update List of Education")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Update List of Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @PutMapping("/list")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity updateList(@RequestBody List<EducationDTO> eduListDTO){
@@ -77,7 +140,21 @@ public class EducationController {
         return getList();
     }
     
-    @DeleteMapping("/delete/{id}")
+    
+    @Operation(summary = "Delete Education")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Delete Education", 
+        content = { @Content(mediaType = "application/json", 
+        schema = @Schema(implementation = EducationDTO.class)) }),
+    @ApiResponse(responseCode = "401", description = "Not Authorized", 
+        content = @Content),
+    @ApiResponse(responseCode = "400", description = "Bad request", 
+        content = @Content),
+    @ApiResponse(responseCode = "404", description = "Not found", 
+        content = @Content),
+    @ApiResponse(responseCode = "500", description = "Database error", 
+        content = @Content) })
+    @DeleteMapping("/{id}")
     @CrossOrigin(origins = "${cross.origin.value}")
     @ResponseBody
     public ResponseEntity delete(@PathVariable Long id){  

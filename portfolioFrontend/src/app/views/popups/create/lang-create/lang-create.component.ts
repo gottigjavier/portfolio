@@ -17,7 +17,7 @@ export class LangCreateComponent<T> implements OnInit{
 
   private LangList: Array<SpokenLanguage>=[];
 
-  private newLangEndPoint: string="spoken-language/create";
+  private newLangEndPoint: string="spoken-language";
 
   popupForm= this.fb.group({
     languageName: "",

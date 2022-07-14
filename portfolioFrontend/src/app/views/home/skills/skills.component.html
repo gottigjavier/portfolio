@@ -24,7 +24,7 @@
           </svg>
         </button>
       </div>
-      <h2 class="skill-title">Skills</h2>
+      <h2 class="skill-title">Soft Skills</h2>
       <hr>
       <div class="row">
         <div class="col" *ngFor="let skill of shownSkills; index as i">
@@ -39,30 +39,24 @@
               </button>
             </div>
             <p>
-              <b class="items-title">Skill: </b>
-              <span id="sknam{{skill.skillId}}" class="skill-name">{{skill.skillName}} </span>
+              <span id="sknam{{skill.skillId}}" class="skill-name">"{{skill.skillName}}"</span>
+            </p>
+            <p>
               <img id="skLog{{skill.skillId}}" src="{{skill.skillUrlIcon}}" alt="Skill Logo" class="skill-logo">
             </p>
-            <p id="sktyp{{skill.skillId}}">
+            <!-- <p id="sktyp{{skill.skillId}}">
               <b class="items-title">Type: </b>
-              <span class="skill-name">
+              <span class="items-text">
                 {{skill.skillType}}
               </span>
-            </p>
+            </p> -->
             <p id="skdesc{{skill.skillId}}">
               <b class="items-title">Description: </b>
               <span class="items-text">
-                {{skill.skillDescription}}
+                <i>{{skill.skillDescription}}</i>
               </span>
             </p>
-            <!-- <p id="sklevel{{skill.skillId}}">
-              <b class="items-title">Level: </b>
-              <span class="items-text">
-                {{skill.skillLevel}} %.
-              </span>
-            </p> -->
           </div>
-          <hr>
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { About } from 'src/app/models/about.model';
 import { AboutBindingService } from 'src/app/services/binding-services/about-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -16,7 +15,7 @@ export class AboutEditComponent<T>{
 
   public about: About;
   
-  private endPoint: string="about/update";
+  private endPoint: string="about";
 
   popupForm= this.fb.group({
     firstName: "",
@@ -29,7 +28,6 @@ export class AboutEditComponent<T>{
   constructor(
     private fb: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<About>,
     private aboutBindingService: AboutBindingService<T>
     ) {
     this.about={
@@ -52,6 +50,7 @@ export class AboutEditComponent<T>{
     this.about.shortExplanation= this.popupForm.value.shortExplanation || this.about.shortExplanation;
     this.about.photoUrl= this.popupForm.value.photoUrl || this.about.photoUrl;
     this.about.aboutShown=true;
+    this.aboutBinding<About>(this.about);
     this.closePopup();
     this.dataService.update(this.endPoint, this.about).subscribe(resp =>{
       if(resp){

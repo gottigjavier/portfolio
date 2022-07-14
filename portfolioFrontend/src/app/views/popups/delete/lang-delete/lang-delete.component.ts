@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class LangDeleteComponent<T> implements OnInit {
 
-  private deleteEndPoint: string = "spoken-language/delete";
+  private deleteEndPoint: string = "spoken-language";
 
   public deleteForm: FormGroup;
 

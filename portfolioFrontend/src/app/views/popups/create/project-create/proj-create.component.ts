@@ -35,7 +35,7 @@ export class ProjCreateComponent<T> implements OnInit{
     techShow: false,
   };
 
-  private projCreateEndPoint: string = 'my-project/create';
+  private projCreateEndPoint: string = 'my-project';
   
   popupForm: FormGroup;
   setFormArray: FormArray;

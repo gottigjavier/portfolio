@@ -17,7 +17,7 @@ export class SkillCreateComponent<T> implements OnInit{
 
   private skillList: Array<Skill>=[];
   
-  private newSkillEndPoint: string="skill/create";
+  private newSkillEndPoint: string="skill";
 
   popupForm= this.fb.group({
     skillName: "",

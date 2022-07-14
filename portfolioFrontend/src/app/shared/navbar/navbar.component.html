@@ -13,7 +13,10 @@
         <div class="row" *ngIf="(logged)" class="mt-1">
           <div class="col">
             <h3 class="color-white">
-              User: <b>{{currentUser}}</b>
+              User: <b>{{currentUser}} </b>
+              <span >
+                <a href="/user"><img class="go-to-user" src="../../../assets/go-to-user-page.svg" alt="Go to user page" title="Go to User Page"></a> 
+              </span>
             </h3>  
           </div>
           <div class="col">
@@ -28,10 +31,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav color-white">
-            <a class="nav-link color-white" href="https://www.linkedin.com/in/javier-gottig-stegmann" target="_blank"><img src="../../../assets/linked-in.png" alt="Linkedin" width="30px" height="30px"></a>
-            <a class="nav-link color-white" href="https://www.facebook.com/javiermauricio.gottigstegmann/" target="_blank"><img src="../../../assets/facebook.png" alt="Facebook" width="30px" height="30px"></a>
-            <a class="nav-link color-white" href="https://www.youtube.com/user/maestroninjaco" target="_blank"><img src="../../../assets/videos.png" alt="Youtube" width="30px" height="30px"></a>
-            <a class="nav-link color-white" href="https://www.instagram.com/gottigjavier/" target="_blank"><img src="../../../assets/instagram.png" alt="Instagram" width="30px" height="30px"></a>
+            <a title="Linkedin Profile" class="nav-link color-white" href="https://www.linkedin.com/in/javier-gottig-stegmann" target="_blank"><img src="../../../assets/linked-in.png" alt="Linkedin" width="30px" height="30px"></a>
+            <a title="Facebook Profile" class="nav-link color-white" href="https://www.facebook.com/javiermauricio.gottigstegmann/" target="_blank"><img src="../../../assets/facebook.png" alt="Facebook" width="30px" height="30px"></a>
+            <a title="Youtube Channel" class="nav-link color-white" href="https://www.youtube.com/user/maestroninjaco" target="_blank"><img src="../../../assets/videos.png" alt="Youtube" width="30px" height="30px"></a>
+            <a title="Instagram Profile" class="nav-link color-white" href="https://www.instagram.com/gottigjavier/" target="_blank"><img src="../../../assets/instagram.png" alt="Instagram" width="30px" height="30px"></a>
               <a *ngIf="(!logged) else logout" class="nav-link ms-4 me-0 mt-2 active color-white bold" href="/login">Login</a>
             <ng-template #logout>
               <a type="button" class="nav-link ms-4 me-0 mt-2 active color-white bold" (click)="ngLogout()">Logout</a>

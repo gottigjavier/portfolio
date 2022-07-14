@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OneEditComponent } from './one-edit.component';
-import { UserEditModule } from './user-edit/user-edit/user-edit.module';
 import { TechnologyEditModule } from './technology-edit/technology-edit/technology-edit.module';
 import { SpokenLangEditModule } from './spoken-lang-edit/spoken-lang-edit/spoken-lang-edit.module';
 import { SkillEditModule } from './skill-edit/skill-edit/skill-edit.module';
@@ -24,8 +23,7 @@ import { AboutEditModule } from './about-edit/about-edit/about-edit.module';
     ProjectEditModule,
     SkillEditModule,
     SpokenLangEditModule,
-    TechnologyEditModule,
-    UserEditModule
+    TechnologyEditModule
   ],
   exports: [
     OneEditComponent

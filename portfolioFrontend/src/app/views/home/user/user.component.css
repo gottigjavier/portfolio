@@ -1,0 +1,29 @@
+.my-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    padding: 2vmax;
+}
+
+.close-btn{
+    margin: 1vmax 3vmax;
+    float: right;
+}
+
+.my-btn{
+    margin: 1vmax;
+}
+
+.principal-title{
+    text-align: center;
+    padding: 2rem;
+}
+
+.sub-title{
+    font-size: 1.3rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.coln1{
+    padding: 3vh 1vw 1vh 10vw;
+}

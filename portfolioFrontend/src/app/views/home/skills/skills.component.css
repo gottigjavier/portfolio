@@ -1,48 +1,70 @@
 .skill-container{
     background-color: lavender;
-    padding: 3ch;
+    padding: 3vh;
     border-radius: 1%;
     margin-bottom: 2vw;
 }
 
 .skill-title{
-    padding: 1.5ch 0ch 0ch 0ch;
-    font-size: 4ch;
+    padding: 1.5vh 0 0 0;
+    font-size: 3vmax;
     text-align: center;
 }
 
 .items{
+    min-width: 45vw;
     padding: 2vw;
+    margin-bottom: 2vh;
     border-radius: 1%;
     background-color: rgb(168, 201, 190);
 }
 
 .items-title{
     font-family:'Times New Roman', Times, serif;
-    font-size: 3ch;
+    font-size: 1.7vmax;
     font-weight: 800;
 }
 
 .skill-name{
-    padding: 2ch 0ch;
-    font-size: 2.5ch;
+    padding: 2vh 0;
+    font-size: 1.7vmax;
+    text-align: center;
 }
 
 .skill-logo{
     width:"auto";
-    max-height:70px;
+    max-width: 10vmax;
+    max-height: 8vmax;
     border-radius: 10%;
     border: 2px solid blue;
 }
 
 .items-text{
-    font-size: 2ch;
+    font-size: 1.3vmax;
+}
+
+
+@media only screen and (max-width: 720px) {
+
+    .items-title{
+        font-size: 1.8vmax;
+    }
+    
+    .skill-name{
+        font-size: 1.8vmax;
+    }
+
+    .items-text{
+        font-size: 1.5vmax;
+    }
+    
+
 }
 
 .wait{
     padding-bottom: 3vw;
     font-family: monospace;
-    font-size: 3ch;
+    font-size: 1.5vmax;
     color: greenyellow;
     text-align: center;
     opacity: 0.5;

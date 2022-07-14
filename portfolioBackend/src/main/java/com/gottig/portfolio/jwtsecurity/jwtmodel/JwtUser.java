@@ -67,4 +67,8 @@ public class JwtUser {
     public void setRoles(Set<JwtRole> roles) {
         this.roles = roles;
     }
+    
+    public void setPassword(String pass) {
+        this.password = pass;
+    }
 }

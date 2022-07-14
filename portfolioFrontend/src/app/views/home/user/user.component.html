@@ -1,1 +1,39 @@
-<p>user works!</p>
+<div>
+    <button class="close-btn btn btn-primary" (click)="onClose()">Portfolio </button>
+</div>
+<div class="my-container">
+
+        <h2 class="principal-title">User Admin Page</h2>
+        <div class="row">
+            <div class="col coln1">
+
+                <div>
+                    <p class="sub-title"><b>Current user:</b> "{{user.userName}}"</p>     
+                    <p class="sub-title"><b>Roles for </b>"{{user.userName}}":</p>
+                    <ul *ngFor="let rol of user.authorities">
+                        <li class="sub-title">{{rol.authority}}</li>
+                    </ul> 
+                </div>
+            </div>
+            <div class="col">
+
+                <div *ngIf="userRoleUser">
+                    <button class="my-btn btn btn-warning" (click)="changePass()">Change Password</button>
+                </div>
+                
+                <div *ngIf="userRoleAdmin">
+                    <button class="my-btn btn btn-success" (click)="createUser()">Create User</button>
+                    <br>
+                    <button class="my-btn btn btn-danger" (click)="deleteUser()">Delete User</button>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <app-user-create></app-user-create>
+    <app-user-edit></app-user-edit>
+    <app-user-delete></app-user-delete>
+    
+    <app-footer></app-footer>

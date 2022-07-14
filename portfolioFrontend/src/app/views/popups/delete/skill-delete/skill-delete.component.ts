@@ -14,7 +14,7 @@ declare var $ : any;
 })
 export class SkillDeleteComponent<T> implements OnInit {
 
-  private deleteEndPoint: string = "skill/delete";
+  private deleteEndPoint: string = "skill";
 
   public deleteForm: FormGroup;
 

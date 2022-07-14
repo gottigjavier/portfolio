@@ -15,7 +15,7 @@ declare var $ : any;
 export class ProjDeleteComponent<T> implements OnInit{
 
 
-  private deleteProjEndPoint: string= "my-project/delete";
+  private deleteProjEndPoint: string= "my-project";
 
   public projList: Array<MyProject>=[];
 
