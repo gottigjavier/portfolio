@@ -82,7 +82,6 @@ ngOnInit(): void {
             elem= this.tech;
           }
         })
-        //this.popupForm.reset();
         this.techListBinding<Array<Technology>>(this.techList);
       }else{
         window.alert(`Edit Technology says: ${resp}`);

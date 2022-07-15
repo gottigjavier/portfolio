@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserName } from 'src/app/models/user-name.model';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/auth-sevices/login.service';
+import { UserListBindingService } from 'src/app/services/binding-services/user-list-binding.service';
 
 declare var $ : any;
 
@@ -13,6 +15,12 @@ declare var $ : any;
 export class UserCreateComponent<T> implements OnInit {
 
   private user: User;
+
+  private newUser: UserName={
+    userName : ''
+  };
+
+  private userList: Array<UserName>=[];
 
   private endPoint: string= "newuser";
 
@@ -67,7 +75,9 @@ export class UserCreateComponent<T> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private userListBindingService: UserListBindingService<T>
+    ) {
       this.user = {
         userId: 0,
         userName : '',
@@ -78,20 +88,23 @@ export class UserCreateComponent<T> implements OnInit {
     }
 
     ngOnInit(): void {
-      
+      this.userListBindingService.dataEmitter.subscribe((data: Array<User>)=>{
+        this.userList= data;
+      })
     }
-
+    
     onSubmit(event: Event): void {
-    event.preventDefault;
-    this.loginUser.userName= this.loginForm.value.userName;
-    this.loginUser.email= this.loginForm.value.email;
-    this.loginUser.password= this.loginForm.value.password;
-    if(this.loginForm.value.admin){
-      this.loginUser.roles[0]= "admin";
-    }
-    console.log("loginUsr  -> ", this.loginUser);
+      event.preventDefault;
+      this.loginUser.userName= this.loginForm.value.userName;
+      this.loginUser.email= this.loginForm.value.email;
+      this.loginUser.password= this.loginForm.value.password;
+      if(this.loginForm.value.admin){
+        this.loginUser.roles[0]= "admin";
+      }
+      this.newUser.userName= this.loginUser.userName;
+      this.userList.push(this.newUser);
+      this.userListBinding<Array<UserName>>(this.userList);
     this.loginService.newUser(this.loginUser, this.endPoint).subscribe(resp =>{
-      console.log("Usr created  -> ", resp); //Viene el token con un 200, o un 401
       this.onClose();
     });
   }
@@ -99,5 +112,9 @@ export class UserCreateComponent<T> implements OnInit {
   onClose(): void {
     this.loginForm.reset();
     $("#newUser").modal("hide");
+  }
+
+  userListBinding<T>(data: T){
+    this.userListBindingService.setData<T>(data);
   }
 }

@@ -3,7 +3,6 @@ import { Education } from 'src/app/models/education.model';
 import { EduBindingService } from 'src/app/services/binding-services/edu-binding.service';
 import { EduListBindingService } from 'src/app/services/binding-services/edu-list-binding.service';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -29,7 +28,6 @@ export class EducationComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
-    private popupBindingService: PopupBindingService<T>,
     private eduListBindingService: EduListBindingService<Array<Education>>,
     private eduBindingService: EduBindingService<Education>
     ) {
@@ -71,7 +69,7 @@ export class EducationComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 2500);
+          }, 3000);
           ini++;
         }
     return

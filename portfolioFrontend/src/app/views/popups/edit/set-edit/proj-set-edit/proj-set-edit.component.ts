@@ -46,7 +46,6 @@ export class ProjSetEditComponent<T> implements OnInit {
       this.projListFalse= this.projListFalse.filter(elem => elem.projId != this.proj.projId);
       this.projListTrue.push(this.proj); 
     }
-    console.log("projSetChanged ", this.projSetChanged);
   }
 
   onIndexChange(e:any){
@@ -56,8 +55,6 @@ export class ProjSetEditComponent<T> implements OnInit {
         elem.projIndex=e.target.value;
       }
     })
-    console.log("set proj event value", e.target.value);
-    console.log("set proj event id", e.target.id);
   }
 
 
@@ -87,7 +84,6 @@ export class ProjSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.projSetChanged){
-        console.log("item set", item);
         this.projListAll.forEach(sendProj =>{
           if(sendProj.projId==item){
             this.projListToSend.push(sendProj);

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { JobExperience } from 'src/app/models/job-experience.model';
 import { JobListBindingService } from 'src/app/services/binding-services/job-list-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -24,7 +23,6 @@ export class ExperienceDeleteComponent<T> implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<T>,
     private jobListBindingService: JobListBindingService<Array<JobExperience>>
   ) {
     this.deleteForm = this.formBilder.group({

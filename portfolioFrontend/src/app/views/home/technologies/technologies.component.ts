@@ -22,7 +22,6 @@ export class TechnologiesComponent<T> implements OnInit {
   public techList: Array<Technology> = [];
   public techListShown: Array<Technology> = [];
   private tech: Technology;
-  private techListToSend: Array<Technology> = [];
   
   private techListEndPoint: string = "technology/list";
   
@@ -38,7 +37,6 @@ export class TechnologiesComponent<T> implements OnInit {
 
   public editMode: boolean = false;
 
-  private list: Array<Technology>=[];
 
   constructor(
     private dataService: DataService<T>,
@@ -77,7 +75,7 @@ export class TechnologiesComponent<T> implements OnInit {
       if(response){
         this.techList = Object.values(response);
         this.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
-        console.log("width  ", window.innerWidth)
+        //console.log("width  ", window.innerWidth)
         if(Array.isArray(this.techList)){
           this.techListShown = this.techList.filter((elem: Technology) => elem.techShow==true) || [];
           this.techListBinding<Array<Technology>>(this.techList);
@@ -98,7 +96,7 @@ export class TechnologiesComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 2500);
+          }, 3000);
           ini++;
         }
     return
@@ -115,7 +113,6 @@ export class TechnologiesComponent<T> implements OnInit {
   }
 
   openEdit(tech: Technology) {
-    console.log("edint one techhhh ", tech)
     this.techListBinding<Array<Technology>>(this.techList);
     this.techBinding<Technology>(tech);
     $("#editTech").modal("show");

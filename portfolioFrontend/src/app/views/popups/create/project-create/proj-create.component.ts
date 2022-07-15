@@ -42,7 +42,6 @@ export class ProjCreateComponent<T> implements OnInit{
 
   onCheckboxChange(e: any) {
     this.techSetChanged.add(e.target.value);
-    console.log("event in projects edit ", e.target.checked);
     this.tech = this.techListShown.find((elem) => elem.techId == e.target.value) || this.tech;
     if (e.target.checked){
       this.techListFalse= this.techListFalse.filter(elem => elem.techId!=this.tech.techId) || [];

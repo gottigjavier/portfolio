@@ -49,7 +49,6 @@ export class UserComponent<T> implements OnInit {
     ngOnInit(): void {
       if (sessionStorage.getItem('currentUser')){
         this.user= this.loginService.authenticatedUser;
-        console.log("user on user component ", this.user);
         if(this.loginService.authenticatedUser.authorities.length>0){
           this.userRoleUser= true;
         }
@@ -65,9 +64,6 @@ export class UserComponent<T> implements OnInit {
         this.userList= data;
       })
 
-      console.log("user component ", this.user);
-      console.log("roleuser on user component ", this.userRoleUser);
-      console.log("roleadmin on user component ", this.userRoleAdmin);
     }
 
     changePass(){
@@ -76,6 +72,7 @@ export class UserComponent<T> implements OnInit {
     }
 
     createUser(){
+      this.userListBinding<Array<UserName>>(this.userList);
       $("#newUser").modal("show");
     }
 

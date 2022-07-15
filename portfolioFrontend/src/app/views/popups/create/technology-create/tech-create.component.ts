@@ -74,7 +74,6 @@ export class TechCreateComponent<T> implements OnInit{
         window.alert(`Create Technology says: ${resp}`);
       }
     })
-    //window.location.reload();
   }
 
   closePopup(){

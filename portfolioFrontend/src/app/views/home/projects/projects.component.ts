@@ -104,7 +104,6 @@ export class ProjectsComponent<T> implements OnInit {
       if(data){
         this.techListShown= data.filter(elem => elem.techShow) || [];
         let currentProjList: Array<MyProject>= this.projListShown;
-        console.log("proj techListShown ", this.techListShown);
         currentProjList.forEach(proj => {
           let newTechList: Array<Technology>=[]
           //proj.techList.filter(elem=> elem.techShow) || []; //Si saco una tech con set list
@@ -115,7 +114,6 @@ export class ProjectsComponent<T> implements OnInit {
               }
             });
           })
-          console.log("proj dnewtec ", newTechList);
           proj.techList= newTechList;
           proj.techList.sort((a: Technology, b: Technology): number => a.techIndex - b.techIndex);
           return proj.techList;
@@ -132,7 +130,7 @@ export class ProjectsComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 2500);
+          }, 3000);
           ini++;
         }
     return

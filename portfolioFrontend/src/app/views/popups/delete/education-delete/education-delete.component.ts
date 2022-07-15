@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Education } from 'src/app/models/education.model';
 import { EduListBindingService } from 'src/app/services/binding-services/edu-list-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -24,7 +23,6 @@ export class EducationDeleteComponent<T> implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    //private popupBindingService: PopupBindingService<T>,
     private eduListBindingService: EduListBindingService<Array<Education>>
   ) {
     this.deleteForm = this.formBilder.group({
@@ -47,7 +45,6 @@ export class EducationDeleteComponent<T> implements OnInit {
 
     this.eduListBindingService.dataEmitter.subscribe((data: Array<Education>)=>{
       this.eduList= Object.values(data);
-      console.log("aduc delete eduList ", this.eduList);
       this.ngOnInit();
     })
   }
@@ -71,7 +68,6 @@ export class EducationDeleteComponent<T> implements OnInit {
           this.dataService.delete(`${this.deleteEndPoint}/${this.eduToDelete.educationId}`).subscribe(resp =>{
             if(resp){
               this.eduList.length=0;
-              console.log("edu delete resp.body ", resp)
               this.eduList= Object.values(resp);
               this.eduListBinding<Array<Education>>(this.eduList);
               this.deleteForm.reset();

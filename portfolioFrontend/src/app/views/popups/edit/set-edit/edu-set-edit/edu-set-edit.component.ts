@@ -87,7 +87,6 @@ export class EduSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.eduSetChanged){
-        console.log("item set", item);
         this.eduListAll.forEach(sendEdu =>{
           if(sendEdu.educationId==item){
             this.eduListToSend.push(sendEdu);

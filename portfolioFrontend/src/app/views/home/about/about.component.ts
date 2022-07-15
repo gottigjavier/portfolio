@@ -3,7 +3,6 @@ import { About } from 'src/app/models/about.model';
 import { AboutBindingService } from 'src/app/services/binding-services/about-binding.service';
 import { AboutListBindingService } from 'src/app/services/binding-services/about-list-binding.service';
 import { ModeBindingService } from 'src/app/services/binding-services/mode-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -34,7 +33,6 @@ export class AboutComponent<T> implements OnInit {
   constructor(
     private dataService: DataService<T>,
     private modeBindingService: ModeBindingService<boolean>,
-    private popupBindingService: PopupBindingService<About>,
     private aboutListBindingService: AboutListBindingService<Array<About>>,
     private aboutBindingService: AboutBindingService<About>
     ) {
@@ -62,7 +60,6 @@ export class AboutComponent<T> implements OnInit {
       }
     })
     this.dataService.getAll<any>(this.endPoint).subscribe(response => {
-      console.log("about response ", response);
       if(response){
         this.aboutList= Object.values((response));
         this.about= this.aboutList.find(elem => elem.aboutShown== true)|| this.about;
@@ -80,7 +77,7 @@ export class AboutComponent<T> implements OnInit {
           if(this.waiting.length>18){
             this.waiting= this.waiting.substring(ini, this.waiting.length-1);
           }
-          }, 2500);
+          }, 3000);
           ini++;
         }
     return

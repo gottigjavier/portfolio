@@ -49,7 +49,6 @@ export class AboutSetEditComponent<T> implements OnInit {
         elem.aboutShown=false;
       }
     })
-    console.log("about change element:: ", this.aboutList);
   }
 
   shownSubmit(){

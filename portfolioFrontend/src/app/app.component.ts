@@ -13,7 +13,6 @@ export class AppComponent {
   constructor() { 
     window.onload= () =>{
       this.loaded= true;
-      console.log("Home component listener ", window.addEventListener )
     }
   }
 }

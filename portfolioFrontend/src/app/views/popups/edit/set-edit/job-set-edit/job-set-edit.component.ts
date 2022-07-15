@@ -88,7 +88,6 @@ export class JobSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.jobSetChanged){
-        console.log("item set", item);
         this.jobListAll.forEach(sendJob =>{
           if(sendJob.jobId==item){
             this.jobListToSend.push(sendJob);

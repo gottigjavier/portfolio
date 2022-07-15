@@ -25,13 +25,13 @@ export class MatFormComponent <T>{
     userName: [null,
       [
         Validators.required,
-        Validators.minLength(4) //Para que acepte "admin". Aumentar en produccion
+        Validators.minLength(6)
       ]
     ],
     password: [null,
       [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(6)
       ]
     ]
   });
@@ -49,18 +49,17 @@ export class MatFormComponent <T>{
         authorities:[]
       }
     }
-    // levantar servidor backend o mock-db
+    // levantar servidor backend o mock-db (en desuso)
     // notar que pasa el parámetro User porque LoginService<T> es genérico
     // al igual que DataService
     // Por ahora para pruebas se usa el metodo getUser igual a getAll de DataService 
-    // pero para LoginService habrá que construir métodos exclusivos de login
+    // pero para LoginService habrá que construir métodos exclusivos de login (hecho)
   onSubmit(event: Event): void {
     event.preventDefault;
     this.loginUser.userName= this.loginForm.value.userName;
     this.loginUser.password= this.loginForm.value.password;
-    console.log("loginUsr  -> ", this.loginUser);
     this.loginService.login(this.loginForm.value, this.endPoint).subscribe(resp =>{
-      console.log("Usr  -> ", resp); //Viene el token con un 200, o un 401
+      //console.log("Usr  -> ", resp); //Viene el token con un 200, o un 401
       this.onClose();
     });
   }

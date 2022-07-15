@@ -47,7 +47,6 @@ export class SkillSetEditComponent<T> implements OnInit {
       this.skillListFalse= this.skillListFalse.filter(elem => elem.skillId != this.skill.skillId) || [];
       this.skillListTrue.push(this.skill); 
     }
-    console.log("skill shown ", e.target.value)
   }
 
   onIndexChange(e:any){

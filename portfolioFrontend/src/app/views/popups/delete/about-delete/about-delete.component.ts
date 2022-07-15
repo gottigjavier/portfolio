@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { About } from 'src/app/models/about.model';
 import { AboutListBindingService } from 'src/app/services/binding-services/about-list-binding.service';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
 declare var $ : any;
@@ -27,7 +26,6 @@ export class AboutDeleteComponent<T> implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<T>,
     private aboutListBindingService: AboutListBindingService<Array<About>>
   ) {
     this.deleteForm = this.formBilder.group({

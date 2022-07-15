@@ -14,10 +14,7 @@ declare var $ : any;
 export class UserDeleteComponent<T> implements OnInit {
 
   private deleteEndPoint: string = "delete";
-  private listEndPoint: string = "userlist";
-
-  //public deleteForm: FormGroup;
-
+  
   private user: UserName={
     userName: ""
   };
@@ -72,8 +69,6 @@ export class UserDeleteComponent<T> implements OnInit {
     }
     this.userList.forEach(elem => {
       if(elem.userName == this.deleteForm.value.userName){
-        console.log("elem username ", elem.userName);
-        console.log("delete form username ", this.deleteForm.value.userName);
         goStop= false;
         return
       }
@@ -84,7 +79,6 @@ export class UserDeleteComponent<T> implements OnInit {
       this.userList = this.userList.filter(elem => elem.userName != this.deleteForm.value.userName);
       this.userListBinding<Array<UserName>>(this.userList);
       this.user.userName= this.deleteForm.value.userName;
-      console.log("username send to delete list ", this.userList)
       this.loginService.delUser(this.user, this.deleteEndPoint).subscribe(resp =>{
         console.log({resp});
         this.onClose();

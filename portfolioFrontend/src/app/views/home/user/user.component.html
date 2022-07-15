@@ -28,12 +28,20 @@
                 </div>
                 
             </div>
+            <div class="col list">
+                <h3 class="sub-title">Users List</h3>
+                <ul *ngFor="let user of userList">
+                    <li>
+                        {{user.userName}}
+                    </li>
+                </ul>
+            </div>
         </div>
-        
     </div>
 
     <app-user-create></app-user-create>
     <app-user-edit></app-user-edit>
     <app-user-delete></app-user-delete>
-    
-    <app-footer></app-footer>
+    <div>
+        <app-footer></app-footer>
+    </div>

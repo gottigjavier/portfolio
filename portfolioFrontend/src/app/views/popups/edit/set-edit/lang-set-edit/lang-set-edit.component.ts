@@ -84,7 +84,6 @@ export class LangSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.langSetChanged){
-        console.log("item set", item);
         this.langListAll.forEach(sendLang =>{
           if(sendLang.languageId==item){
             this.langListToSend.push(sendLang);

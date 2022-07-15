@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { SkillListBindingService } from 'src/app/services/binding-services/skill-list-binding.service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -24,7 +23,6 @@ export class SkillDeleteComponent<T> implements OnInit {
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    //private popupBindingService: PopupBindingService<T>,
     private skillListBindingService: SkillListBindingService<Array<Skill>>
   ) {
     this.deleteForm = this.formBilder.group({
@@ -49,7 +47,6 @@ export class SkillDeleteComponent<T> implements OnInit {
     this.skillList.length=0;
     this.skillListBindingService.dataEmitter.subscribe((data: Array<Skill>)=>{
       this.skillList= Object.values(data);
-      console.log("delete skillList ", this.skillList);
     })
   }
 

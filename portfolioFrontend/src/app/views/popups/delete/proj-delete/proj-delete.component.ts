@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyProject } from 'src/app/models/my-project.model';
-import { PopupBindingService } from 'src/app/services/binding-services/popup-binding.service';
 import { ProjListBindingService } from 'src/app/services/binding-services/proj-list-binding-service';
 import { DataService } from 'src/app/services/data-services/data.service';
 
@@ -24,7 +23,6 @@ export class ProjDeleteComponent<T> implements OnInit{
   constructor(
     private formBilder: FormBuilder,
     private dataService: DataService<T>,
-    private popupBindingService: PopupBindingService<MyProject>,
     private projListBindingService: ProjListBindingService<Array<MyProject>>
   ) {
     this.deleteForm = this.formBilder.group({
@@ -52,7 +50,6 @@ export class ProjDeleteComponent<T> implements OnInit{
       this.projList = this.projList.filter(elem=> elem.projId!=this.deleteForm.value.projId);
       this.projListBinding<Array<MyProject>>(this.projList);
       this.closePopup();
-      console.log("proj delete form ", this.deleteForm.value.projId);
       this.dataService.delete(`${this.deleteProjEndPoint}/${this.deleteForm.value.projId}`).subscribe(resp=>{
         if(resp){
           this.projList= Object.values(resp);

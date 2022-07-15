@@ -46,7 +46,6 @@ export class TechSetEditComponent<T> implements OnInit {
       this.techListFalse= this.techListFalse.filter(elem => elem.techId != this.tech.techId) || [];
       this.techListTrue.push(this.tech); 
     }
-    console.log("idTechSetChanged ", this.idTechSetChanged);
   }
 
   onIndexChange(e:any){
@@ -56,8 +55,6 @@ export class TechSetEditComponent<T> implements OnInit {
         elem.techIndex=e.target.value;
       }
     })
-    console.log("set tech event value", e.target.value);
-    console.log("set tech event id", e.target.id);
   }
 
   constructor(
@@ -87,7 +84,6 @@ export class TechSetEditComponent<T> implements OnInit {
   setSubmit(){
     // Enviar la lista al backend y que él se encargue de actualizar cada uno
       for(let item of this.idTechSetChanged){
-        console.log("item set", item);
         this.techListAll.forEach(sendTech =>{
           if(sendTech.techId==item){
             this.techListToSend.push(sendTech);
